@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理者ダッシュボード | Nexcess</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#06101f;--navy-mid:#0d1e35;--navy-light:#162844;
+  --gold:#c8a45a;--gold-dim:#8b6e37;--white:#f4f0e8;--muted:#8a9ab5;
+  --border:rgba(200,164,90,.15);--green:#2d6a4f;--red:#8b2635;--amber:#c8853a;
+  --font-serif:'Noto Serif JP',serif;--font-sans:'DM Sans',sans-serif;--font-mono:'Space Mono',monospace;
+}
+body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-height:100vh}
+
+/* HEADER */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2rem;border-bottom:1px solid var(--border);
+  background:rgba(13,30,53,.8);backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:100;
+}
+.header-logo{font-family:var(--font-serif);font-size:.95rem;color:var(--gold)}
+.header-right{display:flex;align-items:center;gap:1rem}
+.refresh-btn{
+  font-size:.75rem;letter-spacing:.08em;padding:.4rem 1rem;
+  border:1px solid var(--border);color:var(--muted);background:none;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.refresh-btn:hover{color:var(--white);border-color:var(--muted)}
+.last-updated{font-size:.72rem;color:var(--muted);font-family:var(--font-mono)}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+
+/* ① STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2rem}
+.stat-card{background:var(--navy-mid);padding:1.5rem;text-align:center}
+.stat-label{font-size:.7rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:.75rem}
+.stat-value{font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--gold);line-height:1}
+.stat-sub{font-size:.72rem;color:var(--muted);margin-top:.4rem}
+
+/* ② AI ADVISOR */
+.ai-advisor{background:var(--navy-mid);border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem}
+.section-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;color:var(--gold);margin-bottom:1rem}
+.ai-summary{font-size:.9rem;line-height:1.9;color:var(--white);min-height:60px}
+.ai-loading{color:var(--muted);font-size:.85rem;display:flex;align-items:center;gap:.5rem}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink .9s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+.ai-btn{
+  margin-top:1rem;font-size:.78rem;letter-spacing:.08em;padding:.5rem 1.25rem;
+  border:1px solid var(--gold-dim);color:var(--gold);background:none;cursor:pointer;
+  transition:background .2s;
+}
+.ai-btn:hover{background:rgba(200,164,90,.1)}
+
+/* ③ ACTIVITY */
+.mid-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.panel{background:var(--navy-mid);border:1px solid var(--border);padding:1.25rem}
+.activity-feed{display:flex;flex-direction:column;gap:.6rem;max-height:280px;overflow-y:auto}
+.activity-item{
+  display:flex;align-items:flex-start;gap:.75rem;
+  padding:.6rem .75rem;border-left:2px solid var(--border);
+  font-size:.8rem;
+}
+.activity-item.high{border-color:var(--gold)}
+.activity-item.booking{border-color:var(--green)}
+.activity-time{color:var(--muted);font-family:var(--font-mono);font-size:.68rem;flex-shrink:0;margin-top:.1rem}
+.activity-text{color:var(--white);line-height:1.5}
+.score-badge{
+  display:inline-block;padding:.1rem .4rem;
+  font-family:var(--font-mono);font-size:.65rem;
+  background:rgba(200,164,90,.15);color:var(--gold);margin-left:.3rem;
+}
+.score-badge.high{background:rgba(200,164,90,.25)}
+
+/* HIGH SCORE LIST */
+.hs-list{display:flex;flex-direction:column;gap:.6rem;max-height:280px;overflow-y:auto}
+.hs-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem 1rem;background:rgba(200,164,90,.04);border:1px solid var(--border);
+}
+.hs-info{font-size:.82rem}
+.hs-industry{color:var(--muted);font-size:.72rem;margin-top:.15rem}
+.hs-score{font-family:var(--font-serif);font-size:1.4rem;color:var(--gold);font-weight:600}
+.hs-grade{font-family:var(--font-mono);font-size:.7rem;color:var(--gold-dim);text-align:right}
+
+/* ④ BOTTOM */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.chart-wrap{height:180px;display:flex;align-items:flex-end;gap:4px;padding:.5rem 0}
+.bar{flex:1;background:rgba(200,164,90,.3);border-radius:2px 2px 0 0;position:relative;transition:height .6s}
+.bar:hover{background:rgba(200,164,90,.6)}
+.bar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--muted);white-space:nowrap}
+.bar-val{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--gold);font-family:var(--font-mono)}
+.chart-outer{padding-bottom:24px}
+
+/* NEEDS */
+.needs-list{display:flex;flex-direction:column;gap:.5rem}
+.need-item{display:flex;align-items:center;gap:.75rem}
+.need-label{font-size:.8rem;flex:0 0 120px;color:var(--muted)}
+.need-bar-wrap{flex:1;height:6px;background:var(--navy-light);border-radius:3px}
+.need-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .8s}
+.need-pct{font-family:var(--font-mono);font-size:.68rem;color:var(--gold);flex:0 0 36px;text-align:right}
+
+/* EMPTY */
+.empty{color:var(--muted);font-size:.82rem;text-align:center;padding:2rem 0}
+
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .mid-grid,.bottom-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">Nexcess 管理者ダッシュボード</div>
+  <div class="header-right">
+    <div class="last-updated" id="last-updated">—</div>
+    <button class="refresh-btn" onclick="loadAll()">↻ 更新</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① クイックスタッツ -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">流入数</div>
+      <div class="stat-value" id="s-visits">—</div>
+      <div class="stat-sub">今月</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">診断実施数</div>
+      <div class="stat-value" id="s-diags">—</div>
+      <div class="stat-sub">今月</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">予約成立数</div>
+      <div class="stat-value" id="s-books">—</div>
+      <div class="stat-sub">今月</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">診断完了率</div>
+      <div class="stat-value" id="s-rate">—</div>
+      <div class="stat-sub">診断/流入</div>
+    </div>
+  </div>
+
+  <!-- ② AIアドバイザー -->
+  <div class="ai-advisor">
+    <div class="section-label">AI ADVISOR — 自然言語サマリー</div>
+    <div class="ai-summary" id="ai-summary">
+      <div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">AIが分析中...</span></div>
+    </div>
+    <button class="ai-btn" onclick="refreshAI()">↻ AIサマリーを再生成</button>
+  </div>
+
+  <!-- ③ アクティビティ + 高スコア -->
+  <div class="mid-grid">
+    <div class="panel">
+      <div class="section-label">ACTIVITY FEED — リアルタイム</div>
+      <div class="activity-feed" id="activity-feed">
+        <div class="empty">データを読み込み中...</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="section-label">HIGH SCORE — 優先対応リスト</div>
+      <div class="hs-list" id="hs-list">
+        <div class="empty">データを読み込み中...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 着地予測 + ニーズ分布 -->
+  <div class="bottom-grid">
+    <div class="panel">
+      <div class="section-label">TREND — 週別診断数</div>
+      <div class="chart-outer">
+        <div class="chart-wrap" id="trend-chart">
+          <div class="empty">データなし</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="section-label">NEEDS MAP — 課題分布</div>
+      <div class="needs-list" id="needs-list">
+        <div class="empty">データを読み込み中...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── モックデータ（GAS連携前の表示確認用） ──
+const MOCK = {
+  visits: 142, diags: 89, books: 12,
+  activity: [
+    { time: '2分前', text: '東京都・IT企業', score: 92, grade: 'S', type: 'high' },
+    { time: '8分前', text: '大阪府・製造業', score: 78, grade: 'A', type: 'normal' },
+    { time: '15分前', text: '神奈川県・コンサル', score: 85, grade: 'A', type: 'booking' },
+    { time: '31分前', text: '愛知県・士業', score: 61, grade: 'B', type: 'normal' },
+    { time: '52分前', text: '福岡県・不動産', score: 88, grade: 'A', type: 'high' },
+    { time: '1時間前', text: '東京都・医療', score: 45, grade: 'C', type: 'normal' },
+  ],
+  highScores: [
+    { industry: 'IT・SaaS', area: '東京都', score: 92, grade: 'S' },
+    { industry: 'コンサルティング', area: '神奈川県', score: 88, grade: 'A' },
+    { industry: '不動産', area: '福岡県', score: 85, grade: 'A' },
+  ],
+  trend: [
+    { label: '4週前', val: 8 },
+    { label: '3週前', val: 14 },
+    { label: '2週前', val: 19 },
+    { label: '先週', val: 23 },
+    { label: '今週', val: 25 },
+  ],
+  needs: [
+    { label: '担当不在対応', pct: 72 },
+    { label: '集客・問合せ', pct: 65 },
+    { label: '成約率改善', pct: 58 },
+    { label: '顧客管理', pct: 44 },
+    { label: '予約自動化', pct: 38 },
+  ]
+};
+
+async function loadAll() {
+  document.getElementById('last-updated').textContent =
+    '最終更新: ' + new Date().toLocaleTimeString('ja-JP');
+  renderStats();
+  renderActivity();
+  renderHighScores();
+  renderTrend();
+  renderNeeds();
+  await refreshAI();
+}
+
+function renderStats() {
+  const d = MOCK;
+  const rate = d.visits > 0 ? Math.round(d.diags / d.visits * 100) : 0;
+  document.getElementById('s-visits').textContent = d.visits.toLocaleString();
+  document.getElementById('s-diags').textContent  = d.diags.toLocaleString();
+  document.getElementById('s-books').textContent  = d.books.toLocaleString();
+  document.getElementById('s-rate').textContent   = rate + '%';
+}
+
+function renderActivity() {
+  const el = document.getElementById('activity-feed');
+  el.innerHTML = MOCK.activity.map(a => `
+    <div class="activity-item ${a.type}">
+      <div class="activity-time">${a.time}</div>
+      <div class="activity-text">
+        ${a.text}<span class="score-badge ${a.type === 'high' ? 'high' : ''}">${a.score}点 ${a.grade}</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderHighScores() {
+  const el = document.getElementById('hs-list');
+  el.innerHTML = MOCK.highScores.map(h => `
+    <div class="hs-item">
+      <div class="hs-info">
+        <div>${h.industry}</div>
+        <div class="hs-industry">${h.area}</div>
+      </div>
+      <div>
+        <div class="hs-score">${h.score}</div>
+        <div class="hs-grade">${h.grade}ランク</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderTrend() {
+  const el = document.getElementById('trend-chart');
+  const max = Math.max(...MOCK.trend.map(t => t.val));
+  el.innerHTML = MOCK.trend.map(t => `
+    <div class="bar" style="height:${Math.round(t.val/max*100)}%">
+      <span class="bar-val">${t.val}</span>
+      <span class="bar-label">${t.label}</span>
+    </div>`).join('');
+}
+
+function renderNeeds() {
+  const el = document.getElementById('needs-list');
+  el.innerHTML = MOCK.needs.map(n => `
+    <div class="need-item">
+      <div class="need-label">${n.label}</div>
+      <div class="need-bar-wrap"><div class="need-bar" style="width:${n.pct}%"></div></div>
+      <div class="need-pct">${n.pct}%</div>
+    </div>`).join('');
+}
+
+async function refreshAI() {
+  const el = document.getElementById('ai-summary');
+  el.innerHTML = '<div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">分析中...</span></div>';
+
+  const prompt = `以下は生成AI活用型 事前診断・集客・予約最適化システムの直近データです。
+
+流入数: ${MOCK.visits}件
+診断実施数: ${MOCK.diags}件
+予約成立数: ${MOCK.books}件
+診断完了率: ${Math.round(MOCK.diags/MOCK.visits*100)}%
+高スコア(80点以上)の直近業種: ${MOCK.highScores.map(h=>h.industry).join('、')}
+主な課題: ${MOCK.needs.slice(0,3).map(n=>n.label).join('、')}
+
+以下の2点を100文字以内で日本語の文章として回答してください。
+①今何が起きているか（現状の端的な整理）
+②次にとるべきアクション（具体的な1つの行動）`;
+
+  try {
+    const apiKey = ''; // フロントからは呼ばない → api/stats経由に変更予定
+    // 暫定：固定サマリーを表示
+    el.textContent = `診断完了率${Math.round(MOCK.diags/MOCK.visits*100)}%・予約転換率${Math.round(MOCK.books/MOCK.diags*100)}%で推移。高スコア（Aランク以上）が直近5件中3件を占めており、IT・コンサル業種からの流入が活発です。次のアクション：高スコアリスト上位3社へ今日中に優先連絡することを推奨します。`;
+  } catch(e) {
+    el.textContent = 'AI分析を取得できませんでした。';
+  }
+}
+
+// 初期ロード
+loadAll();
+</script>
+</body>
+</html>

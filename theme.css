@@ -1,0 +1,68 @@
+/*
+ * ─────────────────────────────────────────────────────────────
+ *  theme.css  —  Nexcess AI診断サイト 共有デザイントークン
+ * ─────────────────────────────────────────────────────────────
+ *  ■ 使い方
+ *    index.html / diagnosis.html / column.html / about.html
+ *    すべてのページ <head> に以下を追加するだけ。
+ *      <link rel="stylesheet" href="theme.css">
+ *
+ *  ■ 量産手順（クライアントごとのカスタマイズ）
+ *    このファイルの :root 内の値を変更すると
+ *    全ページのカラー・フォントが自動的に統一されます。
+ *    diagnosis.html 本体は触らなくてOK。
+ *
+ *  ■ 現在のテーマ: kaede 楓 salon（メンズ脱毛サロン）
+ * ─────────────────────────────────────────────────────────────
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+:root {
+  /* ── ベースカラー ───────────────────────────────────────── */
+  --bg:          #faf7f2;          /* ページ背景（クリーム） */
+  --bg-alt:      #ffffff;          /* 白背景セクション */
+  --bg-mid:      #eef7f1;          /* カード・薄グリーン背景 */
+  --bg-light:    #f5fbf6;          /* より薄いグリーン背景 */
+
+  /* ── アクセントカラー ───────────────────────────────────── */
+  --accent:      #1a3d22;          /* ダークグリーン（見出し・強調） */
+  --accent-main: #2d6e44;          /* メイングリーン（ボタン・リンク） */
+  --accent-mid:  #3d8c5a;          /* ミドルグリーン（アイコン等） */
+  --accent-sub:  #7ab88a;          /* ライトグリーン（補助） */
+
+  /* ── テキスト ───────────────────────────────────────────── */
+  --text:        #1a2e1e;          /* 本文テキスト */
+  --muted:       #6a7e6a;          /* 補足・説明テキスト */
+  --gold:        #8a7040;          /* ゴールドアクセント（必要に応じて） */
+
+  /* ── ボーダー ───────────────────────────────────────────── */
+  --border:      rgba(45,110,68,.12);
+  --border-light:rgba(45,110,68,.07);
+
+  /* ── フォント ───────────────────────────────────────────── */
+  --font-serif:  'Cormorant Garamond','Shippori Mincho',serif;
+  --font-sans:   'Noto Sans JP',sans-serif;
+}
+
+/*
+ * ─────────────────────────────────────────────────────────────
+ *  別クライアント用テンプレート例（コメントアウト）
+ *
+ *  例: ネイビー系サロン
+ *  :root {
+ *    --bg:          #f8f9fc;
+ *    --bg-mid:      #eef0f6;
+ *    --bg-light:    #f3f5fa;
+ *    --accent:      #1a2a4a;
+ *    --accent-main: #2a4a8a;
+ *    --accent-mid:  #3a6aaa;
+ *    --text:        #1a1e2e;
+ *    --muted:       #6a7080;
+ *    --border:      rgba(42,74,138,.12);
+ *    --border-light:rgba(42,74,138,.07);
+ *    --font-serif:  'Cormorant Garamond','Shippori Mincho',serif;
+ *    --font-sans:   'Noto Sans JP',sans-serif;
+ *  }
+ * ─────────────────────────────────────────────────────────────
+ */
