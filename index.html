@@ -3,430 +3,690 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI メンズ脱毛診断 | kaede 楓 salon</title>
-<meta name="description" content="5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。東京浅草・都度払いのメンズ脱毛サロン。">
+<title>保証協会融資 伴走コンサルティング | Nexcess</title>
+<meta name="description" content="建設業・飲食業・運送業の中小零細企業・一人親方専門。信用保証協会融資の申請から実行まで、月額5万円の定額伴走支援。AI事前診断で現状を即時把握。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── TOKENS ── */
 :root{
-  --cream:#faf7f2;
-  --white:#ffffff;
-  --green-deep:#1a3d22;
-  --green-main:#2d6e44;
-  --green-mid:#3d8c5a;
-  --green-light:#7ab88a;
-  --green-pale:#eef7f1;
-  --green-paler:#f5fbf6;
-  --gold:#8a7040;
-  --text:#1a2e1e;
-  --muted:#6a7e6a;
-  --border:rgba(45,110,68,.12);
-  --border-light:rgba(45,110,68,.07);
-  --font-serif:'Cormorant Garamond','Shippori Mincho',serif;
-  --font-sans:'Noto Sans JP',sans-serif;
+  --navy:       #003087;
+  --navy-dark:  #001f5c;
+  --navy-mid:   #0a4aa0;
+  --navy-light: #e8eef8;
+  --gold:       #b8860b;
+  --gold-light: #d4a843;
+  --gold-bg:    #fdf6e3;
+  --white:      #ffffff;
+  --cream:      #f8f6f1;
+  --text:       #1a1a2e;
+  --muted:      #5a6a82;
+  --border:     rgba(0,48,135,.12);
+  --shadow:     0 4px 24px rgba(0,48,135,.10);
+  --radius:     4px;
+  --font-serif: 'Noto Serif JP',serif;
+  --font-sans:  'Noto Sans JP',sans-serif;
+  --ease:       cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth;}
-body{font-family:var(--font-sans);background:var(--cream);color:var(--text);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased;}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo-leaf{font-size:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1));}
-.nav-logo-text{font-family:var(--font-serif);font-size:18px;font-weight:400;color:var(--green-deep);letter-spacing:.06em;}
-.nav-logo-sub{font-size:9px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:1px;}
-.nav-links{display:flex;gap:36px;list-style:none;}
-.nav-links a{font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--green-main);}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--text);background:var(--cream);line-height:1.7;overflow-x:hidden}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(150deg,var(--green-paler) 0%,var(--cream) 45%,#f8f5ee 100%);}
-.hero-leaves{position:absolute;right:0;top:0;width:50%;height:100%;opacity:.04;background:
-  radial-gradient(ellipse at 80% 20%,var(--green-main) 0%,transparent 40%),
-  radial-gradient(ellipse at 60% 70%,var(--green-mid) 0%,transparent 35%);}
-.hero-deco{position:absolute;right:60px;top:50%;transform:translateY(-50%);width:420px;height:420px;border-radius:50%;border:1px solid rgba(45,110,68,.08);display:flex;align-items:center;justify-content:center;}
-.hero-deco::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;border:1px solid rgba(45,110,68,.06);}
-.hero-deco::after{content:'🍁';font-size:80px;opacity:.06;}
-.hero-inner{position:relative;z-index:1;padding:120px 48px 80px;max-width:960px;width:100%;}
-.hero-eyebrow{font-size:10px;letter-spacing:.25em;color:var(--green-mid);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:14px;}
-.hero-eyebrow::after{content:'';flex:0 0 36px;height:1px;background:var(--green-mid);}
-.hero-title{font-family:var(--font-serif);font-size:clamp(48px,6.5vw,78px);line-height:1.18;letter-spacing:-.01em;color:var(--green-deep);margin-bottom:28px;}
-.hero-title em{font-style:italic;color:var(--green-main);}
-.hero-title .line2{display:block;font-size:clamp(28px,3.8vw,48px);color:var(--muted);font-weight:300;margin-top:8px;}
-.hero-desc{font-size:15px;color:var(--muted);line-height:2.1;max-width:460px;margin-bottom:44px;font-weight:300;}
-.hero-cta{display:inline-flex;align-items:center;gap:14px;background:var(--green-main);color:#fff;padding:18px 40px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s;font-family:var(--font-sans);}
-.hero-cta:hover{background:var(--green-deep);transform:translateY(-2px);}
-.hero-note{font-size:10px;color:var(--muted);margin-top:14px;letter-spacing:.06em;}
-.hero-badges{display:flex;gap:24px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);}
-.badge{text-align:center;}
-.badge-num{font-family:var(--font-serif);font-size:30px;color:var(--green-main);line-height:1;}
-.badge-label{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px;}
-
-/* ABOUT */
-.about{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
-.about-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.about-eyebrow{font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;}
-.about-title{font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);line-height:1.3;color:var(--green-deep);margin-bottom:20px;}
-.about-title em{font-style:italic;}
-.about-text{font-size:14px;color:var(--muted);line-height:2.2;font-weight:300;}
-.about-cards{display:flex;flex-direction:column;gap:1px;background:var(--border);}
-.about-card{background:var(--white);padding:28px 32px;transition:background .2s;}
-.about-card:hover{background:var(--green-paler);}
-.about-card-num{font-family:var(--font-serif);font-size:11px;letter-spacing:.18em;color:var(--green-mid);margin-bottom:10px;}
-.about-card-title{font-family:var(--font-serif);font-size:20px;color:var(--green-deep);margin-bottom:8px;line-height:1.4;}
-.about-card-desc{font-size:12px;color:var(--muted);line-height:1.9;font-weight:300;}
-
-/* CONTENTS */
-.contents{background:var(--green-paler);padding:96px 48px;border-top:1px solid var(--border-light);}
-.contents-inner{max-width:960px;margin:0 auto;}
-.contents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:48px;}
-.content-card{background:var(--white);padding:40px 32px;text-decoration:none;color:inherit;transition:background .2s;display:flex;flex-direction:column;}
-.content-card:hover{background:var(--cream);}
-.content-card-num{font-family:var(--font-serif);font-size:10px;letter-spacing:.22em;color:var(--green-mid);margin-bottom:18px;}
-.content-card-icon{font-size:32px;margin-bottom:16px;}
-.content-card-title{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);line-height:1.4;margin-bottom:12px;}
-.content-card-desc{font-size:13px;color:var(--muted);line-height:1.9;flex:1;font-weight:300;}
-.content-card-link{margin-top:24px;font-size:11px;letter-spacing:.1em;color:var(--green-main);text-transform:uppercase;display:flex;align-items:center;gap:6px;}
-.content-card-link::after{content:'→';}
-
-/* PRICE */
-.price{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
-.price-inner{max-width:960px;margin:0 auto;}
-.price-eyebrow{font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;}
-.price-title{font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);color:var(--green-deep);margin-bottom:14px;}
-.price-title em{font-style:italic;}
-.price-desc{font-size:13px;color:var(--muted);max-width:500px;line-height:2;font-weight:300;margin-bottom:48px;}
-.price-table{border:1px solid var(--border);margin-bottom:20px;}
-.price-thead{background:var(--green-paler);padding:16px 24px;font-size:10px;letter-spacing:.18em;color:var(--green-mid);text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);}
-.price-tbody{display:flex;flex-direction:column;}
-.price-tr{padding:14px 24px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border-light);transition:background .15s;}
-.price-tr:last-child{border-bottom:none;}
-.price-tr:hover{background:var(--green-paler);}
-.price-td-name{font-size:13px;color:var(--text);}
-.price-td-sub{font-size:10px;color:var(--muted);margin-top:2px;}
-.price-td-price{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);}
-.price-td-price span{font-size:11px;color:var(--muted);}
-.price-tr.featured{background:var(--green-paler);}
-.price-tr.featured .price-td-price{color:var(--green-main);}
-.price-note{font-size:11px;color:var(--muted);line-height:2;padding:16px 0;border-top:1px solid var(--border-light);}
-
-/* FREE HIGHLIGHT */
-.free-hl{background:var(--green-main);padding:32px 36px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:24px;}
-.free-hl-text{color:#fff;}
-.free-hl-eyebrow{font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:6px;}
-.free-hl-title{font-family:var(--font-serif);font-size:28px;font-weight:400;line-height:1.3;}
-.free-hl-desc{font-size:12px;color:rgba(255,255,255,.7);margin-top:8px;font-weight:300;}
-.free-hl-badges{display:flex;gap:12px;flex-shrink:0;}
-.free-hl-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:16px 24px;text-align:center;}
-.free-hl-badge-time{font-family:var(--font-serif);font-size:28px;color:#fff;line-height:1;}
-.free-hl-badge-label{font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.12em;margin-top:4px;}
-
-/* COLUMN */
-.column{background:var(--cream);padding:96px 48px;border-top:1px solid var(--border-light);}
-.column-inner{max-width:960px;margin:0 auto;}
-.col-list{margin-top:40px;}
-.col-item{display:flex;gap:32px;padding:28px 0;border-bottom:1px solid var(--border-light);text-decoration:none;color:inherit;align-items:flex-start;}
-.col-item:first-child{border-top:1px solid var(--border-light);}
-.col-item:hover .col-title{color:var(--green-main);}
-.col-meta{flex:0 0 96px;}
-.col-date{font-size:11px;color:var(--muted);letter-spacing:.06em;}
-.col-tags{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;}
-.col-tag{font-size:9px;letter-spacing:.08em;padding:2px 7px;border:1px solid var(--border);color:var(--muted);}
-.col-body{flex:1;}
-.col-title{font-family:var(--font-serif);font-size:18px;line-height:1.5;margin-bottom:8px;color:var(--green-deep);transition:color .2s;}
-.col-excerpt{font-size:13px;color:var(--muted);line-height:1.9;font-weight:300;}
-.col-more{margin-top:28px;display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;color:var(--green-main);text-decoration:none;text-transform:uppercase;}
-
-/* CTA */
-.cta{background:var(--green-deep);padding:88px 48px;text-align:center;}
-.cta-eyebrow{font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:20px;display:flex;justify-content:center;align-items:center;gap:14px;}
-.cta-eyebrow::before,.cta-eyebrow::after{content:'';flex:0 0 32px;height:1px;background:rgba(255,255,255,.2);}
-.cta-title{font-family:var(--font-serif);font-size:clamp(32px,4vw,52px);color:#fff;line-height:1.3;margin-bottom:16px;}
-.cta-title em{font-style:italic;color:rgba(255,255,255,.7);}
-.cta-desc{font-size:14px;color:rgba(255,255,255,.55);margin:0 auto 44px;max-width:440px;line-height:2.1;font-weight:300;}
-.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-.btn-cream{display:inline-flex;align-items:center;gap:10px;background:var(--cream);color:var(--green-deep);padding:16px 40px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;}
-.btn-cream:hover{opacity:.88;}
-.btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);padding:15px 36px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s;}
-.btn-ghost:hover{border-color:rgba(255,255,255,.7);}
-
-/* SALON */
-.salon{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
-.salon-inner{max-width:960px;margin:0 auto;}
-.salon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:40px;}
-.salon-cell{background:var(--white);padding:28px 24px;}
-.salon-cell-label{font-size:9px;letter-spacing:.2em;color:var(--green-mid);text-transform:uppercase;margin-bottom:10px;}
-.salon-cell-val{font-size:13px;color:var(--text);line-height:2;}
-.salon-cell-val a{color:var(--green-main);text-decoration:none;}
-
-/* FOOTER */
-footer{background:var(--green-deep);padding:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
-.footer-brand{font-family:var(--font-serif);font-size:20px;color:rgba(255,255,255,.7);font-weight:300;}
-.footer-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:6px;letter-spacing:.06em;}
-.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
-.footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.08em;}
-.footer-links a:hover{color:rgba(255,255,255,.6);}
-.footer-copy{font-size:10px;color:rgba(255,255,255,.2);width:100%;}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .about-inner{grid-template-columns:1fr;}
-  .contents-grid{grid-template-columns:1fr;}
-  .salon-grid{grid-template-columns:1fr 1fr;}
-  .free-hl{flex-direction:column;}
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(0,48,135,.97);backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--gold);
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:all .3s var(--ease);
 }
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo-mark{
+  width:36px;height:36px;background:var(--gold);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-serif);font-weight:700;font-size:.9rem;color:var(--navy-dark);
+  letter-spacing:.05em;
+}
+.nav-logo-text{font-family:var(--font-serif);color:var(--white);font-size:.95rem;font-weight:500;letter-spacing:.08em}
+.nav-logo-sub{font-size:.7rem;color:rgba(255,255,255,.65);letter-spacing:.12em;display:block;margin-top:1px}
+.nav-cta{
+  background:var(--gold);color:var(--navy-dark);
+  padding:.55rem 1.2rem;border-radius:var(--radius);
+  font-size:.82rem;font-weight:600;text-decoration:none;
+  letter-spacing:.06em;transition:opacity .2s;white-space:nowrap;
+}
+.nav-cta:hover{opacity:.88}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 55%, #0a4aa0 100%);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;padding:8rem 2rem 5rem;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-glow{
+  position:absolute;right:-10%;top:10%;
+  width:60vw;height:80vh;
+  background:radial-gradient(ellipse, rgba(212,168,67,.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);
+  padding:.35rem .9rem;border-radius:2px;margin-bottom:2rem;
+}
+.hero-eyebrow span{font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);font-weight:500}
+.hero-badge{
+  background:var(--gold);color:var(--navy-dark);
+  font-size:.65rem;font-weight:700;padding:.2rem .5rem;border-radius:2px;letter-spacing:.1em;
+}
+.hero-h1{
+  font-family:var(--font-serif);
+  font-size:clamp(2rem,5vw,3.4rem);font-weight:700;
+  color:var(--white);line-height:1.35;margin-bottom:1.2rem;
+  letter-spacing:.02em;
+}
+.hero-h1 em{color:var(--gold-light);font-style:normal}
+.hero-lead{
+  font-size:clamp(.9rem,1.8vw,1.05rem);color:rgba(255,255,255,.8);
+  line-height:1.9;max-width:540px;margin-bottom:2.5rem;
+}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--gold);color:var(--navy-dark);
+  padding:.9rem 2rem;border-radius:var(--radius);
+  font-size:.95rem;font-weight:700;text-decoration:none;
+  letter-spacing:.04em;transition:all .25s var(--ease);
+  box-shadow:0 4px 20px rgba(212,168,67,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,168,67,.45)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1.5px solid rgba(255,255,255,.4);color:var(--white);
+  padding:.9rem 2rem;border-radius:var(--radius);
+  font-size:.95rem;font-weight:500;text-decoration:none;
+  transition:all .25s var(--ease);
+}
+.btn-secondary:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.7)}
+.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap}
+.hero-stat{}
+.hero-stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;
+  color:var(--gold-light);line-height:1;
+}
+.hero-stat-label{font-size:.72rem;color:rgba(255,255,255,.55);letter-spacing:.1em;margin-top:.2rem}
+
+/* ── TRUST BAR ── */
+.trust-bar{
+  background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:3px solid var(--gold);
+  padding:1.1rem 2rem;
+  display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+}
+.trust-item{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.78rem;color:rgba(255,255,255,.75);letter-spacing:.08em;
+}
+.trust-icon{color:var(--gold-light);font-size:1rem}
+
+/* ── SECTION BASE ── */
+section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  font-size:.72rem;letter-spacing:.2em;color:var(--gold);
+  font-weight:600;margin-bottom:.75rem;text-transform:uppercase;
+}
+.section-title{
+  font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:700;color:var(--navy-dark);line-height:1.4;margin-bottom:1rem;
+}
+.section-lead{font-size:.95rem;color:var(--muted);line-height:1.85;max-width:600px}
+
+/* ── PAIN SECTION ── */
+.pain{background:var(--white)}
+.pain-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.pain-card{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:1.75rem;background:var(--cream);
+  position:relative;transition:all .3s var(--ease);
+}
+.pain-card:hover{border-color:var(--navy);box-shadow:var(--shadow);transform:translateY(-3px)}
+.pain-industry{
+  display:inline-block;background:var(--navy);color:var(--white);
+  font-size:.65rem;font-weight:600;padding:.2rem .6rem;border-radius:2px;
+  letter-spacing:.1em;margin-bottom:1rem;
+}
+.pain-title{font-family:var(--font-serif);font-size:1.05rem;font-weight:600;color:var(--navy-dark);margin-bottom:.75rem}
+.pain-list{list-style:none}
+.pain-list li{
+  font-size:.85rem;color:var(--muted);padding:.35rem 0;
+  border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:.5rem;
+}
+.pain-list li:last-child{border:none}
+.pain-list li::before{content:"▸";color:var(--gold);flex-shrink:0;margin-top:.05rem}
+
+/* ── SOLUTION ── */
+.solution{background:var(--cream)}
+.solution-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  margin-top:3rem;
+}
+@media(max-width:768px){.solution-inner{grid-template-columns:1fr;gap:2rem}}
+.solution-steps{display:flex;flex-direction:column;gap:1.5rem}
+.solution-step{
+  display:flex;gap:1.25rem;align-items:flex-start;
+  padding:1.25rem;border-radius:var(--radius);
+  border:1.5px solid var(--border);background:var(--white);
+  transition:border-color .25s;
+}
+.solution-step:hover{border-color:var(--navy)}
+.solution-step-month{
+  flex-shrink:0;width:52px;height:52px;
+  background:var(--navy);color:var(--white);border-radius:var(--radius);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.solution-step-month span:first-child{font-size:.6rem;letter-spacing:.1em;opacity:.7}
+.solution-step-month span:last-child{font-size:1.1rem;font-weight:700;font-family:'Cormorant Garamond',serif}
+.solution-step-body{}
+.solution-step-title{font-size:.95rem;font-weight:600;color:var(--navy-dark);margin-bottom:.35rem}
+.solution-step-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
+.solution-visual{
+  background:var(--navy);border-radius:4px;padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.solution-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 20%,rgba(212,168,67,.15) 0%,transparent 60%);
+}
+.sv-label{font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:2rem}
+.sv-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:600;color:var(--white);line-height:1;margin-bottom:.5rem;
+}
+.sv-price span{font-size:1.1rem;font-weight:400;opacity:.7}
+.sv-total{font-size:.8rem;color:var(--gold-light);margin-bottom:2rem;letter-spacing:.06em}
+.sv-includes{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.sv-includes li{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.83rem;color:rgba(255,255,255,.8);line-height:1.5;
+}
+.sv-includes li::before{content:"✓";color:var(--gold-light);font-weight:700;flex-shrink:0}
+.sv-note{
+  margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15);
+  font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.7;
+}
+
+/* ── COURSES ── */
+.courses{background:var(--white)}
+.course-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.course-card{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:all .3s var(--ease);
+}
+.course-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.course-header{
+  background:var(--navy);padding:1.5rem 1.75rem;
+}
+.course-num{font-size:.65rem;letter-spacing:.15em;color:var(--gold-light);margin-bottom:.35rem}
+.course-name{
+  font-family:var(--font-serif);font-size:1.15rem;font-weight:700;color:var(--white);
+  margin-bottom:.35rem;
+}
+.course-sub{font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5}
+.course-body{padding:1.5rem 1.75rem;background:var(--cream)}
+.course-points{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.course-points li{font-size:.83rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
+.course-points li::before{content:"─";color:var(--gold);flex-shrink:0}
+
+/* ── AI DIAGNOSIS ── */
+.ai-section{
+  background:linear-gradient(150deg,var(--navy-dark) 0%,var(--navy) 100%);
+  position:relative;overflow:hidden;
+}
+.ai-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.ai-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+@media(max-width:768px){.ai-inner{grid-template-columns:1fr;gap:2rem}}
+.ai-label{
+  font-size:.72rem;letter-spacing:.2em;color:var(--gold-light);
+  font-weight:600;margin-bottom:.75rem;
+}
+.ai-title{
+  font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1rem;
+}
+.ai-lead{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.9;margin-bottom:2rem}
+.ai-cards{display:flex;flex-direction:column;gap:1rem}
+.ai-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);padding:1.25rem 1.5rem;
+  display:flex;align-items:flex-start;gap:1rem;
+  transition:background .25s;
+}
+.ai-card:hover{background:rgba(255,255,255,.1)}
+.ai-card-icon{
+  width:40px;height:40px;background:var(--gold);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.ai-card-title{font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:.2rem}
+.ai-card-desc{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.6}
+
+/* ── FAQ ── */
+.faq{background:var(--cream)}
+.faq-list{max-width:760px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem}
+.faq-item{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  background:var(--white);overflow:hidden;
+}
+.faq-q{
+  padding:1.25rem 1.5rem;cursor:pointer;
+  display:flex;align-items:flex-start;gap:1rem;
+  font-size:.9rem;font-weight:600;color:var(--navy-dark);
+  transition:background .2s;
+}
+.faq-q:hover{background:var(--navy-light)}
+.faq-q-mark{
+  flex-shrink:0;width:28px;height:28px;
+  background:var(--navy);color:var(--white);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:700;margin-top:.05rem;
+}
+.faq-a{
+  padding:0 1.5rem 0 calc(1.5rem + 28px + 1rem);
+  font-size:.85rem;color:var(--muted);line-height:1.85;
+  max-height:0;overflow:hidden;transition:all .35s var(--ease);
+}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.25rem}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  background:var(--navy-dark);
+  text-align:center;padding:6rem 2rem;position:relative;overflow:hidden;
+}
+.cta-section::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:4px;background:var(--gold);
+}
+.cta-title{
+  font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.2rem);
+  font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1rem;
+}
+.cta-lead{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.9;margin-bottom:2.5rem}
+.cta-actions{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.cta-note{margin-top:1.5rem;font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.7}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.08);
+  padding:2rem;text-align:center;
+}
+.footer-logo{
+  font-family:var(--font-serif);font-size:1rem;color:var(--white);
+  letter-spacing:.1em;margin-bottom:.5rem;
+}
+.footer-sub{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:1rem}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.3);letter-spacing:.08em}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
 @media(max-width:640px){
-  .nav,.nav{padding:0 20px;}
-  .hero-inner{padding:100px 20px 60px;}
-  .about,.contents,.price,.column,.cta,.salon{padding:64px 20px;}
-  .hero-badges{gap:16px;}
-  .col-item{flex-direction:column;gap:10px;}
-  .col-meta{flex:none;display:flex;gap:12px;align-items:center;}
-  .salon-grid{grid-template-columns:1fr;}
-  footer{padding:40px 20px;}
-  .free-hl{padding:24px;}
+  nav{padding:.75rem 1.25rem}
+  .hero{padding:7rem 1.25rem 4rem}
+  .hero-stats{gap:1.5rem}
+  section{padding:3.5rem 1.25rem}
+  .trust-bar{gap:1.2rem;padding:.9rem 1rem}
 }
-
-/* FADE */
-.fade{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
-.fade.in{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html" class="nav-logo">
-    <span class="nav-logo-leaf">🍁</span>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">NX</div>
     <div>
-      <div class="nav-logo-text">kaede salon</div>
-      <div class="nav-logo-sub">Men's Depilation</div>
+      <span class="nav-logo-text">Nexcess</span>
+      <span class="nav-logo-sub">保証協会融資 伴走支援</span>
     </div>
   </a>
-  <ul class="nav-links">
-    <li><a href="diagnosis.html">診断ツール</a></li>
-    <li><a href="column.html">コラム</a></li>
-    <li><a href="about.html">料金・FAQ</a></li>
-    <li><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a></li>
-  </ul>
+  <a href="#diagnosis" class="nav-cta">無料AI診断を受ける</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-leaves"></div>
-  <div class="hero-deco"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow fade">Men's Depilation AI Diagnosis</div>
-    <h1 class="hero-title fade">
-      脱毛は、<em>気になった</em><br>そのときに動き出す。
-      <span class="line2">東京浅草・都度払いのメンズ脱毛サロン</span>
+    <div class="hero-eyebrow">
+      <span class="hero-badge">AI診断 無料</span>
+      <span>建設・飲食・運送業 特化</span>
+    </div>
+    <h1 class="hero-h1">
+      保証協会融資、<br>
+      <em>通す</em>ための専門家が<br>
+      伴走します。
     </h1>
-    <p class="hero-desc fade">5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。</p>
-    <a href="diagnosis.html" class="hero-cta fade">今すぐ無料診断する</a>
-    <p class="hero-note fade">法律・医療上の判断・助言を行うものではありません</p>
-    <div class="hero-badges fade">
-      <div class="badge"><div class="badge-num">5問</div><div class="badge-label">Questions</div></div>
-      <div class="badge"><div class="badge-num">約1分</div><div class="badge-label">All Free</div></div>
-      <div class="badge"><div class="badge-num">即時</div><div class="badge-label">AI Result</div></div>
-      <div class="badge"><div class="badge-num">700円〜</div><div class="badge-label">都度払い</div></div>
+    <p class="hero-lead">
+      「審査に落ちた」「書類が複雑でわからない」「どこに相談すればいい？」<br>
+      中小零細・一人親方の資金調達を、月額定額で支援します。
+    </p>
+    <div class="hero-actions">
+      <a href="#diagnosis" class="btn-primary">⚡ 無料AI診断を受ける（約1分）</a>
+      <a href="#solution" class="btn-secondary">サービスを見る →</a>
     </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about">
-  <div class="about-inner">
-    <div class="fade">
-      <div class="about-eyebrow">About This Site</div>
-      <h2 class="about-title">「メンズ脱毛」を、<br><em>整理する</em>場所。</h2>
-      <p class="about-text">
-        脱毛への関心は、ある日突然やってくる。<br>
-        「どこから始めればいいかわからない」「料金が不透明で怖い」<br><br>
-        本サイトは解決策を押しつけない。<br>
-        あなた自身が現状を把握し、自分で判断できる状態をつくることを目的としている。
-      </p>
-    </div>
-    <div class="about-cards fade">
-      <div class="about-card">
-        <div class="about-card-num">01 — AI Tool</div>
-        <div class="about-card-title">AIメンズ脱毛 無料診断</div>
-        <p class="about-card-desc">5問・約1分。現状の整理と今後のケアプランを即時提示。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3ヶ月</div>
+        <div class="hero-stat-label">STANDARD PROGRAM</div>
       </div>
-      <div class="about-card">
-        <div class="about-card-num">02 — Column</div>
-        <div class="about-card-title">メンズ脱毛コラム</div>
-        <p class="about-card-desc">実際の施術をもとに、脱毛の論点を事例ベースで解説。</p>
+      <div class="hero-stat">
+        <div class="hero-stat-num">¥50,000</div>
+        <div class="hero-stat-label">MONTHLY / TAX EXCL.</div>
       </div>
-      <div class="about-card">
-        <div class="about-card-num">03 — Info</div>
-        <div class="about-card-title">料金表・FAQ</div>
-        <p class="about-card-desc">都度払いの料金メニューと、初めての方の疑問を整理。</p>
+      <div class="hero-stat">
+        <div class="hero-stat-num">成果</div>
+        <div class="hero-stat-label">REPORT NOT FEE</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTENTS -->
-<section class="contents">
-  <div class="contents-inner">
-    <div class="fade">
-      <div style="font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;">Contents</div>
-      <h2 style="font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);color:var(--green-deep);margin-bottom:16px;">3つの<em style="font-style:italic;">コンテンツ</em></h2>
-    </div>
-    <div class="contents-grid">
-      <a href="diagnosis.html" class="content-card fade">
-        <div class="content-card-num">01 — AI Tool</div>
-        <div class="content-card-icon">🤖</div>
-        <div class="content-card-title">AIメンズ脱毛<br>無料診断</div>
-        <p class="content-card-desc">5問・約1分。現状の整理と今後のケアプランを即時提示。</p>
-        <div class="content-card-link">診断する</div>
-      </a>
-      <a href="column.html" class="content-card fade">
-        <div class="content-card-num">02 — Column</div>
-        <div class="content-card-icon">📝</div>
-        <div class="content-card-title">メンズ脱毛<br>コラム</div>
-        <p class="content-card-desc">実際の施術をもとに、脱毛・ボディケアの論点を事例ベースで解説。</p>
-        <div class="content-card-link">一覧を見る</div>
-      </a>
-      <a href="about.html" class="content-card fade">
-        <div class="content-card-num">03 — Info</div>
-        <div class="content-card-icon">💴</div>
-        <div class="content-card-title">料金表・<br>よくある質問</div>
-        <p class="content-card-desc">都度払いの料金メニューと、初めての方が気になる疑問を整理。</p>
-        <div class="content-card-link">詳細を見る</div>
-      </a>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✓</span> 成果報酬なし・定額制</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> 中途解約可</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> CFP・財務FP資格保有</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> 建設業・飲食業・運送業 特化</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> 申請から実行まで一貫対応</div>
+</div>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <p class="section-label reveal">IDENTIFIED ISSUES</p>
+    <h2 class="section-title reveal">こんな「融資の壁」、<br>一人で抱えていませんか？</h2>
+    <p class="section-lead reveal">業種によって融資の落とし穴は異なります。よくある課題を業種別に整理しました。</p>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="pain-industry">建設業</span>
+        <div class="pain-title">着工資金・つなぎ融資の難しさ</div>
+        <ul class="pain-list">
+          <li>入金サイクルが長く、手元資金が不足しがち</li>
+          <li>資金繰り表の作成・説明が苦手</li>
+          <li>保証協会に申請したが審査が通らなかった</li>
+          <li>工事規模に対して融資枠が小さい</li>
+        </ul>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-industry">飲食業</span>
+        <div class="pain-title">開業・設備投資の資金調達</div>
+        <ul class="pain-list">
+          <li>創業計画書の書き方がわからない</li>
+          <li>売上予測の根拠をどう示すか</li>
+          <li>内装費・設備費の見積もりと融資額の調整</li>
+          <li>コロナ融資の返済と新規借入の両立</li>
+        </ul>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-industry">運送業 / 一人親方</span>
+        <div class="pain-title">車両・機械導入の投資判断</div>
+        <ul class="pain-list">
+          <li>車両購入の投資対効果の算出が難しい</li>
+          <li>法人化前後の融資申請タイミング</li>
+          <li>銀行との交渉を一人でやる負担</li>
+          <li>どの保証協会・制度を使うべきか不明</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PRICE -->
-<section class="price">
-  <div class="price-inner">
-    <div class="fade">
-      <div class="price-eyebrow">Price Menu</div>
-      <h2 class="price-title">明快な<em>料金</em>だから、安心。</h2>
-      <p class="price-desc">すべて都度払い・税込。コース加入不要。隠れた費用は一切ありません。</p>
-    </div>
-    <div class="price-table fade">
-      <div class="price-thead"><span>パーツ別 単品メニュー</span><span>料金（税込）</span></div>
-      <div class="price-tbody">
-        <div class="price-tr"><div><div class="price-td-name">Sパーツ</div><div class="price-td-sub">鼻下・あご・顎下・首など</div></div><div class="price-td-price">¥700<span>/部位〜</span></div></div>
-        <div class="price-tr"><div><div class="price-td-name">Mパーツ</div><div class="price-td-sub">わき・うなじ・Vライン上など</div></div><div class="price-td-price">¥1,400<span>/部位</span></div></div>
-        <div class="price-tr"><div><div class="price-td-name">MLパーツ</div><div class="price-td-sub">胸・腹・ヒジ上下など</div></div><div class="price-td-price">¥2,800<span>/部位</span></div></div>
-        <div class="price-tr"><div><div class="price-td-name">Lパーツ</div><div class="price-td-sub">背中・おしり・VIOなど</div></div><div class="price-td-price">¥4,200<span>/部位</span></div></div>
-        <div class="price-tr featured"><div><div class="price-td-name">全身脱毛（VIOなし）</div><div class="price-td-sub">120分・人気No.1</div></div><div class="price-td-price">¥11,000</div></div>
-        <div class="price-tr"><div><div class="price-td-name">顔のみ</div><div class="price-td-sub">25分</div></div><div class="price-td-price">¥3,000</div></div>
-        <div class="price-tr"><div><div class="price-td-name">VIO</div><div class="price-td-sub">25分</div></div><div class="price-td-price">¥4,000</div></div>
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <p class="section-label reveal">HOW WE WORK</p>
+    <h2 class="section-title reveal">3ヶ月の伴走で、<br>融資実行まで導きます。</h2>
+    <div class="solution-inner">
+      <div class="solution-steps">
+        <div class="solution-step reveal">
+          <div class="solution-step-month"><span>1ヶ月目</span><span>01</span></div>
+          <div class="solution-step-body">
+            <div class="solution-step-title">AI診断・ヒアリング・銀行選定</div>
+            <div class="solution-step-desc">AI診断の精査、詳細ヒアリング、書類準備、金融機関・保証協会の選定まで。最適な申請ルートを設計します。</div>
+          </div>
+        </div>
+        <div class="solution-step reveal">
+          <div class="solution-step-month"><span>2ヶ月目</span><span>02</span></div>
+          <div class="solution-step-body">
+            <div class="solution-step-title">書類完成・申請</div>
+            <div class="solution-step-desc">資金繰り表・事業計画書への数値流し込み、書類完成、銀行・信用保証協会への提出代行。</div>
+          </div>
+        </div>
+        <div class="solution-step reveal">
+          <div class="solution-step-month"><span>3ヶ月目</span><span>03</span></div>
+          <div class="solution-step-body">
+            <div class="solution-step-title">審査フォロー・融資実行</div>
+            <div class="solution-step-desc">追加照会への即時対応、審査フォロー、融資実行まで完全サポート。その後の顧問契約もご相談可能。</div>
+          </div>
+        </div>
+      </div>
+      <div class="solution-visual reveal">
+        <div class="sv-label">PRICING / 料金</div>
+        <div class="sv-price">¥50,000<span>/ 月（税別）</span></div>
+        <div class="sv-total">3ヶ月総額 ¥150,000（税別）</div>
+        <ul class="sv-includes">
+          <li>AI事前診断・スコアリング分析</li>
+          <li>書類作成支援（資金繰り表・事業計画書）</li>
+          <li>金融機関・保証協会との交渉サポート</li>
+          <li>審査フォロー・追加照会対応</li>
+          <li>月1回以上の進捗面談（オンライン可）</li>
+        </ul>
+        <div class="sv-note">着手金形式（月払い）・成果報酬なし・中途解約可<br>※ 融資の成否を保証するものではありません</div>
       </div>
     </div>
-    <div class="free-hl fade">
-      <div class="free-hl-text">
-        <div class="free-hl-eyebrow">🔥 目玉サービス</div>
-        <div class="free-hl-title">脱毛 free コース</div>
-        <p class="free-hl-desc">時間内ならお好きな部位を、何パーツでも自由に脱毛できます。</p>
-      </div>
-      <div class="free-hl-badges">
-        <div class="free-hl-badge"><div class="free-hl-badge-time">30分</div><div class="free-hl-badge-label">Free Course</div></div>
-        <div class="free-hl-badge"><div class="free-hl-badge-time">60分</div><div class="free-hl-badge-label">Free Course</div></div>
-      </div>
-    </div>
-    <p class="price-note fade">※ 料金はすべて税込です。コース加入・回数券・入会金は不要です。1回だけのご利用も大歓迎（次回勧誘なし）。</p>
   </div>
 </section>
 
-<!-- COLUMN -->
-<section class="column">
-  <div class="column-inner">
-    <div class="fade">
-      <div style="font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;">Column — 最新記事</div>
-      <h2 style="font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);color:var(--green-deep);margin-bottom:16px;">脱毛の「なぜ」を<em style="font-style:italic;">整理する</em>。</h2>
+<!-- COURSES -->
+<section class="courses">
+  <div class="container">
+    <p class="section-label reveal">SERVICE COURSES</p>
+    <h2 class="section-title reveal">3つの融資コース</h2>
+    <div class="course-grid">
+      <div class="course-card reveal">
+        <div class="course-header">
+          <div class="course-num">COURSE 01</div>
+          <div class="course-name">創業融資コース</div>
+          <div class="course-sub">開業前後の資金調達</div>
+        </div>
+        <div class="course-body">
+          <ul class="course-points">
+            <li>創業計画書の論理構成・数値設計</li>
+            <li>日本政策金融公庫との連携</li>
+            <li>信用保証協会との事前調整</li>
+            <li>初年度の資金繰りシミュレーション</li>
+          </ul>
+        </div>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-header">
+          <div class="course-num">COURSE 02</div>
+          <div class="course-name">運転資金コース</div>
+          <div class="course-sub">建設業・受注業向け資金繰り改善</div>
+        </div>
+        <div class="course-body">
+          <ul class="course-points">
+            <li>入金サイクル分析と資金繰り表作成</li>
+            <li>保証協会「一般保証」「セーフティネット」活用</li>
+            <li>既存借入との整合性調整</li>
+            <li>銀行交渉の代行サポート</li>
+          </ul>
+        </div>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-header">
+          <div class="course-num">COURSE 03</div>
+          <div class="course-name">設備資金コース</div>
+          <div class="course-sub">車両・機械・内装導入</div>
+        </div>
+        <div class="course-body">
+          <ul class="course-points">
+            <li>投資対効果（ROI）の算出・文書化</li>
+            <li>設備購入と融資タイミングの最適化</li>
+            <li>信用保証協会「設備資金保証」の活用</li>
+            <li>減価償却計画と返済計画の整合</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="col-list">
-      <a href="column.html" class="col-item fade">
-        <div class="col-meta">
-          <div class="col-date">2026.04.10</div>
-          <div class="col-tags"><span class="col-tag">ひげ脱毛</span></div>
+  </div>
+</section>
+
+<!-- AI DIAGNOSIS -->
+<section class="ai-section" id="diagnosis">
+  <div class="container">
+    <div class="ai-inner">
+      <div>
+        <p class="ai-label reveal">AI DIAGNOSIS / 無料診断</p>
+        <h2 class="ai-title reveal">まず、<br>現状を整理する。</h2>
+        <p class="ai-lead reveal">
+          5つの質問に答えるだけで、あなたの融資可能性と最適なアプローチをAIが即時分析します。相談・勧誘は一切ありません。
+        </p>
+        <a href="diagnosis.html" class="btn-primary reveal">⚡ 無料AI診断を受ける（約1分）</a>
+        <p style="margin-top:1rem;font-size:.72rem;color:rgba(255,255,255,.4)" class="reveal">法律・融資の確約を行うものではありません</p>
+      </div>
+      <div class="ai-cards">
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">📊</div>
+          <div>
+            <div class="ai-card-title">融資可能性スコアリング</div>
+            <div class="ai-card-desc">業種・規模・資金用途・財務状況をAIが総合評価。保証協会審査の通過可能性を即時スコア化します。</div>
+          </div>
         </div>
-        <div class="col-body">
-          <div class="col-title">ひげ脱毛は「何回で終わる」のか——毛周期と施術回数の正直な話</div>
-          <p class="col-excerpt">「5回で完了」という言葉をよく目にするが、実際はどうか。部位・毛量・肌質によって変わる現実を整理する。</p>
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">📋</div>
+          <div>
+            <div class="ai-card-title">最適コース・制度の提案</div>
+            <div class="ai-card-desc">創業・運転・設備の3コースから最適なものを判定。活用すべき保証制度も自動で特定します。</div>
+          </div>
         </div>
-      </a>
-      <a href="column.html" class="col-item fade">
-        <div class="col-meta">
-          <div class="col-date">2026.03.28</div>
-          <div class="col-tags"><span class="col-tag">VIO</span><span class="col-tag">介護</span></div>
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">📅</div>
+          <div>
+            <div class="ai-card-title">そのまま相談予約へ</div>
+            <div class="ai-card-desc">診断結果を持ったまま無料相談を予約。初回面談は診断内容の確認から始まるので、準備不要です。</div>
+          </div>
         </div>
-        <div class="col-body">
-          <div class="col-title">VIO脱毛を「介護」の前に始めた50代男性——その理由と経過</div>
-          <p class="col-excerpt">将来の介護を見据えてVIO脱毛を決断するケースが増えている。実際の声をもとに整理する。</p>
-        </div>
-      </a>
-      <a href="column.html" class="col-item fade">
-        <div class="col-meta">
-          <div class="col-date">2026.03.15</div>
-          <div class="col-tags"><span class="col-tag">都度払い</span></div>
-        </div>
-        <div class="col-body">
-          <div class="col-title">「コース契約」に縛られた男性が、都度払いサロンに乗り換えた話</div>
-          <p class="col-excerpt">使わない月も費用が発生し続けるコース契約。出張族・転勤族に都度払いが選ばれる本当の理由。</p>
-        </div>
-      </a>
+      </div>
     </div>
-    <a href="column.html" class="col-more fade">コラム一覧を見る →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center">FAQ</p>
+    <h2 class="section-title reveal" style="text-align:center;max-width:100%">よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          成果報酬がないと、通らなかったときに損ではないですか？
+        </div>
+        <div class="faq-a">提供するのは「融資実行」ではなく「書類作成・申請・交渉の役務」です。弁護士への着手金と同じ考え方です。一方で、プロが関与することで通過率は有意に向上します。成否にかかわらず、銀行・保証協会との関係構築や書類の質は確実に高まります。</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          一人親方・個人事業主でも利用できますか？
+        </div>
+        <div class="faq-a">はい、対応しています。特に建設業の一人親方は、元請けとの契約書・工事台帳・確定申告書の整理など、特有の書類準備が必要です。業種実態に即した対応が可能です。</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          信用保証協会と政策金融公庫、どちらを使うべきですか？
+        </div>
+        <div class="faq-a">資金用途・業種・信用状況によって最適解が異なります。AI診断の結果と面談内で整理します。一般的に、保証協会は民間銀行と組み合わせた融資に、政策金融公庫は直接融資に強みがあります。</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          過去に審査が落ちたことがありますが、相談できますか？
+        </div>
+        <div class="faq-a">むしろそのケースこそ、ご相談の価値があります。落ちた理由の多くは「書類の不備」「説明の論理構成」「申請先の選択ミス」です。AI診断で現状を整理した上で、対策を設計します。</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
-  <div class="cta-eyebrow fade">AI Tool</div>
-  <h2 class="cta-title fade">自分の状況を、<em>まず整理する</em>。</h2>
-  <p class="cta-desc fade">診断結果は提案・勧誘ではありません。あなた自身が現状を把握するための一次整理です。</p>
-  <div class="cta-btns fade">
-    <a href="diagnosis.html" class="btn-cream">AI診断を試す →</a>
-    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-ghost">💬 LINEで相談する</a>
-  </div>
-</section>
-
-<!-- SALON -->
-<section class="salon">
-  <div class="salon-inner">
-    <div class="fade">
-      <div style="font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;">Salon Info</div>
-      <h2 style="font-family:var(--font-serif);font-size:clamp(28px,3.2vw,44px);color:var(--green-deep);margin-bottom:8px;">kaede 楓 salon</h2>
-      <p style="font-size:13px;color:var(--muted);font-weight:300;margin-bottom:0;">東京・浅草で開業4周年。都度払い・コース不要・LGBTフレンドリー。</p>
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title reveal">融資を通すための<br>最初の一歩は、現状の整理から。</h2>
+    <p class="cta-lead reveal">AI診断は無料・約1分。診断後の相談・勧誘は一切ありません。</p>
+    <div class="cta-actions reveal">
+      <a href="diagnosis.html" class="btn-primary">⚡ 無料AI診断を受ける</a>
     </div>
-    <div class="salon-grid">
-      <div class="salon-cell fade"><div class="salon-cell-label">Location</div><div class="salon-cell-val">東京都台東区東浅草1-9-2<br>浅草駅から徒歩約10分</div></div>
-      <div class="salon-cell fade"><div class="salon-cell-label">Hours</div><div class="salon-cell-val">11:00〜20:00<br>定休日：毎週月曜</div></div>
-      <div class="salon-cell fade"><div class="salon-cell-label">Price</div><div class="salon-cell-val">Sパーツ ¥700〜<br>都度払い・縛りなし</div></div>
-      <div class="salon-cell fade"><div class="salon-cell-label">Contact</div><div class="salon-cell-val"><a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINEで予約・相談</a><br><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイトへ →</a></div></div>
-    </div>
+    <p class="cta-note reveal">法律・融資の確約・保証を行うものではありません。診断はあくまで現状整理・参考情報の提供です。</p>
   </div>
 </section>
 
 <footer>
-  <div>
-    <div class="footer-brand">🍁 kaede 楓 salon</div>
-    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
-  </div>
-  <div class="footer-links">
-    <a href="diagnosis.html">AI診断</a>
-    <a href="column.html">コラム</a>
-    <a href="about.html">料金・FAQ</a>
-    <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
-    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINE予約</a>
-  </div>
-  <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
+  <div class="footer-logo">Nexcess</div>
+  <div class="footer-sub">保証協会融資 伴走コンサルティング</div>
+  <div class="footer-copy">© 2026 合同会社 Nexcess. All rights reserved.</div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.07 });
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+// Scroll reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.boxShadow =
+    window.scrollY > 60 ? '0 4px 24px rgba(0,0,0,.3)' : 'none';
+});
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
 </script>
 </body>
 </html>
