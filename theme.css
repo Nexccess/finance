@@ -1,66 +1,62 @@
 /*
  * ─────────────────────────────────────────────────────────────
- *  theme.css  —  Nexcess AI診断サイト 共有デザイントークン
+ *  theme.css  —  保証協会融資 伴走コンサルティング
  * ─────────────────────────────────────────────────────────────
- *  ■ 使い方
- *    index.html / diagnosis.html / column.html / about.html
- *    すべてのページ <head> に以下を追加するだけ。
- *      <link rel="stylesheet" href="theme.css">
- *
- *  ■ 量産手順（クライアントごとのカスタマイズ）
- *    このファイルの :root 内の値を変更すると
- *    全ページのカラー・フォントが自動的に統一されます。
- *    diagnosis.html 本体は触らなくてOK。
- *
- *  ■ 現在のテーマ: kaede 楓 salon（メンズ脱毛サロン）
+ *  index.html / diagnosis.html 共通デザイントークン
+ *  クライアントごとにこのファイルの :root だけ変更すれば全ページ追従
  * ─────────────────────────────────────────────────────────────
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
 :root {
-  /* ── ベースカラー ───────────────────────────────────────── */
-  --bg:          #faf7f2;          /* ページ背景（クリーム） */
-  --bg-alt:      #ffffff;          /* 白背景セクション */
-  --bg-mid:      #eef7f1;          /* カード・薄グリーン背景 */
-  --bg-light:    #f5fbf6;          /* より薄いグリーン背景 */
+  /* ── ベースカラー（JFCネイビー系） ─────────────────────── */
+  --bg:          #f8f6f1;          /* クリーム背景 */
+  --bg-alt:      #ffffff;
+  --bg-mid:      #e8eef8;          /* ライトネイビー背景 */
+  --bg-light:    #f0f4fb;
 
   /* ── アクセントカラー ───────────────────────────────────── */
-  --accent:      #1a3d22;          /* ダークグリーン（見出し・強調） */
-  --accent-main: #2d6e44;          /* メイングリーン（ボタン・リンク） */
-  --accent-mid:  #3d8c5a;          /* ミドルグリーン（アイコン等） */
-  --accent-sub:  #7ab88a;          /* ライトグリーン（補助） */
+  --accent:      #001f5c;          /* ダークネイビー */
+  --accent-main: #003087;          /* JFCネイビー（メイン） */
+  --accent-mid:  #0a4aa0;          /* ミドルネイビー */
+  --accent-sub:  #4a7fd4;          /* ライトネイビー */
+
+  /* ── ゴールドアクセント ─────────────────────────────────── */
+  --gold:        #b8860b;          /* ダークゴールド */
+  --gold-light:  #d4a843;          /* ライトゴールド */
+  --gold-bg:     #fdf6e3;          /* ゴールド背景 */
 
   /* ── テキスト ───────────────────────────────────────────── */
-  --text:        #1a2e1e;          /* 本文テキスト */
-  --muted:       #6a7e6a;          /* 補足・説明テキスト */
-  --gold:        #8a7040;          /* ゴールドアクセント（必要に応じて） */
+  --text:        #1a1a2e;
+  --muted:       #5a6a82;
 
   /* ── ボーダー ───────────────────────────────────────────── */
-  --border:      rgba(45,110,68,.12);
-  --border-light:rgba(45,110,68,.07);
+  --border:      rgba(0,48,135,.12);
+  --border-light:rgba(0,48,135,.07);
 
   /* ── フォント ───────────────────────────────────────────── */
-  --font-serif:  'Cormorant Garamond','Shippori Mincho',serif;
-  --font-sans:   'Noto Sans JP',sans-serif;
+  --font-serif:  'Noto Serif JP', serif;
+  --font-sans:   'Noto Sans JP', sans-serif;
 }
 
 /*
  * ─────────────────────────────────────────────────────────────
- *  別クライアント用テンプレート例（コメントアウト）
+ *  別クライアント用テンプレート例
  *
- *  例: ネイビー系サロン
+ *  例: kaede salon（グリーン系）
  *  :root {
- *    --bg:          #f8f9fc;
- *    --bg-mid:      #eef0f6;
- *    --bg-light:    #f3f5fa;
- *    --accent:      #1a2a4a;
- *    --accent-main: #2a4a8a;
- *    --accent-mid:  #3a6aaa;
- *    --text:        #1a1e2e;
- *    --muted:       #6a7080;
- *    --border:      rgba(42,74,138,.12);
- *    --border-light:rgba(42,74,138,.07);
+ *    --bg:          #faf7f2;
+ *    --bg-mid:      #eef7f1;
+ *    --bg-light:    #f5fbf6;
+ *    --accent:      #1a3d22;
+ *    --accent-main: #2d6e44;
+ *    --accent-mid:  #3d8c5a;
+ *    --gold:        #8a7040;
+ *    --gold-light:  #b09060;
+ *    --text:        #1a2e1e;
+ *    --muted:       #6a7e6a;
+ *    --border:      rgba(45,110,68,.12);
  *    --font-serif:  'Cormorant Garamond','Shippori Mincho',serif;
  *    --font-sans:   'Noto Sans JP',sans-serif;
  *  }
