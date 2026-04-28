@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コラム一覧 | 保証協会融資 伴走コンサルティング | Nexcess</title>
+<meta name="description" content="建設業・飲食業・運送業の保証協会融資に関するコラム。審査落ち対策・資金繰り表・事業計画書など実務に基づいた情報を提供します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --g1:#1a5c1a;--g2:#009a3c;--g3:#00b347;
+  --g-bg:#e8f5ee;--cream:#f5f3e8;--white:#ffffff;
+  --text:#1a1a1a;--muted:#5a6a5a;--border:rgba(0,154,60,.15);
+  --shadow:0 4px 24px rgba(0,100,30,.10);--r:4px;
+  --serif:'Noto Serif JP',serif;--sans:'Noto Sans JP',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.7}
+nav{
+  position:sticky;top:0;z-index:100;background:var(--g1);
+  border-bottom:3px solid var(--g2);padding:.85rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-mark{width:32px;height:32px;background:#fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.72rem;font-weight:700;color:var(--g1)}
+.nav-name{font-family:var(--serif);color:#fff;font-size:.9rem;font-weight:500;letter-spacing:.06em}
+.nav-back{font-size:.78rem;color:rgba(255,255,255,.7);text-decoration:none;letter-spacing:.06em}
+.nav-back:hover{color:#fff}
+
+.page-hero{
+  background:linear-gradient(150deg,#0d3d0d 0%,#1a5c1a 100%);
+  padding:4rem 2rem 3rem;text-align:center;
+}
+.page-hero h1{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:.75rem}
+.page-hero p{font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.8}
+
+.col-body{max-width:1060px;margin:0 auto;padding:3rem 2rem}
+
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{
+  padding:.35rem .85rem;border-radius:2px;font-size:.75rem;font-weight:600;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--white);
+  color:var(--muted);transition:all .2s;letter-spacing:.06em;
+}
+.filter-btn.active,.filter-btn:hover{background:var(--g1);color:#fff;border-color:var(--g1)}
+
+.col-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:1.25rem;
+}
+.col-card{
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--white);overflow:hidden;text-decoration:none;
+  display:block;transition:all .3s var(--ease);
+}
+.col-card:hover{border-color:var(--g2);box-shadow:var(--shadow);transform:translateY(-2px)}
+.col-card.hidden{display:none}
+.col-card-img{
+  height:6px;background:var(--g2);
+}
+.col-card-inner{padding:1.25rem}
+.col-card-tag{
+  display:inline-block;background:var(--g-bg);color:var(--g1);
+  font-size:.62rem;font-weight:700;padding:.2rem .6rem;
+  border-radius:2px;letter-spacing:.08em;margin-bottom:.65rem;
+}
+.col-card-title{
+  font-family:var(--serif);font-size:.92rem;font-weight:600;
+  color:var(--g1);line-height:1.55;margin-bottom:.65rem;
+}
+.col-card-excerpt{font-size:.78rem;color:var(--muted);line-height:1.7}
+.col-card-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:.85rem;padding-top:.65rem;border-top:1px solid var(--border);
+  font-size:.7rem;color:var(--muted);
+}
+.col-card-read{color:var(--g2);font-weight:600}
+
+footer{background:#0d3d0d;padding:2rem;text-align:center;margin-top:0}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.3)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-brand">
+    <div class="nav-mark">NX</div>
+    <div class="nav-name">Nexcess</div>
+  </a>
+  <a href="../index.html" class="nav-back">← トップページへ</a>
+</nav>
+
+<div class="page-hero">
+  <h1>融資の「なぜ」を整理する。</h1>
+  <p>建設業・飲食業・運送業の融資実務をもとに、保証協会融資の論点を事例ベースで解説します。</p>
+</div>
+
+<div class="col-body">
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all',this)">すべて</button>
+    <button class="filter-btn" onclick="filter('建設業',this)">建設業</button>
+    <button class="filter-btn" onclick="filter('飲食業',this)">飲食業</button>
+    <button class="filter-btn" onclick="filter('運送業',this)">運送業</button>
+    <button class="filter-btn" onclick="filter('一人親方',this)">一人親方</button>
+    <button class="filter-btn" onclick="filter('料金・制度',this)">料金・制度</button>
+    <button class="filter-btn" onclick="filter('審査対策',this)">審査対策</button>
+  </div>
+
+  <div class="col-grid" id="col-grid">
+    <a href="kensetsu-shikin.html" class="col-card" data-tag="建設業">
+      <div class="col-card-img"></div>
+      <div class="col-card-inner">
+        <span class="col-card-tag">建設業</span>
+        <div class="col-card-title">建設業の資金繰り表、銀行はどこを見ているのか</div>
+        <div class="col-card-excerpt">入金サイクルの長い建設業における資金繰り表の作り方と、審査担当者が注目するポイントを解説。</div>
+        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
+      </div>
+    </a>
+    <a href="hitori-oyakata-yushi.html" class="col-card" data-tag="一人親方">
+      <div class="col-card-img"></div>
+      <div class="col-card-inner">
+        <span class="col-card-tag">一人親方</span>
+        <div class="col-card-title">一人親方が保証協会融資を通すために必要な3つの書類</div>
+        <div class="col-card-excerpt">個人事業主・一人親方特有の書類準備の落とし穴と、通過率を上げる準備の順序を整理する。</div>
+        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
+      </div>
+    </a>
+    <a href="seiko-hoshu-risk.html" class="col-card" data-tag="料金・制度">
+      <div class="col-card-img"></div>
+      <div class="col-card-inner">
+        <span class="col-card-tag">料金・制度</span>
+        <div class="col-card-title">成功報酬型の融資代行、本当にお得か？定額制との比較</div>
+        <div class="col-card-excerpt">融資額の3〜5%という成功報酬型の実態と、定額制のどちらが得かをケース別に比較する。</div>
+        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer><div class="footer-copy">© 2026 合同会社 Nexcess. All rights reserved.</div></footer>
+
+<script>
+function filter(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.col-card').forEach(card => {
+    if (tag === 'all' || card.dataset.tag === tag) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+</script>
+</body>
+</html>
