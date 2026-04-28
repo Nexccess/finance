@@ -1,64 +1,38 @@
 /*
  * ─────────────────────────────────────────────────────────────
  *  theme.css  —  保証協会融資 伴走コンサルティング
- * ─────────────────────────────────────────────────────────────
- *  index.html / diagnosis.html 共通デザイントークン
- *  クライアントごとにこのファイルの :root だけ変更すれば全ページ追従
+ *  JFCカラー準拠（グリーン系）
  * ─────────────────────────────────────────────────────────────
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap');
 
 :root {
-  /* ── ベースカラー（JFCネイビー系） ─────────────────────── */
-  --bg:          #f8f6f1;          /* クリーム背景 */
-  --bg-alt:      #ffffff;
-  --bg-mid:      #e8eef8;          /* ライトネイビー背景 */
-  --bg-light:    #f0f4fb;
+  /* ── JFCグリーン系 ─────────────────────────────────────── */
+  --bg:           #f5f3e8;         /* JFCクリーム背景 */
+  --bg-alt:       #ffffff;
+  --bg-mid:       #e8f5ee;         /* ライトグリーン背景 */
+  --bg-light:     #f0faf4;
 
-  /* ── アクセントカラー ───────────────────────────────────── */
-  --accent:      #001f5c;          /* ダークネイビー */
-  --accent-main: #003087;          /* JFCネイビー（メイン） */
-  --accent-mid:  #0a4aa0;          /* ミドルネイビー */
-  --accent-sub:  #4a7fd4;          /* ライトネイビー */
+  /* ── アクセント ──────────────────────────────────────────── */
+  --accent:       #1a5c1a;         /* JFCダークグリーン */
+  --accent-main:  #009a3c;         /* JFCメイングリーン */
+  --accent-mid:   #007a30;         /* ミドルグリーン */
+  --accent-sub:   #a8f0c0;         /* ライトグリーン（ハイライト） */
 
-  /* ── ゴールドアクセント ─────────────────────────────────── */
-  --gold:        #b8860b;          /* ダークゴールド */
-  --gold-light:  #d4a843;          /* ライトゴールド */
-  --gold-bg:     #fdf6e3;          /* ゴールド背景 */
+  /* ── サブアクセント（ブルー） ────────────────────────────── */
+  --gold:         #0066cc;         /* JFCリンクブルー */
+  --gold-light:   #3388dd;
 
-  /* ── テキスト ───────────────────────────────────────────── */
-  --text:        #1a1a2e;
-  --muted:       #5a6a82;
+  /* ── テキスト ────────────────────────────────────────────── */
+  --text:         #1a1a1a;
+  --muted:        #4a5a4a;
 
-  /* ── ボーダー ───────────────────────────────────────────── */
-  --border:      rgba(0,48,135,.12);
-  --border-light:rgba(0,48,135,.07);
+  /* ── ボーダー ────────────────────────────────────────────── */
+  --border:       rgba(0,154,60,.18);
+  --border-light: rgba(0,154,60,.09);
 
-  /* ── フォント ───────────────────────────────────────────── */
-  --font-serif:  'Noto Serif JP', serif;
-  --font-sans:   'Noto Sans JP', sans-serif;
+  /* ── フォント ────────────────────────────────────────────── */
+  --font-serif:   'Noto Serif JP', serif;
+  --font-sans:    'Noto Sans JP', sans-serif;
 }
-
-/*
- * ─────────────────────────────────────────────────────────────
- *  別クライアント用テンプレート例
- *
- *  例: kaede salon（グリーン系）
- *  :root {
- *    --bg:          #faf7f2;
- *    --bg-mid:      #eef7f1;
- *    --bg-light:    #f5fbf6;
- *    --accent:      #1a3d22;
- *    --accent-main: #2d6e44;
- *    --accent-mid:  #3d8c5a;
- *    --gold:        #8a7040;
- *    --gold-light:  #b09060;
- *    --text:        #1a2e1e;
- *    --muted:       #6a7e6a;
- *    --border:      rgba(45,110,68,.12);
- *    --font-serif:  'Cormorant Garamond','Shippori Mincho',serif;
- *    --font-sans:   'Noto Sans JP',sans-serif;
- *  }
- * ─────────────────────────────────────────────────────────────
- */
