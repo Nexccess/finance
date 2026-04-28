@@ -4,393 +4,498 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>保証協会融資 伴走コンサルティング | Nexcess</title>
-<meta name="description" content="建設業・飲食業・運送業の中小零細企業・一人親方専門。信用保証協会融資の申請から実行まで、月額5万円の定額伴走支援。AI事前診断で現状を即時把握。">
+<meta name="description" content="建設・飲食・運送業の中小零細・一人親方専門。信用保証協会融資の申請から実行まで月額5万円の定額伴走支援。AI診断＋銀行格付シミュレーションで現状を即把握。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="theme.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-/* ── TOKENS ── */
-:root{
-  --navy:       #009a3c;
-  --navy-dark:  #1a5c1a;
-  --navy-mid:   #007a30;
-  --navy-light: #e8f5ee;
-  --gold:       #0066cc;
-  --gold-light: #3388dd;
-  --gold-bg:    #eef4fb;
-  --white:      #ffffff;
-  --cream:      #f5f3e8;
-  --text:       #1a1a1a;
-  --muted:      #4a5a4a;
-  --border:     rgba(0,154,60,.18);
-  --shadow:     0 4px 24px rgba(0,154,60,.12);
-  --radius:     4px;
-  --font-serif: 'Noto Serif JP',serif;
-  --font-sans:  'Noto Sans JP',sans-serif;
-  --ease:       cubic-bezier(.16,1,.3,1);
-}
-
 html{scroll-behavior:smooth}
-body{font-family:var(--font-sans);color:var(--text);background:#f5f0e8;line-height:1.7;overflow-x:hidden}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  color:#1a1a1a;
+  background:#f5f3e8;
+  line-height:1.7;
+  overflow-x:hidden;
+}
 
-/* ── NAV ── */
-nav{
+/* ══════════════════════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════════════════════ */
+.nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(0,64,32,.97);backdrop-filter:blur(8px);
-  border-bottom:2px solid rgba(255,255,255,.2);
-  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
-  transition:all .3s var(--ease);
+  background:#1a5c1a;
+  border-bottom:3px solid #009a3c;
+  padding:.85rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 16px rgba(0,0,0,.3);
 }
-.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
-.nav-logo-mark{
-  width:36px;height:36px;background:#ffffff;border-radius:2px;
+.nav-left{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-mark{
+  width:38px;height:38px;background:#fff;border-radius:3px;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-serif);font-weight:700;font-size:.9rem;color:#004020;
-  letter-spacing:.05em;
+  font-family:'Noto Serif JP',serif;font-weight:700;
+  font-size:.85rem;color:#1a5c1a;flex-shrink:0;
 }
-.nav-logo-text{font-family:var(--font-serif);color:var(--white);font-size:.95rem;font-weight:500;letter-spacing:.08em}
-.nav-logo-sub{font-size:.7rem;color:rgba(255,255,255,.65);letter-spacing:.12em;display:block;margin-top:1px}
-.nav-cta{
-  background:var(--gold);color:#004020;
-  padding:.55rem 1.2rem;border-radius:var(--radius);
-  font-size:.82rem;font-weight:600;text-decoration:none;
-  letter-spacing:.06em;transition:opacity .2s;white-space:nowrap;
+.nav-name{color:#fff;font-size:.95rem;font-weight:600;letter-spacing:.06em;display:block}
+.nav-sub{color:rgba(255,255,255,.55);font-size:.68rem;letter-spacing:.1em;display:block;margin-top:1px}
+.nav-btn{
+  background:#fff;color:#1a5c1a;
+  padding:.5rem 1.25rem;border-radius:3px;
+  font-size:.82rem;font-weight:700;text-decoration:none;
+  letter-spacing:.04em;transition:opacity .2s;
+  white-space:nowrap;flex-shrink:0;
 }
-.nav-cta:hover{opacity:.88}
+.nav-btn:hover{opacity:.85}
 
-/* ── HERO ── */
+/* ══════════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════════ */
 .hero{
   min-height:100vh;
-  background:
-    linear-gradient(160deg, #1a5c1a 0%, #009a3c 55%, #007a30 100%) 0%, var(--navy) 55%, #008c46 100%);
+  background:#1a5c1a;
   position:relative;overflow:hidden;
-  display:flex;align-items:center;padding:8rem 2rem 5rem;
+  display:flex;align-items:center;
+  padding:9rem 2rem 6rem;
 }
 .hero-grid{
-  position:absolute;inset:0;
+  position:absolute;inset:0;pointer-events:none;
   background-image:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:48px 48px;
 }
-.hero-glow{
-  position:absolute;right:-10%;top:10%;
-  width:60vw;height:80vh;
-  background:radial-gradient(ellipse, rgba(255,255,255,.06) 0%, transparent 65%);
+.hero-radial{
+  position:absolute;right:-8%;top:0;bottom:0;
+  width:60%;
+  background:radial-gradient(ellipse at center,rgba(0,154,60,.3) 0%,transparent 68%);
   pointer-events:none;
 }
 .hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:rgba(255,255,255,.12);border:1px solid rgba(0,154,60,.3);
-  padding:.35rem .9rem;border-radius:2px;margin-bottom:2rem;
-}
-.hero-eyebrow span{font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);font-weight:500}
+.hero-badges{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.75rem}
 .hero-badge{
-  background:var(--gold);color:#004020;
-  font-size:.65rem;font-weight:700;padding:.2rem .5rem;border-radius:2px;letter-spacing:.1em;
+  background:#009a3c;color:#fff;
+  font-size:.7rem;font-weight:700;
+  padding:.3rem .75rem;border-radius:2px;letter-spacing:.12em;
 }
-.hero-h1{
-  font-family:var(--font-serif);
-  font-size:clamp(2rem,5vw,3.4rem);font-weight:700;
-  color:var(--white);line-height:1.35;margin-bottom:1.2rem;
-  letter-spacing:.02em;
+.hero-badge-sub{font-size:.78rem;color:rgba(255,255,255,.65);letter-spacing:.08em}
+h1.hero-h1{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(2.1rem,5.5vw,3.6rem);
+  font-weight:700;color:#fff;
+  line-height:1.35;margin-bottom:1.25rem;letter-spacing:.02em;
 }
-.hero-h1 em{color:var(--gold-light);font-style:normal}
+h1.hero-h1 em{color:#7dffaa;font-style:normal}
 .hero-lead{
-  font-size:clamp(.9rem,1.8vw,1.05rem);color:rgba(255,255,255,.8);
-  line-height:1.9;max-width:540px;margin-bottom:2.5rem;
+  font-size:clamp(.88rem,1.6vw,1rem);
+  color:rgba(255,255,255,.78);
+  line-height:2;max-width:560px;margin-bottom:2.5rem;
 }
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:var(--gold);color:#004020;
-  padding:.9rem 2rem;border-radius:var(--radius);
-  font-size:.95rem;font-weight:700;text-decoration:none;
-  letter-spacing:.04em;transition:all .25s var(--ease);
-  box-shadow:0 4px 20px rgba(0,154,60,.3);
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-g{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:#009a3c;color:#fff;
+  padding:.9rem 1.75rem;border-radius:3px;
+  font-size:.92rem;font-weight:700;text-decoration:none;
+  letter-spacing:.04em;border:2px solid #009a3c;
+  transition:all .25s ease;
+  box-shadow:0 4px 20px rgba(0,154,60,.45);
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,154,60,.45)}
-.btn-secondary{
-  display:inline-flex;align-items:center;gap:.6rem;
-  border:1.5px solid rgba(255,255,255,.4);color:var(--white);
-  padding:.9rem 2rem;border-radius:var(--radius);
-  font-size:.95rem;font-weight:500;text-decoration:none;
-  transition:all .25s var(--ease);
+.btn-g:hover{background:#00b347;border-color:#00b347;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,154,60,.55)}
+.btn-w{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:transparent;color:#fff;
+  padding:.9rem 1.75rem;border-radius:3px;
+  font-size:.92rem;font-weight:600;text-decoration:none;
+  letter-spacing:.04em;border:2px solid rgba(255,255,255,.45);
+  transition:all .25s ease;
 }
-.btn-secondary:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.7)}
-.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap}
-.hero-stat{}
-.hero-stat-num{
-  font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;
-  color:#a8f0c0;line-height:1;
+.btn-w:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.9)}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap}
+.hero-stat-n{
+  font-family:'Noto Serif JP',serif;
+  font-size:1.9rem;font-weight:700;color:#7dffaa;line-height:1;
 }
-.hero-stat-label{font-size:.72rem;color:rgba(255,255,255,.55);letter-spacing:.1em;margin-top:.2rem}
+.hero-stat-l{font-size:.68rem;color:rgba(255,255,255,.45);letter-spacing:.1em;margin-top:.3rem}
 
-/* ── TRUST BAR ── */
-.trust-bar{
-  background:#004020;border-top:1px solid rgba(255,255,255,.1);
-  border-bottom:3px solid var(--navy);
-  padding:1.1rem 2rem;
-  display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+/* ══════════════════════════════════════════════════════════════
+   TRUST BAR
+══════════════════════════════════════════════════════════════ */
+.trust{
+  background:#fff;
+  border-bottom:2px solid #e0e0d8;
+  padding:1rem 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;
 }
 .trust-item{
   display:flex;align-items:center;gap:.5rem;
-  font-size:.78rem;color:rgba(255,255,255,.75);letter-spacing:.08em;
+  font-size:.8rem;color:#4a5a4a;letter-spacing:.05em;
 }
-.trust-icon{color:#a8f0c0;font-size:1rem}
+.trust-ck{
+  width:20px;height:20px;background:#009a3c;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.62rem;font-weight:700;flex-shrink:0;
+}
 
-/* ── SECTION BASE ── */
-section{padding:5rem 2rem}
-.container{max-width:1100px;margin:0 auto}
-.section-label{
-  font-size:.72rem;letter-spacing:.2em;color:#006834;
-  font-weight:600;margin-bottom:.75rem;text-transform:uppercase;
+/* ══════════════════════════════════════════════════════════════
+   SECTION COMMON
+══════════════════════════════════════════════════════════════ */
+.sec{padding:5.5rem 2rem}
+.wrap{max-width:1100px;margin:0 auto}
+.sec-lbl{
+  font-size:.7rem;letter-spacing:.22em;color:#009a3c;
+  font-weight:700;margin-bottom:.6rem;text-transform:uppercase;
 }
-.section-title{
-  font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.1rem);
-  font-weight:700;color:#004020;line-height:1.4;margin-bottom:1rem;
+.sec-ttl{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:700;color:#1a3a1a;
+  line-height:1.45;margin-bottom:1rem;
 }
-.section-lead{font-size:.95rem;color:var(--muted);line-height:1.85;max-width:600px}
+.sec-lead{font-size:.92rem;color:#5a6a5a;line-height:1.9;max-width:640px}
 
-/* ── PAIN SECTION ── */
-.pain{background:var(--white)}
+/* ══════════════════════════════════════════════════════════════
+   PAIN
+══════════════════════════════════════════════════════════════ */
+.sec-pain{background:#fff}
 .pain-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
   gap:1.5rem;margin-top:3rem;
 }
 .pain-card{
-  border:1.5px solid var(--border);border-radius:var(--radius);
-  padding:1.75rem;background:var(--cream);
-  position:relative;transition:all .3s var(--ease);
+  border:1.5px solid #d8e8d8;border-radius:3px;
+  padding:1.75rem;background:#f8fcf8;
+  transition:all .3s ease;
 }
-.pain-card:hover{border-color:#006834;box-shadow:var(--shadow);transform:translateY(-3px)}
-.pain-industry{
-  display:inline-block;background:#006834;color:var(--white);
-  font-size:.65rem;font-weight:600;padding:.2rem .6rem;border-radius:2px;
+.pain-card:hover{
+  border-color:#009a3c;
+  box-shadow:0 6px 24px rgba(0,154,60,.1);
+  transform:translateY(-3px);
+}
+.pain-tag{
+  display:inline-block;background:#1a5c1a;color:#fff;
+  font-size:.65rem;font-weight:700;
+  padding:.25rem .65rem;border-radius:2px;
   letter-spacing:.1em;margin-bottom:1rem;
 }
-.pain-title{font-family:var(--font-serif);font-size:1.05rem;font-weight:600;color:#004020;margin-bottom:.75rem}
-.pain-list{list-style:none}
-.pain-list li{
-  font-size:.85rem;color:var(--muted);padding:.35rem 0;
-  border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:.5rem;
+.pain-ttl{
+  font-family:'Noto Serif JP',serif;
+  font-size:1rem;font-weight:600;color:#1a3a1a;margin-bottom:.9rem;
 }
-.pain-list li:last-child{border:none}
-.pain-list li::before{content:"▸";color:var(--navy);flex-shrink:0;margin-top:.05rem}
+.pain-ul{list-style:none}
+.pain-ul li{
+  font-size:.83rem;color:#5a6a5a;
+  padding:.4rem 0;border-bottom:1px solid #e8f0e8;
+  display:flex;align-items:flex-start;gap:.5rem;
+}
+.pain-ul li:last-child{border:none}
+.pain-ul li::before{content:"▸";color:#009a3c;flex-shrink:0;margin-top:.05rem}
 
-/* ── SOLUTION ── */
-.solution{background:var(--cream)}
-.solution-inner{
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+/* ══════════════════════════════════════════════════════════════
+   LOOP（診断↔スコアリング）
+══════════════════════════════════════════════════════════════ */
+.sec-loop{background:#f5f3e8}
+.loop-grid{
+  display:grid;
+  grid-template-columns:1fr 64px 1fr;
+  gap:1.5rem;align-items:center;
   margin-top:3rem;
 }
-@media(max-width:768px){.solution-inner{grid-template-columns:1fr;gap:2rem}}
-.solution-steps{display:flex;flex-direction:column;gap:1.5rem}
-.solution-step{
-  display:flex;gap:1.25rem;align-items:flex-start;
-  padding:1.25rem;border-radius:var(--radius);
-  border:1.5px solid var(--border);background:var(--white);
-  transition:border-color .25s;
+.loop-card{
+  background:#fff;border:1.5px solid #d8e8d8;
+  border-radius:3px;padding:2rem;
 }
-.solution-step:hover{border-color:#006834}
-.solution-step-month{
-  flex-shrink:0;width:52px;height:52px;
-  background:#006834;color:var(--white);border-radius:var(--radius);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+.loop-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+.loop-icon{
+  width:46px;height:46px;background:#009a3c;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;flex-shrink:0;
 }
-.solution-step-month span:first-child{font-size:.6rem;letter-spacing:.1em;opacity:.7}
-.solution-step-month span:last-child{font-size:1.1rem;font-weight:700;font-family:'Cormorant Garamond',serif}
-.solution-step-body{}
-.solution-step-title{font-size:.95rem;font-weight:600;color:#004020;margin-bottom:.35rem}
-.solution-step-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
-.solution-visual{
-  background:#006834;border-radius:4px;padding:2.5rem;
-  position:relative;overflow:hidden;
+.loop-step{font-size:.68rem;color:#009a3c;font-weight:700;letter-spacing:.08em}
+.loop-card-ttl{font-family:'Noto Serif JP',serif;font-size:1.05rem;font-weight:700;color:#1a3a1a}
+.loop-desc{font-size:.83rem;color:#5a6a5a;line-height:1.85;margin-bottom:1.35rem}
+.loop-cta{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:#009a3c;color:#fff;
+  padding:.6rem 1.2rem;border-radius:3px;
+  font-size:.82rem;font-weight:700;text-decoration:none;
+  transition:opacity .2s;
 }
-.solution-visual::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.12) 0%,transparent 60%);
+.loop-cta:hover{opacity:.85}
+.loop-mid{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
 }
-.sv-label{font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:2rem}
-.sv-price{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.5rem;font-weight:600;color:var(--white);line-height:1;margin-bottom:.5rem;
+.loop-arr{
+  width:50px;height:50px;background:#009a3c;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.1rem;font-weight:700;
 }
-.sv-price span{font-size:1.1rem;font-weight:400;opacity:.7}
-.sv-total{font-size:.8rem;color:var(--gold-light);margin-bottom:2rem;letter-spacing:.06em}
-.sv-includes{list-style:none;display:flex;flex-direction:column;gap:.75rem}
-.sv-includes li{
-  display:flex;align-items:flex-start;gap:.6rem;
-  font-size:.83rem;color:rgba(255,255,255,.8);line-height:1.5;
+.loop-arr-lbl{font-size:.63rem;color:#7a8a7a;letter-spacing:.06em;text-align:center;line-height:1.4}
+.loop-note{
+  margin-top:2.5rem;
+  padding:1.35rem 2rem;
+  background:#fff;border:1.5px solid #d8e8d8;border-radius:3px;
+  font-size:.85rem;color:#5a6a5a;line-height:1.9;text-align:center;
 }
-.sv-includes li::before{content:"✓";color:#a8f0c0;font-weight:700;flex-shrink:0}
-.sv-note{
-  margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15);
-  font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.7;
-}
+.loop-note strong{color:#1a5c1a}
 
-/* ── COURSES ── */
-.courses{background:var(--white)}
+/* ══════════════════════════════════════════════════════════════
+   PRICE
+══════════════════════════════════════════════════════════════ */
+.sec-price{background:#fff}
+.price-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2.5rem;align-items:start;margin-top:3rem;
+}
+.price-tbl-wrap{
+  border:1.5px solid #d8e8d8;border-radius:3px;overflow:hidden;
+}
+.price-tbl-head{
+  background:#1a5c1a;padding:.85rem 1.25rem;
+  font-size:.73rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.75);font-weight:600;
+}
+table{width:100%;border-collapse:collapse}
+th{
+  background:#e8f0e8;padding:.75rem 1rem;
+  font-size:.75rem;font-weight:700;color:#1a3a1a;
+  text-align:left;letter-spacing:.06em;
+  border-bottom:1.5px solid #d8e8d8;
+}
+td{
+  padding:.75rem 1rem;font-size:.82rem;color:#3a4a3a;
+  border-bottom:1px solid #e8f0e8;
+}
+tr.hl td{background:#f0faf4;font-weight:600;color:#1a5c1a}
+.price-logic{
+  padding:1rem 1.25rem;font-size:.78rem;
+  color:#5a6a5a;line-height:1.8;
+  border-top:1px solid #d8e8d8;background:#f8fcf8;
+}
+.price-box{
+  background:#1a5c1a;border-radius:3px;padding:2.25rem;color:#fff;
+}
+.price-lbl{font-size:.68rem;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:1rem}
+.price-num{
+  font-family:'Noto Serif JP',serif;
+  font-size:3rem;font-weight:700;color:#fff;line-height:1;
+}
+.price-num span{font-size:.95rem;font-weight:400;opacity:.6}
+.price-total{font-size:.8rem;color:#7dffaa;margin:.5rem 0 1.75rem;letter-spacing:.06em}
+.price-list{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem}
+.price-list li{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.82rem;color:rgba(255,255,255,.82);line-height:1.5;
+}
+.price-list li::before{content:"✓";color:#7dffaa;font-weight:700;flex-shrink:0}
+.price-policy{
+  border-top:1px solid rgba(255,255,255,.15);
+  padding-top:1.25rem;
+  font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.8;
+}
+.price-note{margin-top:.85rem;font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.6}
+
+/* ══════════════════════════════════════════════════════════════
+   COURSES
+══════════════════════════════════════════════════════════════ */
+.sec-courses{background:#f5f3e8}
 .course-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:1.5rem;margin-top:3rem;
 }
 .course-card{
-  border:1.5px solid var(--border);border-radius:var(--radius);
-  overflow:hidden;transition:all .3s var(--ease);
+  background:#fff;border:1.5px solid #d8e8d8;border-radius:3px;
+  overflow:hidden;transition:all .3s ease;
 }
-.course-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-.course-header{
-  background:#006834;padding:1.5rem 1.75rem;
-}
-.course-num{font-size:.65rem;letter-spacing:.15em;color:var(--gold-light);margin-bottom:.35rem}
+.course-card:hover{box-shadow:0 8px 28px rgba(0,154,60,.12);transform:translateY(-3px)}
+.course-hd{background:#1a5c1a;padding:1.5rem 1.75rem}
+.course-no{font-size:.65rem;letter-spacing:.15em;color:rgba(255,255,255,.5);margin-bottom:.35rem}
 .course-name{
-  font-family:var(--font-serif);font-size:1.15rem;font-weight:700;color:var(--white);
-  margin-bottom:.35rem;
+  font-family:'Noto Serif JP',serif;
+  font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.35rem;
 }
 .course-sub{font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5}
-.course-body{padding:1.5rem 1.75rem;background:var(--cream)}
-.course-points{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.course-points li{font-size:.83rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
-.course-points li::before{content:"─";color:var(--navy);flex-shrink:0}
+.course-bd{padding:1.5rem 1.75rem}
+.course-ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.course-ul li{
+  font-size:.82rem;color:#5a6a5a;
+  display:flex;gap:.5rem;align-items:flex-start;
+}
+.course-ul li::before{content:"─";color:#009a3c;flex-shrink:0}
 
-/* ── AI DIAGNOSIS ── */
-.ai-section{
-  background:linear-gradient(150deg,#1a5c1a 0%,#009a3c 100%);
-  position:relative;overflow:hidden;
+/* ══════════════════════════════════════════════════════════════
+   FLOW
+══════════════════════════════════════════════════════════════ */
+.sec-flow{background:#fff}
+.flow-list{max-width:680px;margin-top:3rem}
+.flow-item{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid #e8f0e8}
+.flow-item:last-child{border:none}
+.flow-l{display:flex;flex-direction:column;align-items:center;gap:.3rem;flex-shrink:0}
+.flow-mo{
+  background:#009a3c;color:#fff;
+  width:58px;height:58px;border-radius:3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
-.ai-section::before{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:40px 40px;
+.flow-mo-lbl{font-size:.55rem;letter-spacing:.06em;opacity:.72}
+.flow-mo-n{
+  font-family:'Noto Serif JP',serif;
+  font-size:1.35rem;font-weight:700;line-height:1;
 }
-.ai-inner{
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+.flow-conn{width:2px;height:20px;background:#d8e8d8}
+.flow-ttl{
+  font-family:'Noto Serif JP',serif;
+  font-size:1rem;font-weight:600;color:#1a3a1a;margin-bottom:.5rem;
 }
-@media(max-width:768px){.ai-inner{grid-template-columns:1fr;gap:2rem}}
-.ai-label{
-  font-size:.72rem;letter-spacing:.2em;color:#a8f0c0;
-  font-weight:600;margin-bottom:.75rem;
-}
-.ai-title{
-  font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);
-  font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1rem;
-}
-.ai-lead{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.9;margin-bottom:2rem}
-.ai-cards{display:flex;flex-direction:column;gap:1rem}
-.ai-card{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--radius);padding:1.25rem 1.5rem;
-  display:flex;align-items:flex-start;gap:1rem;
-  transition:background .25s;
-}
-.ai-card:hover{background:rgba(255,255,255,.1)}
-.ai-card-icon{
-  width:40px;height:40px;background:var(--navy);border-radius:var(--radius);
-  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
-}
-.ai-card-title{font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:.2rem}
-.ai-card-desc{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.6}
+.flow-desc{font-size:.83rem;color:#5a6a5a;line-height:1.85}
 
-/* ── FAQ ── */
-.faq{background:var(--cream)}
-.faq-list{max-width:760px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem}
-.faq-item{
-  border:1.5px solid var(--border);border-radius:var(--radius);
-  background:var(--white);overflow:hidden;
-}
+/* ══════════════════════════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════════════════════════ */
+.sec-faq{background:#f5f3e8}
+.faq-list{max-width:780px;margin:3rem auto 0;display:flex;flex-direction:column;gap:.85rem}
+.faq-item{background:#fff;border:1.5px solid #d8e8d8;border-radius:3px;overflow:hidden}
 .faq-q{
-  padding:1.25rem 1.5rem;cursor:pointer;
-  display:flex;align-items:flex-start;gap:1rem;
-  font-size:.9rem;font-weight:600;color:#004020;
-  transition:background .2s;
+  padding:1.15rem 1.5rem;cursor:pointer;
+  display:flex;align-items:flex-start;gap:.85rem;
+  font-size:.88rem;font-weight:600;color:#1a3a1a;
+  transition:background .2s;user-select:none;
 }
-.faq-q:hover{background:#e6f2eb}
-.faq-q-mark{
-  flex-shrink:0;width:28px;height:28px;
-  background:#006834;color:var(--white);
-  border-radius:2px;display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:700;margin-top:.05rem;
+.faq-q:hover{background:#f0faf4}
+.faq-qm{
+  flex-shrink:0;width:26px;height:26px;
+  background:#1a5c1a;color:#fff;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;margin-top:.05rem;
 }
 .faq-a{
-  padding:0 1.5rem 0 calc(1.5rem + 28px + 1rem);
-  font-size:.85rem;color:var(--muted);line-height:1.85;
-  max-height:0;overflow:hidden;transition:all .35s var(--ease);
+  font-size:.84rem;color:#5a6a5a;line-height:1.9;
+  max-height:0;overflow:hidden;
+  transition:all .35s ease;
+  padding:0 1.5rem 0 calc(1.5rem + 26px + .85rem);
 }
-.faq-item.open .faq-a{max-height:300px;padding-bottom:1.25rem}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:1.25rem}
 
-/* ── CTA SECTION ── */
-.cta-section{
-  background:#004020;
-  text-align:center;padding:6rem 2rem;position:relative;overflow:hidden;
+/* ══════════════════════════════════════════════════════════════
+   COLUMN
+══════════════════════════════════════════════════════════════ */
+.sec-column{background:#fff}
+.col-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.25rem;margin-top:3rem;
 }
-.cta-section::after{
-  content:'';position:absolute;
-  bottom:0;left:0;right:0;height:4px;background:var(--navy);
+.col-card{
+  border:1.5px solid #d8e8d8;border-radius:3px;
+  padding:1.5rem;background:#f8fcf8;
+  transition:all .3s ease;
+  text-decoration:none;display:block;
 }
-.cta-title{
-  font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.2rem);
-  font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1rem;
+.col-card:hover{
+  border-color:#009a3c;
+  box-shadow:0 4px 16px rgba(0,154,60,.1);
+  transform:translateY(-2px);
 }
-.cta-lead{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.9;margin-bottom:2.5rem}
-.cta-actions{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.cta-note{margin-top:1.5rem;font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.7}
+.col-tag{
+  display:inline-block;
+  background:#e8f5ee;color:#009a3c;
+  font-size:.65rem;font-weight:700;
+  padding:.2rem .55rem;border-radius:2px;
+  letter-spacing:.08em;margin-bottom:.75rem;
+}
+.col-ttl{
+  font-size:.9rem;font-weight:600;color:#1a3a1a;
+  line-height:1.55;margin-bottom:.5rem;
+}
+.col-date{font-size:.72rem;color:#8a9a8a}
+.col-more{text-align:center;margin-top:2rem}
 
-/* ── FOOTER ── */
+/* ══════════════════════════════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════════════════════════════ */
+.sec-cta{
+  background:#1a5c1a;
+  padding:6rem 2rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.sec-cta::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.cta-in{position:relative;z-index:1}
+.cta-ttl{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(1.5rem,3.5vw,2.2rem);
+  font-weight:700;color:#fff;
+  line-height:1.45;margin-bottom:1rem;
+}
+.cta-lead{font-size:.92rem;color:rgba(255,255,255,.72);line-height:1.9;margin-bottom:2.5rem}
+.cta-btns{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap}
+.cta-note{margin-top:1.5rem;font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.7}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════ */
 footer{
-  background:#004020;border-top:1px solid rgba(255,255,255,.08);
+  background:#0d2e0d;
   padding:2rem;text-align:center;
+  border-top:3px solid #009a3c;
 }
-.footer-logo{
-  font-family:var(--font-serif);font-size:1rem;color:var(--white);
-  letter-spacing:.1em;margin-bottom:.5rem;
+.ft-name{font-family:'Noto Serif JP',serif;font-size:.95rem;color:#fff;letter-spacing:.1em;margin-bottom:.4rem}
+.ft-sub{font-size:.72rem;color:rgba(255,255,255,.38);margin-bottom:.75rem}
+.ft-copy{font-size:.68rem;color:rgba(255,255,255,.25);letter-spacing:.08em}
+
+/* ══════════════════════════════════════════════════════════════
+   REVEAL
+══════════════════════════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+@media(max-width:800px){
+  .loop-grid{grid-template-columns:1fr;gap:1.25rem}
+  .loop-mid{flex-direction:row;justify-content:center}
+  .price-grid{grid-template-columns:1fr;gap:2rem}
 }
-.footer-sub{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:1rem}
-.footer-copy{font-size:.72rem;color:rgba(255,255,255,.3);letter-spacing:.08em}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-
-/* ── RESPONSIVE ── */
 @media(max-width:640px){
-  nav{padding:.75rem 1.25rem}
-  .hero{padding:7rem 1.25rem 4rem}
-  .hero-stats{gap:1.5rem}
-  section{padding:3.5rem 1.25rem}
-  .trust-bar{gap:1.2rem;padding:.9rem 1rem}
+  .nav{padding:.75rem 1rem}
+  .hero{padding:7.5rem 1.25rem 4.5rem}
+  .hero-stats{gap:1.75rem}
+  .sec{padding:3.5rem 1.25rem}
+  .trust{gap:1rem;padding:.85rem 1rem}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-mark">NX</div>
+<!-- ══ NAV ══════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-left">
+    <div class="nav-mark">NX</div>
     <div>
-      <span class="nav-logo-text">Nexcess</span>
-      <span class="nav-logo-sub">保証協会融資 伴走支援</span>
+      <span class="nav-name">Nexcess</span>
+      <span class="nav-sub">保証協会融資 伴走支援</span>
     </div>
   </a>
-  <a href="#diagnosis" class="nav-cta">無料AI診断を受ける</a>
+  <a href="#diagnosis" class="nav-btn">無料AI診断を受ける</a>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-radial"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">
+    <div class="hero-badges">
       <span class="hero-badge">AI診断 無料</span>
-      <span>建設・飲食・運送業 特化</span>
+      <span class="hero-badge-sub">建設・飲食・運送業 / 中小零細・一人親方 特化</span>
     </div>
     <h1 class="hero-h1">
       保証協会融資、<br>
@@ -399,69 +504,70 @@ footer{
     </h1>
     <p class="hero-lead">
       「審査に落ちた」「書類が複雑でわからない」「どこに相談すればいい？」<br>
-      中小零細・一人親方の資金調達を、月額定額で支援します。
+      AI診断 × 銀行格付シミュレーションで現状を把握し、<br>
+      月額定額の伴走支援で融資実行まで導きます。
     </p>
-    <div class="hero-actions">
-      <a href="#diagnosis" class="btn-primary">⚡ 無料AI診断を受ける（約1分）</a>
-      <a href="#solution" class="btn-secondary">サービスを見る →</a>
+    <div class="hero-btns">
+      <a href="diagnosis.html" class="btn-g">⚡ 無料AI診断（約1分）</a>
+      <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">3ヶ月</div>
-        <div class="hero-stat-label">STANDARD PROGRAM</div>
+      <div>
+        <div class="hero-stat-n">¥50,000</div>
+        <div class="hero-stat-l">月額定額（税別）</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">¥50,000</div>
-        <div class="hero-stat-label">MONTHLY / TAX EXCL.</div>
+      <div>
+        <div class="hero-stat-n">3ヶ月</div>
+        <div class="hero-stat-l">標準伴走期間</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">成果</div>
-        <div class="hero-stat-label">REPORT NOT FEE</div>
+      <div>
+        <div class="hero-stat-n">成果報酬</div>
+        <div class="hero-stat-l">なし・中途解約可</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-item"><span class="trust-icon">✓</span> 成果報酬なし・定額制</div>
-  <div class="trust-item"><span class="trust-icon">✓</span> 中途解約可</div>
-  <div class="trust-item"><span class="trust-icon">✓</span> CFP・財務FP資格保有</div>
-  <div class="trust-item"><span class="trust-icon">✓</span> 建設業・飲食業・運送業 特化</div>
-  <div class="trust-item"><span class="trust-icon">✓</span> 申請から実行まで一貫対応</div>
+<!-- ══ TRUST BAR ══════════════════════════════════════════════ -->
+<div class="trust">
+  <div class="trust-item"><div class="trust-ck">✓</div>成果報酬なし・定額制</div>
+  <div class="trust-item"><div class="trust-ck">✓</div>中途解約可</div>
+  <div class="trust-item"><div class="trust-ck">✓</div>建設・飲食・運送 特化</div>
+  <div class="trust-item"><div class="trust-ck">✓</div>AI診断 + 格付シミュで現状把握</div>
+  <div class="trust-item"><div class="trust-ck">✓</div>申請〜実行まで一貫支援</div>
 </div>
 
-<!-- PAIN -->
-<section class="pain">
-  <div class="container">
-    <p class="section-label reveal">IDENTIFIED ISSUES</p>
-    <h2 class="section-title reveal">こんな「融資の壁」、<br>一人で抱えていませんか？</h2>
-    <p class="section-lead reveal">業種によって融資の落とし穴は異なります。よくある課題を業種別に整理しました。</p>
+<!-- ══ PAIN ══════════════════════════════════════════════════ -->
+<section class="sec sec-pain">
+  <div class="wrap">
+    <p class="sec-lbl rv">IDENTIFIED ISSUES</p>
+    <h2 class="sec-ttl rv">こんな「融資の壁」、<br>一人で抱えていませんか？</h2>
+    <p class="sec-lead rv">業種によって融資の落とし穴は異なります。よくある課題を業種別に整理しました。</p>
     <div class="pain-grid">
-      <div class="pain-card reveal">
-        <span class="pain-industry">建設業</span>
-        <div class="pain-title">着工資金・つなぎ融資の難しさ</div>
-        <ul class="pain-list">
-          <li>入金サイクルが長く、手元資金が不足しがち</li>
+      <div class="pain-card rv">
+        <span class="pain-tag">建設業</span>
+        <div class="pain-ttl">着工資金・つなぎ融資の難しさ</div>
+        <ul class="pain-ul">
+          <li>入金サイクルが長く手元資金が不足しがち</li>
           <li>資金繰り表の作成・説明が苦手</li>
           <li>保証協会に申請したが審査が通らなかった</li>
           <li>工事規模に対して融資枠が小さい</li>
         </ul>
       </div>
-      <div class="pain-card reveal">
-        <span class="pain-industry">飲食業</span>
-        <div class="pain-title">開業・設備投資の資金調達</div>
-        <ul class="pain-list">
+      <div class="pain-card rv">
+        <span class="pain-tag">飲食業</span>
+        <div class="pain-ttl">開業・設備投資の資金調達</div>
+        <ul class="pain-ul">
           <li>創業計画書の書き方がわからない</li>
           <li>売上予測の根拠をどう示すか</li>
-          <li>内装費・設備費の見積もりと融資額の調整</li>
+          <li>内装費・設備費と融資額の調整</li>
           <li>コロナ融資の返済と新規借入の両立</li>
         </ul>
       </div>
-      <div class="pain-card reveal">
-        <span class="pain-industry">運送業 / 一人親方</span>
-        <div class="pain-title">車両・機械導入の投資判断</div>
-        <ul class="pain-list">
+      <div class="pain-card rv">
+        <span class="pain-tag">運送業・一人親方</span>
+        <div class="pain-ttl">車両・機械導入の投資判断</div>
+        <ul class="pain-ul">
           <li>車両購入の投資対効果の算出が難しい</li>
           <li>法人化前後の融資申請タイミング</li>
           <li>銀行との交渉を一人でやる負担</li>
@@ -472,66 +578,108 @@ footer{
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="solution" id="solution">
-  <div class="container">
-    <p class="section-label reveal">HOW WE WORK</p>
-    <h2 class="section-title reveal">3ヶ月の伴走で、<br>融資実行まで導きます。</h2>
-    <div class="solution-inner">
-      <div class="solution-steps">
-        <div class="solution-step reveal">
-          <div class="solution-step-month"><span>1ヶ月目</span><span>01</span></div>
-          <div class="solution-step-body">
-            <div class="solution-step-title">AI診断・ヒアリング・銀行選定</div>
-            <div class="solution-step-desc">AI診断の精査、詳細ヒアリング、書類準備、金融機関・保証協会の選定まで。最適な申請ルートを設計します。</div>
+<!-- ══ LOOP ══════════════════════════════════════════════════ -->
+<section class="sec sec-loop" id="diagnosis">
+  <div class="wrap">
+    <p class="sec-lbl rv">TWO-TOOL APPROACH</p>
+    <h2 class="sec-ttl rv">「感覚」と「数字」の両面で<br>現状を把握する。</h2>
+    <p class="sec-lead rv">AI診断（定性）と銀行格付シミュレーション（定量）を組み合わせることで、融資可能性を多角的に把握。専門家への相談前に、自分の状況を整理できます。</p>
+    <div class="loop-grid">
+
+      <div class="loop-card rv">
+        <div class="loop-head">
+          <div class="loop-icon">⚡</div>
+          <div>
+            <div class="loop-step">STEP 01 / 定性診断</div>
+            <div class="loop-card-ttl">無料AI診断</div>
           </div>
         </div>
-        <div class="solution-step reveal">
-          <div class="solution-step-month"><span>2ヶ月目</span><span>02</span></div>
-          <div class="solution-step-body">
-            <div class="solution-step-title">書類完成・申請</div>
-            <div class="solution-step-desc">資金繰り表・事業計画書への数値流し込み、書類完成、銀行・信用保証協会への提出代行。</div>
+        <p class="loop-desc">業種・課題・資金用途を5問で入力するだけ。AIが融資可能性・課題・最適コースを即時分析します。「いけそうか？」の感覚的な手応えをまず掴む。</p>
+        <a href="diagnosis.html" class="loop-cta">⚡ 診断を受ける（約1分）→</a>
+      </div>
+
+      <div class="loop-mid rv">
+        <div class="loop-arr">⇄</div>
+        <div class="loop-arr-lbl">相互に<br>回遊</div>
+      </div>
+
+      <div class="loop-card rv">
+        <div class="loop-head">
+          <div class="loop-icon">📊</div>
+          <div>
+            <div class="loop-step">STEP 02 / 定量分析</div>
+            <div class="loop-card-ttl">銀行格付シミュレーション</div>
           </div>
         </div>
-        <div class="solution-step reveal">
-          <div class="solution-step-month"><span>3ヶ月目</span><span>03</span></div>
-          <div class="solution-step-body">
-            <div class="solution-step-title">審査フォロー・融資実行</div>
-            <div class="solution-step-desc">追加照会への即時対応、審査フォロー、融資実行まで完全サポート。その後の顧問契約もご相談可能。</div>
-          </div>
+        <p class="loop-desc">財務データを入力し、銀行がどう評価するかを数値で把握。具体的な調達可能額・格付スコアを知り、「どこを改善すれば通るか」を明確にする。</p>
+        <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="loop-cta">📊 格付シミュレーション →</a>
+      </div>
+
+    </div>
+    <div class="loop-note rv">
+      <strong>両方完了したら → 無料相談へ。</strong>
+      診断・格付の両データを持った状態で相談に来ることで、初回から具体的な戦術提案が可能になります。面談での状況把握に時間を使わず、「どう通すか」の話に集中できます。
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICE ══════════════════════════════════════════════════ -->
+<section class="sec sec-price">
+  <div class="wrap">
+    <p class="sec-lbl rv">PRICING</p>
+    <h2 class="sec-ttl rv">月額5万円が、<br>なぜ「割安」なのか。</h2>
+    <p class="sec-lead rv">成功報酬型との比較、そして「なぜこの価格で専門家品質を維持できるか」を正直にお伝えします。</p>
+    <div class="price-grid">
+      <div class="price-tbl-wrap rv">
+        <div class="price-tbl-head">他社との費用比較（1,000万円調達ケース）</div>
+        <table>
+          <thead><tr><th>サービス形態</th><th>費用目安</th></tr></thead>
+          <tbody>
+            <tr><td>成功報酬型（3〜5%）</td><td>30万〜50万円</td></tr>
+            <tr><td>税理士・コンサル顧問（月額）</td><td>5万〜15万円×期間</td></tr>
+            <tr class="hl"><td>Nexcess 定額伴走</td><td>総額 <strong>15万円</strong>（税別）</td></tr>
+          </tbody>
+        </table>
+        <div class="price-logic">
+          AIによる業務の標準化・自動化により、専門家の品質を維持したまま余分な人件費コストをカット。1,000万円超の調達ケースでは成功報酬型の<strong style="color:#1a5c1a">数分の一の費用</strong>で対応可能です。
         </div>
       </div>
-      <div class="solution-visual reveal">
-        <div class="sv-label">PRICING / 料金</div>
-        <div class="sv-price">¥50,000<span>/ 月（税別）</span></div>
-        <div class="sv-total">3ヶ月総額 ¥150,000（税別）</div>
-        <ul class="sv-includes">
-          <li>AI事前診断・スコアリング分析</li>
+      <div class="price-box rv">
+        <div class="price-lbl">MONTHLY FEE / 月額料金</div>
+        <div class="price-num">¥50,000<span>/ 月（税別）</span></div>
+        <div class="price-total">3ヶ月総額 ¥150,000（税別）</div>
+        <ul class="price-list">
+          <li>AI事前診断・格付スコアリング分析</li>
           <li>書類作成支援（資金繰り表・事業計画書）</li>
           <li>金融機関・保証協会との交渉サポート</li>
-          <li>審査フォロー・追加照会対応</li>
+          <li>審査フォロー・追加照会即時対応</li>
           <li>月1回以上の進捗面談（オンライン可）</li>
         </ul>
-        <div class="sv-note">着手金形式（月払い）・成果報酬なし・中途解約可<br>※ 融資の成否を保証するものではありません</div>
+        <div class="price-policy">
+          着手金形式（月払い）・成果報酬なし・中途解約可。<br>
+          提供するのは書類作成・申請・交渉の「役務」です。<br>
+          弁護士への着手金と同じ考え方です。
+        </div>
+        <div class="price-note">※ 融資の成否を保証するものではありません</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COURSES -->
-<section class="courses">
-  <div class="container">
-    <p class="section-label reveal">SERVICE COURSES</p>
-    <h2 class="section-title reveal">3つの融資コース</h2>
+<!-- ══ COURSES ══════════════════════════════════════════════ -->
+<section class="sec sec-courses">
+  <div class="wrap">
+    <p class="sec-lbl rv">SERVICE COURSES</p>
+    <h2 class="sec-ttl rv">3つの融資コース</h2>
     <div class="course-grid">
-      <div class="course-card reveal">
-        <div class="course-header">
-          <div class="course-num">COURSE 01</div>
+      <div class="course-card rv">
+        <div class="course-hd">
+          <div class="course-no">COURSE 01</div>
           <div class="course-name">創業融資コース</div>
           <div class="course-sub">開業前後の資金調達</div>
         </div>
-        <div class="course-body">
-          <ul class="course-points">
+        <div class="course-bd">
+          <ul class="course-ul">
             <li>創業計画書の論理構成・数値設計</li>
             <li>日本政策金融公庫との連携</li>
             <li>信用保証協会との事前調整</li>
@@ -539,14 +687,14 @@ footer{
           </ul>
         </div>
       </div>
-      <div class="course-card reveal">
-        <div class="course-header">
-          <div class="course-num">COURSE 02</div>
+      <div class="course-card rv">
+        <div class="course-hd">
+          <div class="course-no">COURSE 02</div>
           <div class="course-name">運転資金コース</div>
           <div class="course-sub">建設業・受注業向け資金繰り改善</div>
         </div>
-        <div class="course-body">
-          <ul class="course-points">
+        <div class="course-bd">
+          <ul class="course-ul">
             <li>入金サイクル分析と資金繰り表作成</li>
             <li>保証協会「一般保証」「セーフティネット」活用</li>
             <li>既存借入との整合性調整</li>
@@ -554,17 +702,17 @@ footer{
           </ul>
         </div>
       </div>
-      <div class="course-card reveal">
-        <div class="course-header">
-          <div class="course-num">COURSE 03</div>
+      <div class="course-card rv">
+        <div class="course-hd">
+          <div class="course-no">COURSE 03</div>
           <div class="course-name">設備資金コース</div>
           <div class="course-sub">車両・機械・内装導入</div>
         </div>
-        <div class="course-body">
-          <ul class="course-points">
+        <div class="course-bd">
+          <ul class="course-ul">
             <li>投資対効果（ROI）の算出・文書化</li>
             <li>設備購入と融資タイミングの最適化</li>
-            <li>信用保証協会「設備資金保証」の活用</li>
+            <li>信用保証協会「設備資金保証」活用</li>
             <li>減価償却計画と返済計画の整合</li>
           </ul>
         </div>
@@ -573,120 +721,144 @@ footer{
   </div>
 </section>
 
-<!-- AI DIAGNOSIS -->
-<section class="ai-section" id="diagnosis">
-  <div class="container">
-    <div class="ai-inner">
-      <div>
-        <p class="ai-label reveal">AI DIAGNOSIS / 無料診断</p>
-        <h2 class="ai-title reveal">まず、<br>現状を整理する。</h2>
-        <p class="ai-lead reveal">
-          5つの質問に答えるだけで、あなたの融資可能性と最適なアプローチをAIが即時分析します。相談・勧誘は一切ありません。
-        </p>
-        <a href="diagnosis.html" class="btn-primary reveal">⚡ 無料AI診断を受ける（約1分）</a>
-        <p style="margin-top:1rem;font-size:.72rem;color:rgba(255,255,255,.4)" class="reveal">法律・融資の確約を行うものではありません</p>
+<!-- ══ FLOW ══════════════════════════════════════════════════ -->
+<section class="sec sec-flow">
+  <div class="wrap">
+    <p class="sec-lbl rv">HOW WE WORK</p>
+    <h2 class="sec-ttl rv">3ヶ月の伴走で、<br>融資実行まで導きます。</h2>
+    <div class="flow-list">
+      <div class="flow-item rv">
+        <div class="flow-l">
+          <div class="flow-mo"><span class="flow-mo-lbl">1ヶ月目</span><span class="flow-mo-n">01</span></div>
+          <div class="flow-conn"></div>
+        </div>
+        <div>
+          <div class="flow-ttl">AI診断・ヒアリング・銀行選定</div>
+          <div class="flow-desc">AI診断・格付シミュの精査、詳細ヒアリング、書類準備、金融機関・保証協会の選定。最適な申請ルートを設計します。</div>
+        </div>
       </div>
-      <div class="ai-cards">
-        <div class="ai-card reveal">
-          <div class="ai-card-icon">📊</div>
-          <div>
-            <div class="ai-card-title">融資可能性スコアリング</div>
-            <div class="ai-card-desc">業種・規模・資金用途・財務状況をAIが総合評価。保証協会審査の通過可能性を即時スコア化します。</div>
-          </div>
+      <div class="flow-item rv">
+        <div class="flow-l">
+          <div class="flow-mo"><span class="flow-mo-lbl">2ヶ月目</span><span class="flow-mo-n">02</span></div>
+          <div class="flow-conn"></div>
         </div>
-        <div class="ai-card reveal">
-          <div class="ai-card-icon">📋</div>
-          <div>
-            <div class="ai-card-title">最適コース・制度の提案</div>
-            <div class="ai-card-desc">創業・運転・設備の3コースから最適なものを判定。活用すべき保証制度も自動で特定します。</div>
-          </div>
+        <div>
+          <div class="flow-ttl">書類完成・申請</div>
+          <div class="flow-desc">資金繰り表・事業計画書への数値流し込み、書類完成、銀行・信用保証協会への提出。</div>
         </div>
-        <div class="ai-card reveal">
-          <div class="ai-card-icon">📅</div>
-          <div>
-            <div class="ai-card-title">そのまま相談予約へ</div>
-            <div class="ai-card-desc">診断結果を持ったまま無料相談を予約。初回面談は診断内容の確認から始まるので、準備不要です。</div>
-          </div>
+      </div>
+      <div class="flow-item rv">
+        <div class="flow-l">
+          <div class="flow-mo"><span class="flow-mo-lbl">3ヶ月目</span><span class="flow-mo-n">03</span></div>
+        </div>
+        <div>
+          <div class="flow-ttl">審査フォロー・融資実行</div>
+          <div class="flow-desc">追加照会への即時対応、審査フォロー、融資実行まで完全サポート。その後の顧問契約もご相談可能。</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq">
-  <div class="container">
-    <p class="section-label reveal" style="text-align:center">FAQ</p>
-    <h2 class="section-title reveal" style="text-align:center;max-width:100%">よくある質問</h2>
+<!-- ══ FAQ ══════════════════════════════════════════════════ -->
+<section class="sec sec-faq">
+  <div class="wrap">
+    <p class="sec-lbl rv" style="text-align:center">FAQ</p>
+    <h2 class="sec-ttl rv" style="text-align:center;max-width:100%">よくある質問</h2>
     <div class="faq-list">
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-mark">Q</span>
-          成果報酬がないと、通らなかったときに損ではないですか？
+      <div class="faq-item rv">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-qm">Q</span>
+          成果報酬がないと、融資が通らなかったとき損ではないですか？
         </div>
-        <div class="faq-a">提供するのは「融資実行」ではなく「書類作成・申請・交渉の役務」です。弁護士への着手金と同じ考え方です。一方で、プロが関与することで通過率は有意に向上します。成否にかかわらず、銀行・保証協会との関係構築や書類の質は確実に高まります。</div>
+        <div class="faq-a">提供するのは「融資実行」ではなく「書類作成・申請・交渉の役務」です。弁護士への着手金と同じ考え方です。プロが関与することで通過率は有意に向上し、銀行・保証協会との関係構築や書類の質は確実に高まります。</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-mark">Q</span>
+      <div class="faq-item rv">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-qm">Q</span>
           一人親方・個人事業主でも利用できますか？
         </div>
         <div class="faq-a">はい、対応しています。特に建設業の一人親方は、元請けとの契約書・工事台帳・確定申告書の整理など、特有の書類準備が必要です。業種実態に即した対応が可能です。</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-mark">Q</span>
-          信用保証協会と政策金融公庫、どちらを使うべきですか？
-        </div>
-        <div class="faq-a">資金用途・業種・信用状況によって最適解が異なります。AI診断の結果と面談内で整理します。一般的に、保証協会は民間銀行と組み合わせた融資に、政策金融公庫は直接融資に強みがあります。</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-mark">Q</span>
+      <div class="faq-item rv">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-qm">Q</span>
           過去に審査が落ちたことがありますが、相談できますか？
         </div>
-        <div class="faq-a">むしろそのケースこそ、ご相談の価値があります。落ちた理由の多くは「書類の不備」「説明の論理構成」「申請先の選択ミス」です。AI診断で現状を整理した上で、対策を設計します。</div>
+        <div class="faq-a">むしろそのケースこそ相談の価値があります。落ちた理由の多くは「書類の不備」「説明の論理構成」「申請先の選択ミス」です。AI診断・格付シミュで現状を整理した上で、対策を設計します。</div>
+      </div>
+      <div class="faq-item rv">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-qm">Q</span>
+          保証協会と政策金融公庫、どちらを使うべきですか？
+        </div>
+        <div class="faq-a">資金用途・業種・信用状況によって最適解が異なります。AI診断と面談の中で整理します。一般的に保証協会は民間銀行と組み合わせた融資に、政策金融公庫は直接融資に強みがあります。</div>
+      </div>
+      <div class="faq-item rv">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-qm">Q</span>
+          月5万円は高くないですか？
+        </div>
+        <div class="faq-a">成功報酬型（融資額の3〜5%）と比較すると、1,000万円超の調達ケースでは費用が数分の一になります。AIによる業務標準化で余分なコストをカットし、専門家品質を月額定額で提供しています。</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="container">
-    <h2 class="cta-title reveal">融資を通すための<br>最初の一歩は、現状の整理から。</h2>
-    <p class="cta-lead reveal">AI診断は無料・約1分。診断後の相談・勧誘は一切ありません。</p>
-    <div class="cta-actions reveal">
-      <a href="diagnosis.html" class="btn-primary">⚡ 無料AI診断を受ける</a>
+<!-- ══ COLUMN ══════════════════════════════════════════════ -->
+<section class="sec sec-column">
+  <div class="wrap">
+    <p class="sec-lbl rv">COLUMN</p>
+    <h2 class="sec-ttl rv">融資の「なぜ」を整理する。</h2>
+    <p class="sec-lead rv">建設・飲食・運送業の融資実務をもとに、保証協会・審査・書類の論点を事例ベースで解説します。</p>
+    <div class="col-grid">
+      <a href="column/kensetsu-shikin.html" class="col-card rv">
+        <span class="col-tag">建設業</span>
+        <div class="col-ttl">建設業の「資金繰り表」はなぜ審査で重要なのか——入金サイクルと融資の関係</div>
+        <div class="col-date">2026.04.20</div>
+      </a>
+      <a href="column/hitori-oyakata-yushi.html" class="col-card rv">
+        <span class="col-tag">一人親方</span>
+        <div class="col-ttl">一人親方が保証協会融資を受けるための3つの条件</div>
+        <div class="col-date">2026.04.15</div>
+      </a>
+      <a href="column/shinsa-ochita.html" class="col-card rv">
+        <span class="col-tag">審査対策</span>
+        <div class="col-ttl">保証協会の審査に落ちた本当の理由——書類・論理・申請先の3つの落とし穴</div>
+        <div class="col-date">2026.04.10</div>
+      </a>
     </div>
-    <p class="cta-note reveal">法律・融資の確約・保証を行うものではありません。診断はあくまで現状整理・参考情報の提供です。</p>
+    <div class="col-more rv">
+      <a href="column/" class="btn-g">コラム一覧を見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══════════════════════════════════════════════════ -->
+<section class="sec-cta">
+  <div class="cta-in">
+    <h2 class="cta-ttl rv">融資を通すための最初の一歩は、<br>現状の整理から。</h2>
+    <p class="cta-lead rv">AI診断は無料・約1分。銀行格付シミュレーションと組み合わせることで、<br>「感覚」と「数字」の両面から現状を把握できます。</p>
+    <div class="cta-btns rv">
+      <a href="diagnosis.html" class="btn-g">⚡ 無料AI診断を受ける</a>
+      <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
+    </div>
+    <p class="cta-note rv">法律・融資の確約・保証を行うものではありません。診断はあくまで現状整理・参考情報の提供です。</p>
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">Nexcess</div>
-  <div class="footer-sub">保証協会融資 伴走コンサルティング</div>
-  <div class="footer-copy">© 2026 合同会社 Nexcess. All rights reserved.</div>
+  <div class="ft-name">Nexcess</div>
+  <div class="ft-sub">保証協会融資 伴走コンサルティング</div>
+  <div class="ft-copy">© 2026 合同会社 Nexcess. All rights reserved.</div>
 </footer>
 
 <script>
-// Scroll reveal
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-// Nav scroll
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').style.boxShadow =
-    window.scrollY > 60 ? '0 4px 24px rgba(0,0,0,.3)' : 'none';
-});
-
-// FAQ toggle
-function toggleFaq(el) {
-  const item = el.parentElement;
-  item.classList.toggle('open');
-}
+const ro = new IntersectionObserver(
+  entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }),
+  { threshold: 0.08 }
+);
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
 </script>
 </body>
 </html>
