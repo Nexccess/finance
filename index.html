@@ -509,7 +509,7 @@ footer{
     </p>
     <div class="hero-btns">
       <a href="diagnosis.html" class="btn-g">⚡ 無料AI診断（約1分）</a>
-      <a href="https://demoscoring.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
+      <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -612,7 +612,7 @@ footer{
           </div>
         </div>
         <p class="loop-desc">財務データを入力し、銀行がどう評価するかを数値で把握。具体的な調達可能額・格付スコアを知り、「どこを改善すれば通るか」を明確にする。</p>
-        <a href="https://demoscoring.nexccess.com/" target="_blank" rel="noopener" class="loop-cta">📊 格付シミュレーション →</a>
+        <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="loop-cta">📊 格付シミュレーション →</a>
       </div>
 
     </div>
@@ -811,24 +811,10 @@ footer{
     <p class="sec-lbl rv">COLUMN</p>
     <h2 class="sec-ttl rv">融資の「なぜ」を整理する。</h2>
     <p class="sec-lead rv">建設・飲食・運送業の融資実務をもとに、保証協会・審査・書類の論点を事例ベースで解説します。</p>
-    <div class="col-grid">
-      <a href="column/kensetsu-shikin.html" class="col-card rv">
-        <span class="col-tag">建設業</span>
-        <div class="col-ttl">建設業の「資金繰り表」はなぜ審査で重要なのか——入金サイクルと融資の関係</div>
-        <div class="col-date">2026.04.20</div>
-      </a>
-      <a href="column/hitori-oyakata-yushi.html" class="col-card rv">
-        <span class="col-tag">一人親方</span>
-        <div class="col-ttl">一人親方が保証協会融資を受けるための3つの条件</div>
-        <div class="col-date">2026.04.15</div>
-      </a>
-      <a href="column/shinsa-ochita.html" class="col-card rv">
-        <span class="col-tag">審査対策</span>
-        <div class="col-ttl">保証協会の審査に落ちた本当の理由——書類・論理・申請先の3つの落とし穴</div>
-        <div class="col-date">2026.04.10</div>
-      </a>
+    <div class="col-grid" id="lp-col-grid" style="margin-top:3rem">
+      <!-- columns.jsonから最新3件を自動表示 -->
     </div>
-    <div class="col-more rv">
+    <div class="col-more rv" style="text-align:center;margin-top:2rem">
       <a href="column/" class="btn-g">コラム一覧を見る →</a>
     </div>
   </div>
@@ -841,7 +827,7 @@ footer{
     <p class="cta-lead rv">AI診断は無料・約1分。銀行格付シミュレーションと組み合わせることで、<br>「感覚」と「数字」の両面から現状を把握できます。</p>
     <div class="cta-btns rv">
       <a href="diagnosis.html" class="btn-g">⚡ 無料AI診断を受ける</a>
-      <a href="https://demoscoring.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
+      <a href="https://demoscoring-sys.nexccess.com/" target="_blank" rel="noopener" class="btn-w">📊 銀行格付シミュレーション</a>
     </div>
     <p class="cta-note rv">法律・融資の確約・保証を行うものではありません。診断はあくまで現状整理・参考情報の提供です。</p>
   </div>
@@ -859,6 +845,28 @@ const ro = new IntersectionObserver(
   { threshold: 0.08 }
 );
 document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// LP コラム最新3件をcolumns.jsonから自動表示
+(async () => {
+  try {
+    const res = await fetch('./columns.json?v=' + Date.now());
+    const articles = await res.json();
+    const latest = articles.slice(0, 3);
+    document.getElementById('lp-col-grid').innerHTML = latest.map(a => `
+      <a href="column/${a.file}" class="col-card rv">
+        <span class="col-tag">${a.tag}</span>
+        <div class="col-ttl">${a.title}</div>
+        <div class="col-desc">${a.desc}</div>
+        <div class="col-meta" style="display:flex;align-items:center;justify-content:space-between;margin-top:.5rem">
+          <span style="font-size:.72rem;color:#8a9a8a">${a.date}</span>
+          <span style="font-size:.75rem;color:#009a3c;font-weight:600">読む →</span>
+        </div>
+      </a>
+    `).join('');
+    // 新しいカードにreveal適用
+    document.querySelectorAll('#lp-col-grid .rv').forEach(el => ro.observe(el));
+  } catch(e) {}
+})();
 </script>
 </body>
 </html>
