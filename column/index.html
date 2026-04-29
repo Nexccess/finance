@@ -3,175 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>コラム一覧 | 保証協会融資 伴走コンサルティング | Nexcess</title>
-<meta name="description" content="建設業・飲食業・運送業の保証協会融資に関するコラム。審査落ち対策・資金繰り表・事業計画書など実務に基づいた情報を提供します。">
+<title>保証協会融資コラム一覧 | Nexcess</title>
+<meta name="description" content="建設業・飲食業・運送業・一人親方向けの保証協会融資コラム。審査対策・資金繰り・書類作成など実務に基づく情報を提供します。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-:root{
-  --g1:#1a5c1a;--g2:#009a3c;--g3:#00b347;
-  --g-bg:#e8f5ee;--cream:#f5f3e8;--white:#ffffff;
-  --text:#1a1a1a;--muted:#5a6a5a;--border:rgba(0,154,60,.15);
-  --shadow:0 4px 24px rgba(0,100,30,.10);--r:4px;
-  --serif:'Noto Serif JP',serif;--sans:'Noto Sans JP',sans-serif;
-  --ease:cubic-bezier(.16,1,.3,1);
-}
-body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.7}
-nav{
-  position:sticky;top:0;z-index:100;background:var(--g1);
-  border-bottom:3px solid var(--g2);padding:.85rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
-.nav-mark{width:32px;height:32px;background:#fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.72rem;font-weight:700;color:var(--g1)}
-.nav-name{font-family:var(--serif);color:#fff;font-size:.9rem;font-weight:500;letter-spacing:.06em}
-.nav-back{font-size:.78rem;color:rgba(255,255,255,.7);text-decoration:none;letter-spacing:.06em}
-.nav-back:hover{color:#fff}
+body{font-family:'Noto Sans JP',sans-serif;color:#1a1a1a;background:#f5f3e8;line-height:1.7}
+.nav{background:#1a5c1a;border-bottom:3px solid #009a3c;padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav a{text-decoration:none}
+.nav-logo{display:flex;align-items:center;gap:.75rem}
+.nav-mark{width:36px;height:36px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif JP',serif;font-weight:700;font-size:.82rem;color:#1a5c1a}
+.nav-name{color:#fff;font-size:.92rem;font-weight:600;letter-spacing:.06em}
+.nav-back{color:rgba(255,255,255,.8);font-size:.8rem;letter-spacing:.06em;border:1px solid rgba(255,255,255,.3);padding:.4rem .9rem;border-radius:3px;transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.1);color:#fff}
 
-.page-hero{
-  background:linear-gradient(150deg,#0d3d0d 0%,#1a5c1a 100%);
-  padding:4rem 2rem 3rem;text-align:center;
-}
-.page-hero h1{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:.75rem}
-.page-hero p{font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.8}
+.page-header{background:#1a5c1a;padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px}
+.page-header-in{position:relative;z-index:1}
+.page-lbl{font-size:.7rem;letter-spacing:.22em;color:rgba(255,255,255,.5);margin-bottom:.6rem}
+.page-ttl{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:.75rem}
+.page-desc{font-size:.88rem;color:rgba(255,255,255,.7);max-width:560px;margin:0 auto}
 
-.col-body{max-width:1060px;margin:0 auto;padding:3rem 2rem}
+.main{max-width:1100px;margin:0 auto;padding:3.5rem 2rem}
 
-.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
-.filter-btn{
-  padding:.35rem .85rem;border-radius:2px;font-size:.75rem;font-weight:600;
-  cursor:pointer;border:1.5px solid var(--border);background:var(--white);
-  color:var(--muted);transition:all .2s;letter-spacing:.06em;
-}
-.filter-btn.active,.filter-btn:hover{background:var(--g1);color:#fff;border-color:var(--g1)}
+.filters{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-btn{background:#fff;border:1.5px solid #d8e8d8;padding:.4rem .9rem;border-radius:2px;font-size:.78rem;font-weight:600;color:#4a5a4a;cursor:pointer;transition:all .2s;letter-spacing:.06em}
+.filter-btn.active,.filter-btn:hover{background:#009a3c;border-color:#009a3c;color:#fff}
 
-.col-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
-  gap:1.25rem;
-}
-.col-card{
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--white);overflow:hidden;text-decoration:none;
-  display:block;transition:all .3s var(--ease);
-}
-.col-card:hover{border-color:var(--g2);box-shadow:var(--shadow);transform:translateY(-2px)}
-.col-card.hidden{display:none}
-.col-card-img{
-  height:6px;background:var(--g2);
-}
-.col-card-inner{padding:1.25rem}
-.col-card-tag{
-  display:inline-block;background:var(--g-bg);color:var(--g1);
-  font-size:.62rem;font-weight:700;padding:.2rem .6rem;
-  border-radius:2px;letter-spacing:.08em;margin-bottom:.65rem;
-}
-.col-card-title{
-  font-family:var(--serif);font-size:.92rem;font-weight:600;
-  color:var(--g1);line-height:1.55;margin-bottom:.65rem;
-}
-.col-card-excerpt{font-size:.78rem;color:var(--muted);line-height:1.7}
-.col-card-meta{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-top:.85rem;padding-top:.65rem;border-top:1px solid var(--border);
-  font-size:.7rem;color:var(--muted);
-}
-.col-card-read{color:var(--g2);font-weight:600}
+.col-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+.col-card{background:#fff;border:1.5px solid #d8e8d8;border-radius:3px;padding:1.6rem;text-decoration:none;display:block;transition:all .3s ease}
+.col-card:hover{border-color:#009a3c;box-shadow:0 4px 18px rgba(0,154,60,.1);transform:translateY(-2px)}
+.col-tag{display:inline-block;background:#e8f5ee;color:#009a3c;font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:2px;letter-spacing:.08em;margin-bottom:.85rem}
+.col-ttl{font-size:.92rem;font-weight:600;color:#1a3a1a;line-height:1.55;margin-bottom:.6rem}
+.col-desc{font-size:.8rem;color:#5a6a5a;line-height:1.75;margin-bottom:.85rem}
+.col-meta{display:flex;align-items:center;justify-content:space-between}
+.col-date{font-size:.72rem;color:#8a9a8a}
+.col-more{font-size:.75rem;color:#009a3c;font-weight:600}
 
-footer{background:#0d3d0d;padding:2rem;text-align:center;margin-top:0}
-.footer-copy{font-size:.72rem;color:rgba(255,255,255,.3)}
+.loading{text-align:center;padding:3rem;color:#5a6a5a;font-size:.9rem}
+
+footer{background:#0d2e0d;padding:1.75rem 2rem;text-align:center;border-top:3px solid #009a3c;margin-top:4rem}
+.ft-name{font-family:'Noto Serif JP',serif;font-size:.92rem;color:#fff;letter-spacing:.1em;margin-bottom:.35rem}
+.ft-copy{font-size:.68rem;color:rgba(255,255,255,.25);letter-spacing:.08em}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="../index.html" class="nav-brand">
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
     <div class="nav-mark">NX</div>
-    <div class="nav-name">Nexcess</div>
+    <div><span class="nav-name">Nexcess</span></div>
   </a>
   <a href="../index.html" class="nav-back">← トップページへ</a>
 </nav>
 
-<div class="page-hero">
-  <h1>融資の「なぜ」を整理する。</h1>
-  <p>建設業・飲食業・運送業の融資実務をもとに、保証協会融資の論点を事例ベースで解説します。</p>
+<div class="page-header">
+  <div class="page-header-in">
+    <p class="page-lbl">COLUMN</p>
+    <h1 class="page-ttl">融資の「なぜ」を整理する。</h1>
+    <p class="page-desc">建設・飲食・運送業の融資実務をもとに、保証協会・審査・書類の論点を事例ベースで解説します。</p>
+  </div>
 </div>
 
-<div class="col-body">
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all',this)">すべて</button>
-    <button class="filter-btn" onclick="filter('建設業',this)">建設業</button>
-    <button class="filter-btn" onclick="filter('飲食業',this)">飲食業</button>
-    <button class="filter-btn" onclick="filter('運送業',this)">運送業</button>
-    <button class="filter-btn" onclick="filter('一人親方',this)">一人親方</button>
-    <button class="filter-btn" onclick="filter('料金・制度',this)">料金・制度</button>
-    <button class="filter-btn" onclick="filter('審査対策',this)">審査対策</button>
+<main class="main">
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">すべて</button>
+    <button class="filter-btn" data-cat="kensetsu">建設業</button>
+    <button class="filter-btn" data-cat="inshoku">飲食業</button>
+    <button class="filter-btn" data-cat="unso">運送業</button>
+    <button class="filter-btn" data-cat="hitori">一人親方</button>
+    <button class="filter-btn" data-cat="ryokin">料金・制度</button>
+    <button class="filter-btn" data-cat="shinsa">審査対策</button>
+    <button class="filter-btn" data-cat="shikin">資金調達</button>
   </div>
 
   <div class="col-grid" id="col-grid">
-    <a href="column-02-kouko.html" class="col-card" data-tag="資金調達">
-      <div class="col-card-img"></div>
-      <div class="col-card-inner">
-        <span class="col-card-tag">資金調達ノウハウ</span>
-        <div class="col-card-title">日本政策金融公庫の融資審査、どのような会社が検討されるのか</div>
-        <div class="col-card-excerpt">公庫の融資審査で重視される3つの視点（事業計画・経営者資質・財務状況）を整理する。</div>
-        <div class="col-card-meta"><span>2026.04.27</span><span class="col-card-read">読む →</span></div>
-      </div>
-    </a>
-    <a href="column-01-shikin.html" class="col-card" data-tag="資金調達">
-      <div class="col-card-img"></div>
-      <div class="col-card-inner">
-        <span class="col-card-tag">資金調達ノウハウ</span>
-        <div class="col-card-title">資金繰り表：銀行が見るポイント</div>
-        <div class="col-card-excerpt">銀行が融資判断で資金繰り表のどこを見るか。キャッシュフロー・将来予測・返済原資の3点を解説。</div>
-        <div class="col-card-meta"><span>2026.04.28</span><span class="col-card-read">読む →</span></div>
-      </div>
-    </a>
-    <a href="kensetsu-shikin.html" class="col-card" data-tag="建設業">
-      <div class="col-card-img"></div>
-      <div class="col-card-inner">
-        <span class="col-card-tag">建設業</span>
-        <div class="col-card-title">建設業の資金繰り表、銀行はどこを見ているのか</div>
-        <div class="col-card-excerpt">入金サイクルの長い建設業における資金繰り表の作り方と、審査担当者が注目するポイントを解説。</div>
-        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
-      </div>
-    </a>
-    <a href="hitori-oyakata-yushi.html" class="col-card" data-tag="一人親方">
-      <div class="col-card-img"></div>
-      <div class="col-card-inner">
-        <span class="col-card-tag">一人親方</span>
-        <div class="col-card-title">一人親方が保証協会融資を通すために必要な3つの書類</div>
-        <div class="col-card-excerpt">個人事業主・一人親方特有の書類準備の落とし穴と、通過率を上げる準備の順序を整理する。</div>
-        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
-      </div>
-    </a>
-    <a href="seiko-hoshu-risk.html" class="col-card" data-tag="料金・制度">
-      <div class="col-card-img"></div>
-      <div class="col-card-inner">
-        <span class="col-card-tag">料金・制度</span>
-        <div class="col-card-title">成功報酬型の融資代行、本当にお得か？定額制との比較</div>
-        <div class="col-card-excerpt">融資額の3〜5%という成功報酬型の実態と、定額制のどちらが得かをケース別に比較する。</div>
-        <div class="col-card-meta"><span>2026.04</span><span class="col-card-read">読む →</span></div>
-      </div>
-    </a>
+    <div class="loading">記事を読み込んでいます...</div>
   </div>
-</div>
+</main>
 
-<footer><div class="footer-copy">© 2026 合同会社 Nexcess. All rights reserved.</div></footer>
+<footer>
+  <div class="ft-name">Nexcess</div>
+  <div class="ft-copy">© 2026 合同会社 Nexcess. All rights reserved.</div>
+</footer>
 
 <script>
-function filter(tag, btn) {
+let allArticles = [];
+let currentCat = 'all';
+
+async function loadArticles() {
+  try {
+    const res = await fetch('../columns.json?v=' + Date.now());
+    allArticles = await res.json();
+    renderGrid(allArticles);
+  } catch(e) {
+    document.getElementById('col-grid').innerHTML =
+      '<p style="color:#888;font-size:.85rem">記事の読み込みに失敗しました。</p>';
+  }
+}
+
+function renderGrid(articles) {
+  const grid = document.getElementById('col-grid');
+  if (!articles.length) {
+    grid.innerHTML = '<p style="color:#888;font-size:.85rem">該当する記事がありません。</p>';
+    return;
+  }
+  grid.innerHTML = articles.map(a => `
+    <a href="${a.file}" class="col-card">
+      <span class="col-tag">${a.tag}</span>
+      <div class="col-ttl">${a.title}</div>
+      <div class="col-desc">${a.desc}</div>
+      <div class="col-meta">
+        <span class="col-date">${a.date}</span>
+        <span class="col-more">読む →</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+// フィルター
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.col-card').forEach(card => {
-    if (tag === 'all' || card.dataset.tag === tag) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-}
+  const cat = btn.dataset.cat;
+  currentCat = cat;
+  const filtered = cat === 'all'
+    ? allArticles
+    : allArticles.filter(a => a.cat === cat);
+  renderGrid(filtered);
+});
+
+loadArticles();
 </script>
 </body>
 </html>
