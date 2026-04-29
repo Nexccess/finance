@@ -1072,7 +1072,9 @@ footer {
         <div class="result-roi" id="r-roi"></div>
       </div>
 
-      <div class="diag-actions" style="margin-top:2rem;">
+      <div class="diag-actions" style="margin-top:2rem;gap:.75rem;flex-wrap:wrap;">
+        <button class="btn-diag-back" onclick="restartDiagnosis()" style="font-size:.82rem;">← もう一度診断する</button>
+        <a href="./index.html" class="btn-diag-back" style="font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;">無料診断を受ける →</a>
         <button class="btn-diag-next" id="btn-show-booking" onclick="showBooking()">この結果を持って予約する →</button>
       </div>
     </div>
@@ -1292,6 +1294,12 @@ function applyBookingConfig(b) {
 
   // Auto-open diagnosis overlay on load
   openDiagnosis();
+
+  // ブラウザ戻るボタン → Topページへ
+  history.pushState(null, '', location.href);
+  window.addEventListener('popstate', () => {
+    window.location.href = './index.html';
+  });
 })();
 
 // ── Diagnosis overlay ──────────────────────────────────────────
@@ -1301,8 +1309,17 @@ function openDiagnosis() {
   goToStep(1);
 }
 function closeDiagnosis() {
-  document.getElementById('diag-overlay').classList.remove('active');
-  document.body.style.overflow = '';
+  // diagnosis.html は単独ページなので閉じる = Topへ戻る
+  window.location.href = './index.html';
+}
+function restartDiagnosis() {
+  // 診断をリセットしてSTEP1へ
+  diagResult = null;
+  ['diag-loading','diag-results','diag-booking','diag-success'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('active'); el.style.display = 'none'; }
+  });
+  goToStep(1);
 }
 
 // ── Step navigation ────────────────────────────────────────────
@@ -1409,6 +1426,38 @@ async function submitDiagnosis() {
 }
 
 function showResults(d) {
+  // ② Google Sheetsへ診断結果を非同期保存（失敗しても表示は続行）
+  // 診断回答データを収集
+  const _answers = {};
+  const _allFields = [
+    ...(QS.step1.fields || []),
+    ...(QS.step3.fields || []),
+    ...(QS.step4.fields || [])
+  ];
+  _allFields.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (el) _answers[f.label] = el.value;
+  });
+  const _challenges = Array.from(
+    document.querySelectorAll('#challenge-grid .diag-checkbox-label.checked')
+  ).map(l => l.querySelector('input').value);
+
+  fetch('/api/save-result', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      timestamp:        new Date().toISOString(),
+      score:            d.score,
+      grade:            d.grade,
+      headline:         d.headline,
+      next_step:        d.next_step,
+      summary:          d.summary,
+      service:          (QS.meta && QS.meta.service_name) || '',
+      challenges:       _challenges.join(' / '),
+      answers:          JSON.stringify(_answers),
+    })
+  }).catch(() => {});
+
   document.getElementById('diag-loading').classList.remove('active');
   document.getElementById('diag-loading').style.display = '';
 
