@@ -20,7 +20,9 @@ module.exports = async function handler(req, res) {
     // ── 認証（分割環境変数方式） ──────────────────────────────
     const credentials = {
       client_email: process.env.CLIENT_EMAIL,
-      private_key: (process.env.PRIVATE_KEY || '').replace(/\\n/g, '\n'),
+      private_key: (process.env.PRIVATE_KEY || '')
+        .replace(/\\n/g, '\n')
+        .replace(/\r/g, ''),
     };
 
     if (!credentials.client_email || !credentials.private_key) {
