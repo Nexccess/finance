@@ -1,46 +1,69 @@
 // /api/save-result.js
-// 診断結果を Google Sheets に蓄積する
-// 環境変数: CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID
 
 const { google } = require('googleapis');
 
 module.exports = async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
   try {
-    const body = req.body;
+    // ── 入力チェック ───────────────────────────────────
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
 
-    // ── Google Auth ─────────────────────────────────────────
-    const credentials = {
-      ...((() => {
-        const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '';
-        try { return JSON.parse(raw); } catch(e) {
-          // 改行が入っている場合の修復
-          const fixed = raw.replace(/\n/g, '\\n');
-          try { return JSON.parse(fixed); } catch(e2) {
-            throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON のパースに失敗: ' + e2.message);
-          }
-        }
-      })()),
-    };
+    const spreadsheetId = process.env.SPREADSHEET_ID;
+    if (!spreadsheetId) {
+      return res.status(500).json({
+        error: 'SPREADSHEET_ID is not defined',
+        cause: 'ENV_NOT_SET'
+      });
+    }
+
+    // ── Service Account 読み込み ──────────────────────
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '';
+    let credentials;
+    try {
+      credentials = JSON.parse(raw);
+    } catch {
+      credentials = JSON.parse(raw.replace(/\n/g, '\\n'));
+    }
+
+    if (!credentials.client_email || !credentials.private_key) {
+      return res.status(500).json({
+        error: 'Invalid service account credentials',
+        cause: 'SERVICE_ACCOUNT_INVALID'
+      });
+    }
+
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
+
     const sheets = google.sheets({ version: 'v4', auth });
-    const spreadsheetId = process.env.SPREADSHEET_ID;
 
-    // ── シートの存在確認・初期化 ─────────────────────────────
-    const meta = await sheets.spreadsheets.get({ spreadsheetId });
+    // ── Spreadsheet 存在確認 ──────────────────────────
+    let meta;
+    try {
+      meta = await sheets.spreadsheets.get({ spreadsheetId });
+    } catch (e) {
+      if (e.code === 404) {
+        return res.status(404).json({
+          error: 'Spreadsheet not found or no permission',
+          cause: 'SPREADSHEET_NOT_FOUND'
+        });
+      }
+      throw e;
+    }
+
     const sheetList = meta.data.sheets.map(s => s.properties.title);
-
     const SHEET_NAME = '診断結果';
 
-    // シートがなければ作成
     if (!sheetList.includes(SHEET_NAME)) {
       await sheets.spreadsheets.batchUpdate({
         spreadsheetId,
@@ -50,7 +73,7 @@ module.exports = async function handler(req, res) {
           }]
         }
       });
-      // ヘッダー行を追加
+
       await sheets.spreadsheets.values.append({
         spreadsheetId,
         range: `${SHEET_NAME}!A1`,
@@ -71,17 +94,17 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // ── データ行を追加 ───────────────────────────────────────
+    const body = req.body;
     const row = [
-      body.timestamp   || new Date().toISOString(),
-      body.score       || '',
-      body.grade       || '',
-      body.headline    || '',
-      body.next_step   || '',
-      body.summary     || '',
-      body.service     || '',
-      body.challenges  || '',
-      body.answers     || '',
+      body.timestamp || new Date().toISOString(),
+      body.score || '',
+      body.grade || '',
+      body.headline || '',
+      body.next_step || '',
+      body.summary || '',
+      body.service || '',
+      body.challenges || '',
+      body.answers || '',
     ];
 
     await sheets.spreadsheets.values.append({
@@ -95,8 +118,10 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true });
 
   } catch (err) {
-    // フロント側は catch(() => {}) で無視しているが念のためログ
-    console.error('save-result error:', err.message);
-    return res.status(500).json({ error: err.message });
+    console.error('save-result error:', err);
+    return res.status(500).json({
+      error: 'Unexpected error',
+      detail: err.message
+    });
   }
 };
