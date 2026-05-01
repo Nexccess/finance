@@ -17,7 +17,9 @@ module.exports = async function handler(req, res) {
     // ── Google Auth ─────────────────────────────────────────
     const credentials = {
       client_email: process.env.CLIENT_EMAIL,
-      private_key: (process.env.PRIVATE_KEY || '').replace(/\\n/g, '\n'),
+      private_key: (process.env.PRIVATE_KEY || '')
+        .replace(/\\n/g, '\n')
+        .replace(/\r/g, ''),
     };
     const auth = new google.auth.GoogleAuth({
       credentials,
