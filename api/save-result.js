@@ -16,10 +16,16 @@ module.exports = async function handler(req, res) {
 
     // ── Google Auth ─────────────────────────────────────────
     const credentials = {
-      client_email: process.env.CLIENT_EMAIL,
-      private_key: (process.env.PRIVATE_KEY || '')
-        .replace(/\\n/g, '\n')
-        .replace(/\r/g, ''),
+      ...((() => {
+        const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '';
+        try { return JSON.parse(raw); } catch(e) {
+          // 改行が入っている場合の修復
+          const fixed = raw.replace(/\n/g, '\\n');
+          try { return JSON.parse(fixed); } catch(e2) {
+            throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON のパースに失敗: ' + e2.message);
+          }
+        }
+      })()),
     };
     const auth = new google.auth.GoogleAuth({
       credentials,
