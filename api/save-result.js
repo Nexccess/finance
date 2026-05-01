@@ -1,6 +1,6 @@
 // /api/save-result.js
 // 診断結果を Google Sheets に蓄積する
-// 環境変数: GOOGLE_SERVICE_ACCOUNT_JSON, SPREADSHEET_ID
+// 環境変数: CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID
 
 const { google } = require('googleapis');
 
@@ -15,7 +15,10 @@ module.exports = async function handler(req, res) {
     const body = req.body;
 
     // ── Google Auth ─────────────────────────────────────────
-    const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+    const credentials = {
+      client_email: process.env.CLIENT_EMAIL,
+      private_key: (process.env.PRIVATE_KEY || '').replace(/\\n/g, '\n'),
+    };
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
