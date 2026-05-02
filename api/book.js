@@ -17,22 +17,19 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // ── 認証（分割環境変数方式） ──────────────────────────────
-    const credentials = {
-      ...((() => {
-        const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '';
-        try { return JSON.parse(raw); } catch(e) {
-          // 改行が入っている場合の修復
-          const fixed = raw.replace(/\n/g, '\\n');
-          try { return JSON.parse(fixed); } catch(e2) {
-            throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON のパースに失敗: ' + e2.message);
-          }
-        }
-      })()),
-    };
+    // ── 認証（サービスアカウント JSON）────────────────────────
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || '';
+    let credentials;
+
+    try {
+      credentials = JSON.parse(raw);
+    } catch (e) {
+      const fixed = raw.replace(/\n/g, '\\n');
+      credentials = JSON.parse(fixed);
+    }
 
     if (!credentials.client_email || !credentials.private_key) {
-      throw new Error('認証情報が設定されていません（CLIENT_EMAIL / PRIVATE_KEY）');
+      throw new Error('認証情報が不正です（client_email / private_key 不足）');
     }
 
     const auth = new google.auth.GoogleAuth({
@@ -42,14 +39,17 @@ module.exports = async function handler(req, res) {
 
     const calendar = google.calendar({ version: 'v3', auth });
 
-    // ── 日時組み立て ──────────────────────────────────────────
+    // ── 日時生成 ──────────────────────────────────────────────
     const [year, month, day] = preferred_date.split('-').map(Number);
-    const [hour, minute]     = preferred_time.split(':').map(Number);
+    const [hour, minute] = preferred_time.split(':').map(Number);
     const pad = n => String(n).padStart(2, '0');
-    const startStr = `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00+09:00`;
-    const endStr   = `${year}-${pad(month)}-${pad(day)}T${pad(hour + 1)}:${pad(minute)}:00+09:00`;
 
-    // ── カレンダーイベント登録 ────────────────────────────────
+    const startStr =
+      `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00+09:00`;
+    const endStr =
+      `${year}-${pad(month)}-${pad(day)}T${pad(hour + 1)}:${pad(minute)}:00+09:00`;
+
+    // ── イベント定義 ──────────────────────────────────────────
     const event = {
       summary: `【予約】${company || ''} ${name}様`,
       description: [
@@ -65,9 +65,13 @@ module.exports = async function handler(req, res) {
       end:   { dateTime: endStr,   timeZone: 'Asia/Tokyo' },
     };
 
+    // ── サブカレンダー ID ────────────────────────────────────
     const calendarId = process.env.CALENDAR_ID;
-    if (!calendarId) throw new Error('CALENDAR_ID が設定されていません');
+    if (!calendarId) {
+      throw new Error('CALENDAR_ID が設定されていません');
+    }
 
+    // ── イベント登録 ──────────────────────────────────────────
     const calRes = await calendar.events.insert({
       calendarId,
       requestBody: event,
@@ -84,7 +88,7 @@ module.exports = async function handler(req, res) {
     console.error('Book error:', err);
     return res.status(500).json({
       error: '予約処理中にエラーが発生しました',
-      detail: err.message
+      detail: err.message,
     });
   }
 };
