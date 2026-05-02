@@ -55,6 +55,7 @@ module.exports = async function handler(req, res) {
         spreadsheetId,
         range: `${SHEET_NAME}!A1`,
         valueInputOption: 'RAW',
+        + valueInputOption: 'USER_ENTERED',
         resource: {
           values: [[
             '診断日時',
