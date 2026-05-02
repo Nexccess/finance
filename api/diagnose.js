@@ -1,24 +1,46 @@
 'use strict';
 
-const GEMINI_MODEL = 'gemini-2.5-flash-lite';
+const GEMINI_MODEL    = 'gemini-2.5-flash-lite';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 const SYSTEM_PROMPT = `
-あなたは政策金融公庫の融資に精通した中小企業・個人事業主向けの融資診断アドバイザーです。
-ユーザーの事業情報をもとに融資の可能性を診断し、以下の構成で回答してください。
+あなたは中小企業向けの生成AI活用型販売業務支援システムの導入適合性を診断する専門アドバイザーです。
+ユーザーの入力情報をもとに導入適合スコアを算出し、以下の形式で必ずJSONのみを返してください。
+マークダウンや説明文は一切含めず、JSONオブジェクトのみを返すこと。
 
-1. 診断サマリー（3〜5文）
-2. 強みポイント（箇条書き 2〜4項目）
-3. 懸念・改善ポイント（箇条書き 2〜4項目）
-4. 推奨アクション（2〜3項目）
-5. 免責事項（1文）
+{
+  "score": 数値(0-100),
+  "grade": "S/A/B/C のいずれか",
+  "headline": "診断結果の一行タイトル（20字以内）",
+  "next_step": "推奨する次のアクション（30字以内）",
+  "summary": "診断サマリー（100〜150字）",
+  "pain_points": [
+    { "title": "課題タイトル", "detail": "詳細説明（40字以内）", "severity": 1〜3の数値 }
+  ],
+  "recommended_features": [
+    { "feature": "推奨機能名", "reason": "推奨理由（40字以内）" }
+  ],
+  "roi_estimate": {
+    "workload_reduction": "例：月40時間",
+    "conversion_improvement": "例：+15%",
+    "payback_period": "例：8〜12ヶ月"
+  }
+}
 
-日本語で回答し、400〜600文字程度を目安とする。
+pain_pointsは2〜4件、recommended_featuresは2〜4件とすること。
 `.trim();
 
-function buildUserPrompt(answers) {
-  const lines = Object.entries(answers).map(([k, v]) => `- ${k}: ${v}`);
-  return `以下の情報をもとに融資診断を行ってください。\n\n${lines.join('\n')}`;
+function buildPrompt(payload) {
+  return `
+業種: ${payload.industry || '未回答'}
+企業規模: ${payload.size || '未回答'}
+地域: ${payload.area || '未回答'}
+現在の課題: ${(payload.challenges || []).join('、')}
+月間問い合わせ数: ${payload.monthly_inquiries || '未回答'}
+現在のツール: ${payload.current_tools || '未回答'}
+導入目標: ${payload.goals || '未回答'}
+導入時期: ${payload.budget_timing || '未回答'}
+`.trim();
 }
 
 module.exports = async function handler(req, res) {
@@ -27,43 +49,32 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   try {
-    const { answers } = req.body;
-    if (!answers || typeof answers !== 'object') {
-      return res.status(400).json({ error: 'answers オブジェクトが必要です' });
-    }
-
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error('環境変数 GEMINI_API_KEY が未設定です');
+    if (!apiKey) throw new Error('GEMINI_API_KEY が未設定です');
+
+    const payload = req.body;
 
     const response = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        contents: [
-          { role: 'user', parts: [{ text: buildUserPrompt(answers) }] },
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1024,
-        },
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ role: 'user', parts: [{ text: buildPrompt(payload) }] }],
+        generationConfig: { temperature: 0.4, maxOutputTokens: 1024 },
       }),
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data?.error?.message || 'Gemini API エラー');
+    if (!response.ok) throw new Error(data?.error?.message || 'Gemini APIエラー');
 
-    const result = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!result) throw new Error('Gemini からレスポンスを取得できませんでした');
+    const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(clean);
 
-    return res.status(200).json({ success: true, result });
+    return res.status(200).json(result);
 
   } catch (error) {
     console.error('[diagnose] Error:', error);
