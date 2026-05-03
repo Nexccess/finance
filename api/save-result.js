@@ -21,22 +21,23 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   try {
     const {
-      name = '', email = '', phone = '',
-      business_type = '', loan_amount = '', purpose = '',
-      years_in_biz = '', annual_sales = '', diagnosis_result = '',
-      score_total = '', score_safety = '', score_repay = '',
-      score_profit = '', route = '',
+      timestamp = '',
+      score     = '',
+      grade     = '',
+      headline  = '',
+      next_step = '',
+      summary   = '',
+      service   = '',
+      challenges= '',
+      answers   = '',
     } = req.body;
 
     const SPREADSHEET_ID         = process.env.SPREADSHEET_ID;
     const SCORING_SPREADSHEET_ID = process.env.SCORING_SPREADSHEET_ID;
-
     if (!SPREADSHEET_ID)         throw new Error('SPREADSHEET_ID が未設定です');
     if (!SCORING_SPREADSHEET_ID) throw new Error('SCORING_SPREADSHEET_ID が未設定です');
 
@@ -44,23 +45,30 @@ module.exports = async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const now    = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
 
+    // ① 診断結果シート（診断_政策金融公庫）
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: '診断結果!A:J',
+      range: '診断結果!A:I',
       valueInputOption: 'USER_ENTERED',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {
-        values: [[now, name, email, phone, business_type, loan_amount, purpose, years_in_biz, annual_sales, diagnosis_result]],
+        values: [[
+          now, service, score, grade,
+          headline, next_step, summary, challenges, answers,
+        ]],
       },
     });
 
+    // ② スコアリング結果シート
     await sheets.spreadsheets.values.append({
       spreadsheetId: SCORING_SPREADSHEET_ID,
       range: 'スコアリング結果!A:G',
       valueInputOption: 'USER_ENTERED',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {
-        values: [[now, name, score_total, score_safety, score_repay, score_profit, route]],
+        values: [[
+          now, service, score, grade, headline, next_step, summary,
+        ]],
       },
     });
 
