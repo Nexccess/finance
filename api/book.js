@@ -21,40 +21,49 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   try {
     const {
-      name,
-      email = '',
-      phone = '',
-      datetime,
-      duration = 60,
-      notes = '',
+      company          = '',
+      name             = '',
+      email            = '',
+      phone            = '',
+      position         = '',
+      preferred_date   = '',
+      preferred_time   = '',
+      message          = '',
+      diagnosis_score  = '',
+      diagnosis_grade  = '',
     } = req.body;
 
-    if (!name)     throw new Error('name は必須です');
-    if (!datetime) throw new Error('datetime は必須です');
+    if (!name)           throw new Error('お名前は必須です');
+    if (!email)          throw new Error('メールアドレスは必須です');
+    if (!preferred_date) throw new Error('希望日は必須です');
+    if (!preferred_time) throw new Error('希望時間は必須です');
 
     const calendarId = process.env.CALENDAR_ID;
-    if (!calendarId) throw new Error('環境変数 CALENDAR_ID が未設定です');
+    if (!calendarId) throw new Error('CALENDAR_ID が未設定です');
 
     const auth     = getAuthClient();
     const calendar = google.calendar({ version: 'v3', auth });
 
-    const startDt = new Date(datetime);
-    if (isNaN(startDt.getTime())) throw new Error('datetime の形式が不正です');
-    const endDt = new Date(startDt.getTime() + duration * 60 * 1000);
+    // ISO datetime を組み立て（JST）
+    const datetimeStr = `${preferred_date}T${preferred_time}:00+09:00`;
+    const startDt = new Date(datetimeStr);
+    if (isNaN(startDt.getTime())) throw new Error('日時の形式が不正です');
+    const endDt = new Date(startDt.getTime() + 60 * 60 * 1000); // 1時間
 
     const event = {
-      summary: `【融資相談】${name}`,
+      summary: `【相談予約】${company ? company + ' ' : ''}${name}`,
       description: [
+        `会社名: ${company}`,
         `氏名: ${name}`,
-        `電話: ${phone}`,
         `メール: ${email}`,
-        notes ? `備考: ${notes}` : '',
+        `電話: ${phone}`,
+        `役職: ${position}`,
+        `診断スコア: ${diagnosis_score}点 (${diagnosis_grade}ランク)`,
+        message ? `メッセージ: ${message}` : '',
       ].filter(Boolean).join('\n'),
       start: { dateTime: startDt.toISOString(), timeZone: 'Asia/Tokyo' },
       end:   { dateTime: endDt.toISOString(),   timeZone: 'Asia/Tokyo' },
@@ -65,10 +74,13 @@ module.exports = async function handler(req, res) {
       requestBody: event,
     });
 
+    const bookingId = `BK-${Date.now()}`;
+
     return res.status(200).json({
-      success: true,
-      eventId:   response.data.id,
-      eventLink: response.data.htmlLink,
+      success:    true,
+      booking_id: bookingId,
+      eventId:    response.data.id,
+      eventLink:  response.data.htmlLink,
     });
 
   } catch (error) {
