@@ -12,6 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.seisakukinyukouko.site/">
 <link rel="canonical" href="https://www.seisakukinyukouko.site/">
+<!-- GA4 — TODO: G-XXXXXXXXをMeasurement IDに差し替え -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -389,6 +397,14 @@ h1.hero-h1 .sub-line{
 .col-ttl{font-size:.88rem;font-weight:700;color:#1a3a1a;margin-bottom:.2rem;line-height:1.5}
 .col-desc{font-size:.75rem;color:#6a7a6a;line-height:1.6}
 .col-arr{margin-left:auto;color:#009a3c;font-size:.9rem;flex-shrink:0;align-self:center}
+.btn-col-all{
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:2px solid #009a3c;color:#009a3c;
+  padding:.75rem 1.75rem;border-radius:3px;
+  font-size:.88rem;font-weight:700;text-decoration:none;
+  letter-spacing:.04em;transition:all .2s;background:#fff;
+}
+.btn-col-all:hover{background:#009a3c;color:#fff}
 
 /* ══════════════════════════════════════════════
    PRICE
@@ -612,11 +628,12 @@ footer{
       <span>融資審査 特化</span>
     </div>
 
-　　<h1 class="hero-h1 rv" id="hero-heading">
+    <h1 class="hero-h1 rv" id="hero-heading">
       審査が<span class="accent">通らない</span>のは、<br>
-      書き方の<br>問題かも知れません。
+      書き方の問題です。
       <span class="sub-line">公庫融資の申請〜実行まで、月5万円で代行します。</span>
     </h1>
+
     <div class="hero-philosophy rv">
       <p>
         日本政策金融公庫の審査で否決される理由の9割は、<br>
@@ -749,7 +766,7 @@ footer{
       <strong>「一度否決されたが、相談できるか？」</strong><br>
       むしろそのケースこそ価値があります。否決された理由を特定し、<strong>公庫への再申請または信用保証協会（民間銀行）への切り替え</strong>を設計します。
       <br><br>
-      → <a href="/columns/kouko-shinsa-toranai-riyu.html" style="color:#009a3c;font-weight:700">詳しくは「公庫審査が通らない理由と対策」コラムへ</a>
+      → <a href="/column/kouko-shinsa-toranai-riyu.html" style="color:#009a3c;font-weight:700">詳しくは「公庫審査が通らない理由と対策」コラムへ</a>
     </div>
   </div>
 </section>
@@ -771,7 +788,7 @@ footer{
           <li>法人化前後の融資申請タイミングの判断が難しい</li>
           <li>公庫への「事業実態」の説明方法がわからない</li>
         </ul>
-        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/columns/kensetsu-hitorioya-shikinzuri.html" style="color:#009a3c">一人親方の資金繰りと融資 詳細コラム</a></p>
+        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/column/kensetsu-hitorioya-shikinzuri.html" style="color:#009a3c">一人親方の資金繰りと融資 詳細コラム</a></p>
       </div>
 
       <div class="pain-card rv">
@@ -783,7 +800,7 @@ footer{
           <li>コロナ融資の返済計画と新規借入の整合性の確認</li>
           <li>面談対策に時間を割けない</li>
         </ul>
-        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/columns/jigyo-keikakusho-kakikata.html" style="color:#009a3c">融資に通る事業計画書の書き方 詳細コラム</a></p>
+        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/column/jigyo-keikakusho-kakikata.html" style="color:#009a3c">融資に通る事業計画書の書き方 詳細コラム</a></p>
       </div>
 
       <div class="pain-card rv">
@@ -795,7 +812,7 @@ footer{
           <li>自己資金額の見せ方と通帳の整理</li>
           <li>公庫と信用保証協会、どちらに申請すべきか不明</li>
         </ul>
-        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/columns/kouko-sougyo-hitsuyoshorui.html" style="color:#009a3c">公庫 創業融資 必要書類一覧 詳細コラム</a></p>
+        <p style="font-size:.75rem;color:#009a3c;margin-top:.75rem;font-weight:700">→ <a href="/column/kouko-sougyo-hitsuyoshorui.html" style="color:#009a3c">公庫 創業融資 必要書類一覧 詳細コラム</a></p>
       </div>
     </div>
   </div>
@@ -879,10 +896,11 @@ footer{
   <div class="wrap">
     <p class="sec-lbl rv">COLUMN</p>
     <h2 class="sec-ttl rv" id="col-heading">公庫融資に関する<br>専門コラム。</h2>
-    <p class="sec-lead rv">よくある疑問・準備に役立つ情報を、実務ベースで解説しています。</p>
+    <p class="sec-lead rv">審査対策・事業計画書・資金繰りまで、実務視点のコラムを<strong>26本</strong>公開中。</p>
 
-    <div class="col-grid">
-      <a href="/columns/kouko-shinsa-toranai-riyu.html" class="col-link rv" aria-label="日本政策金融公庫の審査が通らない理由コラム">
+    <!-- 精選3本（固定表示） -->
+    <div class="col-grid" id="col-featured">
+      <a href="/column/kouko-shinsa-toranai-riyu.html" class="col-link rv">
         <div class="col-icon">否決</div>
         <div>
           <div class="col-ttl">日本政策金融公庫の審査が通らない理由と対策</div>
@@ -891,7 +909,16 @@ footer{
         <div class="col-arr" aria-hidden="true">›</div>
       </a>
 
-      <a href="/columns/kensetsu-hitorioya-shikinzuri.html" class="col-link rv" aria-label="建設業一人親方の資金繰りと融資コラム">
+      <a href="/column/jigyo-keikakusho-kakikata.html" class="col-link rv">
+        <div class="col-icon">計画</div>
+        <div>
+          <div class="col-ttl">事業計画書の書き方：融資が通るポイント</div>
+          <div class="col-desc">公庫審査官が見る3軸を逆算した構成と数値作り込みを解説</div>
+        </div>
+        <div class="col-arr" aria-hidden="true">›</div>
+      </a>
+
+      <a href="/column/kensetsu-hitorioya-shikinzuri.html" class="col-link rv">
         <div class="col-icon">建設</div>
         <div>
           <div class="col-ttl">建設業・一人親方の資金繰りと融資方法</div>
@@ -899,33 +926,16 @@ footer{
         </div>
         <div class="col-arr" aria-hidden="true">›</div>
       </a>
+    </div>
 
-      <a href="/columns/jigyo-keikakusho-kakikata.html" class="col-link rv" aria-label="融資に通る事業計画書の書き方コラム">
-        <div class="col-icon">計画</div>
-        <div>
-          <div class="col-ttl">事業計画書の書き方：融資が通るポイント</div>
-          <div class="col-desc">公庫審査官が見るポイントを逆算した事業計画書の構成と記述法</div>
-        </div>
-        <div class="col-arr" aria-hidden="true">›</div>
-      </a>
+    <!-- columns.json から動的生成（残23本） -->
+    <div id="col-dynamic" style="display:none">
+      <div class="col-grid" id="col-dynamic-grid"></div>
+    </div>
 
-      <a href="/columns/kouko-hosho-chigai.html" class="col-link rv" aria-label="信用保証協会と政策公庫の違いコラム">
-        <div class="col-icon">比較</div>
-        <div>
-          <div class="col-ttl">信用保証協会と政策公庫：どちらに申請すべきか</div>
-          <div class="col-desc">制度の仕組みの違いと、案件別の最適な選択基準を解説</div>
-        </div>
-        <div class="col-arr" aria-hidden="true">›</div>
-      </a>
-
-      <a href="/columns/kouko-sougyo-hitsuyoshorui.html" class="col-link rv" aria-label="政策金融公庫創業融資必要書類コラム">
-        <div class="col-icon">書類</div>
-        <div>
-          <div class="col-ttl">政策金融公庫 創業融資の必要書類一覧</div>
-          <div class="col-desc">業種・申請制度別の必要書類リストと準備の注意点</div>
-        </div>
-        <div class="col-arr" aria-hidden="true">›</div>
-      </a>
+    <!-- 一覧ボタン -->
+    <div style="text-align:center;margin-top:1.75rem" class="rv">
+      <a href="/column/" class="btn-col-all">全26本のコラムを見る →</a>
     </div>
   </div>
 </section>
@@ -1008,7 +1018,7 @@ footer{
           公庫と保証協会、どちらに申請すべきか。
         </div>
         <div class="faq-a">
-          案件ごとに異なります。創業期・担保なし・小規模の場合は<em>公庫が優位</em>。既存取引銀行との関係を活かしたい場合・融資額が大きい場合・公庫の枠を使い切っている場合は<em>保証協会（民間銀行）が有効</em>です。初回相談で現状を確認し、最適なルートを提案します。<a href="/columns/kouko-hosho-chigai.html" style="color:#009a3c">詳しくはこちらのコラム</a>を参照ください。
+          案件ごとに異なります。創業期・担保なし・小規模の場合は<em>公庫が優位</em>。既存取引銀行との関係を活かしたい場合・融資額が大きい場合・公庫の枠を使い切っている場合は<em>保証協会（民間銀行）が有効</em>です。初回相談で現状を確認し、最適なルートを提案します。<a href="/column/kouko-hosho-chigai.html" style="color:#009a3c">詳しくはこちらのコラム</a>を参照ください。
         </div>
       </div>
 
@@ -1081,7 +1091,7 @@ footer{
   <div class="ft-name">Nexcess</div>
   <div class="ft-sub">日本政策金融公庫 融資伴走コンサルティング</div>
   <nav class="ft-links" aria-label="フッターリンク">
-    <a href="/columns/">コラム一覧</a>
+    <a href="/column/">コラム一覧</a>
     <a href="/diagnosis.html">AI無料診断</a>
     <a href="https://lin.ee/7V7MmBT" target="_blank" rel="noopener">LINE相談</a>
     <a href="mailto:info@nexccess.com">メール</a>
@@ -1165,6 +1175,30 @@ document.querySelectorAll('.rv').forEach(el => ro.observe(el));
     lastY = y;
   }, { passive: true });
 })();
+
+
+/* ── GA4 イベント計測 ── */
+/* TODO: G-XXXXXXXXにMeasurement IDを入力してください */
+const GA4_ID = 'G-XXXXXXXXXX';
+
+/* ── columns.json 読み込み（動的追加用・将来の展開対応） ── */
+fetch('/columns.json')
+  .then(r => r.json())
+  .then(cols => {
+    // LP表示には使わない（精選3本固定）
+    // column/index.html側でフル活用
+    // 将来的にタグ・カテゴリ絞り込みが必要な場合はここを拡張
+    console.log('[columns.json] loaded:', cols.length, 'items');
+  })
+  .catch(() => {});
+
+/* ── FCB クリックイベント（GA4送信準備） ── */
+document.querySelectorAll('.fcb-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const label = btn.querySelector('.fcb-main')?.textContent || '';
+    if(window.gtag) gtag('event', 'fcb_click', { method: label, page: location.pathname });
+  });
+});
 
 /* ── FAQ aria-expanded ── */
 document.querySelectorAll('.faq-q').forEach(btn => {
