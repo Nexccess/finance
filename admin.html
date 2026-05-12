@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>管理者ダッシュボード | Nexcess</title>
+<title>管理者ダッシュボード | Nexccess</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
@@ -15,6 +15,35 @@
   --font-serif:'Noto Serif JP',serif;--font-sans:'DM Sans',sans-serif;--font-mono:'Space Mono',monospace;
 }
 body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-height:100vh}
+
+/* AUTH SCREEN */
+.auth-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+}
+.auth-box{
+  width:100%;max-width:360px;padding:2.5rem 2rem;
+  border:1px solid var(--border);background:var(--navy-mid);
+  text-align:center;
+}
+.auth-logo{font-family:var(--font-serif);font-size:1rem;color:var(--gold);margin-bottom:2rem}
+.auth-input{
+  width:100%;padding:.75rem 1rem;
+  background:var(--navy-light);border:1px solid var(--border);
+  color:var(--white);font-family:var(--font-mono);font-size:.9rem;
+  letter-spacing:.15em;text-align:center;margin-bottom:1rem;
+  outline:none;
+}
+.auth-input:focus{border-color:var(--gold-dim)}
+.auth-btn{
+  width:100%;padding:.75rem;
+  background:none;border:1px solid var(--gold-dim);
+  color:var(--gold);font-size:.82rem;letter-spacing:.1em;
+  cursor:pointer;transition:background .2s;
+}
+.auth-btn:hover{background:rgba(200,164,90,.1)}
+.auth-error{color:var(--red);font-size:.75rem;margin-top:.75rem;display:none}
 
 /* HEADER */
 .header{
@@ -146,8 +175,24 @@ tr:hover td{background:rgba(200,164,90,.04)}
 </head>
 <body>
 
+<!-- 認証画面 -->
+<div class="auth-screen" id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Nexccess 管理者ダッシュボード</div>
+    <input
+      type="password"
+      class="auth-input"
+      id="auth-input"
+      placeholder="PASSWORD"
+      onkeydown="if(event.key==='Enter')checkAuth()"
+    >
+    <button class="auth-btn" onclick="checkAuth()">アクセス</button>
+    <div class="auth-error" id="auth-error">パスワードが違います</div>
+  </div>
+</div>
+
 <div class="header">
-  <div class="header-logo">Nexcess 管理者ダッシュボード</div>
+  <div class="header-logo">Nexccess 管理者ダッシュボード</div>
   <div class="header-right">
     <div class="last-updated" id="last-updated">—</div>
     <div class="header-source source-mock" id="data-source">MOCK DATA</div>
@@ -265,8 +310,8 @@ tr:hover td{background:rgba(200,164,90,.04)}
 // ══════════════════════════════════════════════
 const CONFIG = {
   // Amplitude: Settings → Projects → API Keys
-  AMPLITUDE_API_KEY:    '8d3b5be866c4740fa6c83949f85ce25e',
-  AMPLITUDE_SECRET_KEY: '4bf124b998adfb06419c5a2f60075af8',   // Secret Keyも必要（Chartsエンドポイント用）
+  AMPLITUDE_API_KEY:    '',   // 例: '8d3b5be866c47xxxxxxxxxxxxxxxx'
+  AMPLITUDE_SECRET_KEY: '',   // Secret Keyも必要（Chartsエンドポイント用）
 
   // Gemini API（既存のものを流用）
   GEMINI_API_KEY: '',         // 既存のGemini API Keyを入力
@@ -373,7 +418,7 @@ async function fetchAmplitudeSegmentation(event) {
 async function fetchGeminiSummary(stats) {
   if (!CONFIG.GEMINI_API_KEY) return null;
 
-  const prompt = `以下はNexcess（日本政策金融公庫 融資伴走サービス）のLPの直近${CONFIG.LOOKBACK_DAYS}日間のデータです。
+  const prompt = `以下はNexccess（日本政策金融公庫 融資伴走サービス）のLPの直近${CONFIG.LOOKBACK_DAYS}日間のデータです。
 
 ページビュー: ${stats.visits}件
 AI診断タップ: ${stats.diags}件
@@ -537,6 +582,31 @@ async function refreshAI() {
       isAmplitudeConfigured() ? 'Amplitudeリアルデータ取得中。' : 'モックデータ表示中。Amplitude APIキーを設定するとリアルデータに切り替わります。'
     }次のアクション：直近のLINEタップ数を確認し、未返信の問い合わせを優先対応することを推奨します。`;
   }
+}
+
+// ══════════════════════════════════════════════
+//  AUTH — パスワード保護
+// ══════════════════════════════════════════════
+const ADMIN_PASSWORD = 'nexccess2026'; // ← GitHubで任意のパスワードに変更
+
+function checkAuth() {
+  const input = document.getElementById('auth-input').value;
+  const errEl = document.getElementById('auth-error');
+  if (input === ADMIN_PASSWORD) {
+    document.getElementById('auth-screen').style.display = 'none';
+    sessionStorage.setItem('nx-admin-auth', '1');
+    loadAll();
+  } else {
+    errEl.style.display = 'block';
+    document.getElementById('auth-input').value = '';
+    document.getElementById('auth-input').focus();
+  }
+}
+
+// セッション中は再認証不要
+if (sessionStorage.getItem('nx-admin-auth') === '1') {
+  document.getElementById('auth-screen').style.display = 'none';
+  // loadAllは下部で実行
 }
 
 // 初期ロード
