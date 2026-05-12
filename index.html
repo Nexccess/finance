@@ -20,6 +20,61 @@
   gtag('js', new Date());
   gtag('config', 'G-XXXXXXXXXX');
 </script> -->
+
+<!-- Amplitude SDK -->
+<script type="module">
+import * as amplitude from 'https://cdn.amplitude.com/libs/analytics-browser-2.3.3-min.esm.gz.js';
+
+const AMP_KEY = '8d3b5be866c4740fa6c83949f85ce25e';
+amplitude.init(AMP_KEY, { defaultTracking: true });
+
+// ── ページビュー
+amplitude.track('page_view', {
+  page: location.pathname,
+  referrer: document.referrer || 'direct',
+});
+
+// ── FCBボタン計測（フローティングバー）
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.fcb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const method = btn.querySelector('.fcb-main')?.textContent?.trim() || '';
+      amplitude.track('fcb_click', { method, page: location.pathname });
+    });
+  });
+
+  // ── AI診断ボタン
+  document.querySelectorAll('a[href*="diagnosis"]').forEach(el => {
+    el.addEventListener('click', () => {
+      amplitude.track('diagnosis_click', { page: location.pathname });
+    });
+  });
+
+  // ── 銀行格付シミュレーション
+  document.querySelectorAll('a[href*="finance.seisakukinyukouko"]').forEach(el => {
+    el.addEventListener('click', () => {
+      amplitude.track('finance_sim_click', { page: location.pathname });
+    });
+  });
+
+  // ── LINEボタン
+  document.querySelectorAll('a[href*="lin.ee"]').forEach(el => {
+    el.addEventListener('click', () => {
+      amplitude.track('line_click', { page: location.pathname });
+    });
+  });
+
+  // ── コラムリンク
+  document.querySelectorAll('a[href*="/column/"]').forEach(el => {
+    el.addEventListener('click', () => {
+      amplitude.track('column_click', {
+        column: el.href,
+        page: location.pathname,
+      });
+    });
+  });
+});
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
