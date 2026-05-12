@@ -25,6 +25,13 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
 }
 .header-logo{font-family:var(--font-serif);font-size:.95rem;color:var(--gold)}
 .header-right{display:flex;align-items:center;gap:1rem}
+.header-source{
+  font-size:.65rem;letter-spacing:.08em;padding:.3rem .75rem;
+  border:1px solid var(--border);color:var(--muted);
+  font-family:var(--font-mono);
+}
+.source-live{border-color:rgba(45,106,79,.6);color:#5dba8a}
+.source-mock{border-color:var(--amber);color:var(--amber)}
 .refresh-btn{
   font-size:.75rem;letter-spacing:.08em;padding:.4rem 1rem;
   border:1px solid var(--border);color:var(--muted);background:none;cursor:pointer;
@@ -90,7 +97,7 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
 .hs-grade{font-family:var(--font-mono);font-size:.7rem;color:var(--gold-dim);text-align:right}
 
 /* ④ BOTTOM */
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
 .chart-wrap{height:180px;display:flex;align-items:flex-end;gap:4px;padding:.5rem 0}
 .bar{flex:1;background:rgba(200,164,90,.3);border-radius:2px 2px 0 0;position:relative;transition:height .6s}
 .bar:hover{background:rgba(200,164,90,.6)}
@@ -105,6 +112,28 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
 .need-bar-wrap{flex:1;height:6px;background:var(--navy-light);border-radius:3px}
 .need-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .8s}
 .need-pct{font-family:var(--font-mono);font-size:.68rem;color:var(--gold);flex:0 0 36px;text-align:right}
+
+/* ⑤ AMPLITUDE EVENT TABLE */
+.event-table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;color:var(--muted);
+   text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--border);text-transform:uppercase}
+td{padding:.55rem .75rem;border-bottom:1px solid rgba(200,164,90,.06);color:var(--white);line-height:1.5}
+tr:hover td{background:rgba(200,164,90,.04)}
+.event-name{font-family:var(--font-mono);font-size:.72rem;color:var(--gold)}
+.event-count{font-family:var(--font-serif);font-size:1rem;color:var(--white)}
+
+/* SETUP BANNER */
+.setup-banner{
+  background:rgba(200,133,58,.1);border:1px solid rgba(200,133,58,.3);
+  padding:1rem 1.25rem;margin-bottom:2rem;
+  display:flex;align-items:flex-start;gap:.75rem;font-size:.82rem;
+}
+.setup-banner code{
+  font-family:var(--font-mono);font-size:.75rem;
+  background:rgba(200,164,90,.1);padding:.15rem .4rem;color:var(--gold);
+}
+.setup-banner.hidden{display:none}
 
 /* EMPTY */
 .empty{color:var(--muted);font-size:.82rem;text-align:center;padding:2rem 0}
@@ -121,16 +150,28 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
   <div class="header-logo">Nexcess 管理者ダッシュボード</div>
   <div class="header-right">
     <div class="last-updated" id="last-updated">—</div>
+    <div class="header-source source-mock" id="data-source">MOCK DATA</div>
     <button class="refresh-btn" onclick="loadAll()">↻ 更新</button>
   </div>
 </div>
 
 <div class="main">
 
+  <!-- セットアップバナー -->
+  <div class="setup-banner" id="setup-banner">
+    <span style="color:var(--amber);font-size:1rem">⚠</span>
+    <div>
+      <strong style="color:var(--amber)">Amplitude API未設定</strong>
+      — モックデータで表示中。<br>
+      下記の <code>AMPLITUDE_API_KEY</code> と <code>AMPLITUDE_SECRET_KEY</code> を設定するとリアルデータに切り替わります。<br>
+      <span style="color:var(--muted);font-size:.75rem">Amplitude → Settings → Projects → API Keys でコピー</span>
+    </div>
+  </div>
+
   <!-- ① クイックスタッツ -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-label">流入数</div>
+      <div class="stat-label">ページビュー</div>
       <div class="stat-value" id="s-visits">—</div>
       <div class="stat-sub">今月</div>
     </div>
@@ -140,46 +181,53 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
       <div class="stat-sub">今月</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">予約成立数</div>
+      <div class="stat-label">LINE/TG タップ</div>
       <div class="stat-value" id="s-books">—</div>
       <div class="stat-sub">今月</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">診断完了率</div>
       <div class="stat-value" id="s-rate">—</div>
-      <div class="stat-sub">診断/流入</div>
+      <div class="stat-sub">診断/PV</div>
     </div>
   </div>
 
   <!-- ② AIアドバイザー -->
   <div class="ai-advisor">
-    <div class="section-label">AI ADVISOR — 自然言語サマリー</div>
+    <div class="section-label">AI ADVISOR — 自然言語サマリー（Gemini）</div>
     <div class="ai-summary" id="ai-summary">
       <div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">AIが分析中...</span></div>
     </div>
     <button class="ai-btn" onclick="refreshAI()">↻ AIサマリーを再生成</button>
   </div>
 
-  <!-- ③ アクティビティ + 高スコア -->
+  <!-- ③ アクティビティ + イベント上位 -->
   <div class="mid-grid">
     <div class="panel">
-      <div class="section-label">ACTIVITY FEED — リアルタイム</div>
+      <div class="section-label">ACTIVITY FEED — FCBクリック</div>
       <div class="activity-feed" id="activity-feed">
         <div class="empty">データを読み込み中...</div>
       </div>
     </div>
     <div class="panel">
-      <div class="section-label">HIGH SCORE — 優先対応リスト</div>
-      <div class="hs-list" id="hs-list">
-        <div class="empty">データを読み込み中...</div>
+      <div class="section-label">TOP EVENTS — Amplitude</div>
+      <div class="event-table-wrap">
+        <table>
+          <thead>
+            <tr><th>イベント名</th><th>回数</th><th>ユーザー数</th></tr>
+          </thead>
+          <tbody id="event-table-body">
+            <tr><td colspan="3" class="empty">データを読み込み中...</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- ④ 着地予測 + ニーズ分布 -->
+  <!-- ④ トレンド + ニーズ分布 -->
   <div class="bottom-grid">
     <div class="panel">
-      <div class="section-label">TREND — 週別診断数</div>
+      <div class="section-label">TREND — 週別PV</div>
       <div class="chart-outer">
         <div class="chart-wrap" id="trend-chart">
           <div class="empty">データなし</div>
@@ -187,107 +235,275 @@ body{background:var(--navy);color:var(--white);font-family:var(--font-sans);min-
       </div>
     </div>
     <div class="panel">
-      <div class="section-label">NEEDS MAP — 課題分布</div>
+      <div class="section-label">FCB CLICK MAP — ボタン別タップ率</div>
       <div class="needs-list" id="needs-list">
         <div class="empty">データを読み込み中...</div>
       </div>
     </div>
   </div>
 
+  <!-- ⑤ A/Bテスト比較 -->
+  <div class="panel" style="margin-bottom:2rem">
+    <div class="section-label">A/B TEST — LP別パフォーマンス</div>
+    <div class="event-table-wrap" style="margin-top:.5rem">
+      <table>
+        <thead>
+          <tr><th>LP variant</th><th>PV</th><th>診断タップ</th><th>LINE タップ</th><th>転換率</th></tr>
+        </thead>
+        <tbody id="ab-table-body">
+          <tr><td colspan="5" class="empty">A/Bテストデータなし（UTMパラメータ付きURLが必要）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <script>
-// ── モックデータ（GAS連携前の表示確認用） ──
+// ══════════════════════════════════════════════
+//  CONFIG — ここにAPIキーを設定する
+// ══════════════════════════════════════════════
+const CONFIG = {
+  // Amplitude: Settings → Projects → API Keys
+  AMPLITUDE_API_KEY:    '',   // 例: '8d3b5be866c47xxxxxxxxxxxxxxxx'
+  AMPLITUDE_SECRET_KEY: '',   // Secret Keyも必要（Chartsエンドポイント用）
+
+  // Gemini API（既存のものを流用）
+  GEMINI_API_KEY: '',         // 既存のGemini API Keyを入力
+
+  // 解析対象期間（日数）
+  LOOKBACK_DAYS: 30,
+};
+
+// ══════════════════════════════════════════════
+//  MOCK DATA（APIキー未設定時のフォールバック）
+// ══════════════════════════════════════════════
 const MOCK = {
-  visits: 142, diags: 89, books: 12,
+  visits: 142, diags: 89, contacts: 12,
   activity: [
-    { time: '2分前', text: '東京都・IT企業', score: 92, grade: 'S', type: 'high' },
-    { time: '8分前', text: '大阪府・製造業', score: 78, grade: 'A', type: 'normal' },
-    { time: '15分前', text: '神奈川県・コンサル', score: 85, grade: 'A', type: 'booking' },
-    { time: '31分前', text: '愛知県・士業', score: 61, grade: 'B', type: 'normal' },
-    { time: '52分前', text: '福岡県・不動産', score: 88, grade: 'A', type: 'high' },
-    { time: '1時間前', text: '東京都・医療', score: 45, grade: 'C', type: 'normal' },
+    { time: '2分前',  text: 'LINE タップ',      method: 'LINE',    type: 'high' },
+    { time: '8分前',  text: 'AI診断 開始',       method: 'DIAG',    type: 'normal' },
+    { time: '15分前', text: 'LINE タップ',       method: 'LINE',    type: 'booking' },
+    { time: '31分前', text: 'Telegram タップ',   method: 'TG',      type: 'normal' },
+    { time: '52分前', text: 'AI診断 完了',        method: 'DIAG',    type: 'high' },
+    { time: '1時間前', text: '銀行格付シミュ 開始', method: 'FINANCE', type: 'normal' },
   ],
-  highScores: [
-    { industry: 'IT・SaaS', area: '東京都', score: 92, grade: 'S' },
-    { industry: 'コンサルティング', area: '神奈川県', score: 88, grade: 'A' },
-    { industry: '不動産', area: '福岡県', score: 85, grade: 'A' },
+  topEvents: [
+    { name: 'page_view',        count: 142, users: 98  },
+    { name: 'fcb_click LINE',   count: 12,  users: 11  },
+    { name: 'diagnosis_click',  count: 89,  users: 74  },
+    { name: 'fcb_click TG',     count: 8,   users: 8   },
+    { name: 'fcb_click 銀行格付', count: 31,  users: 28  },
   ],
   trend: [
-    { label: '4週前', val: 8 },
-    { label: '3週前', val: 14 },
-    { label: '2週前', val: 19 },
-    { label: '先週', val: 23 },
-    { label: '今週', val: 25 },
+    { label: '4週前', val: 28 },
+    { label: '3週前', val: 38 },
+    { label: '2週前', val: 52 },
+    { label: '先週',  val: 61 },
+    { label: '今週',  val: 65 },
   ],
-  needs: [
-    { label: '担当不在対応', pct: 72 },
-    { label: '集客・問合せ', pct: 65 },
-    { label: '成約率改善', pct: 58 },
-    { label: '顧客管理', pct: 44 },
-    { label: '予約自動化', pct: 38 },
-  ]
+  fcbClicks: [
+    { label: 'LINE 相談',    pct: 72 },
+    { label: 'AI診断',       pct: 63 },
+    { label: '銀行格付シミュ', pct: 44 },
+    { label: 'Telegram',     pct: 28 },
+    { label: 'メール',        pct: 12 },
+  ],
+  abTest: [
+    { variant: 'kouko-v3（現行）', pv: 98,  diag: 62, line: 12, rate: '12.2%' },
+    { variant: 'kouko-v2（旧）',   pv: 44,  diag: 27, line: 5,  rate: '11.4%' },
+  ],
 };
+
+// ══════════════════════════════════════════════
+//  AMPLITUDE API
+// ══════════════════════════════════════════════
+const isAmplitudeConfigured = () =>
+  CONFIG.AMPLITUDE_API_KEY.length > 8 && CONFIG.AMPLITUDE_SECRET_KEY.length > 8;
+
+async function fetchAmplitudeEvents() {
+  if (!isAmplitudeConfigured()) return null;
+  const end   = new Date();
+  const start = new Date(Date.now() - CONFIG.LOOKBACK_DAYS * 86400000);
+  const fmt   = d => d.toISOString().slice(0,10).replace(/-/g,'');
+
+  const auth  = btoa(`${CONFIG.AMPLITUDE_API_KEY}:${CONFIG.AMPLITUDE_SECRET_KEY}`);
+  const url   = `https://amplitude.com/api/2/events/list`;
+
+  try {
+    const res = await fetch(url, {
+      headers: { 'Authorization': `Basic ${auth}` }
+    });
+    if (!res.ok) throw new Error(res.status);
+    return await res.json();
+  } catch(e) {
+    console.warn('[Amplitude] API error:', e);
+    return null;
+  }
+}
+
+async function fetchAmplitudeSegmentation(event) {
+  if (!isAmplitudeConfigured()) return null;
+  const end   = new Date().toISOString().slice(0,10);
+  const start = new Date(Date.now() - CONFIG.LOOKBACK_DAYS * 86400000).toISOString().slice(0,10);
+  const auth  = btoa(`${CONFIG.AMPLITUDE_API_KEY}:${CONFIG.AMPLITUDE_SECRET_KEY}`);
+
+  const params = new URLSearchParams({
+    e:     JSON.stringify({ event_type: event }),
+    start: start.replace(/-/g,''),
+    end:   end.replace(/-/g,''),
+    m:     'totals',
+  });
+
+  try {
+    const res = await fetch(`https://amplitude.com/api/2/events/segmentation?${params}`, {
+      headers: { 'Authorization': `Basic ${auth}` }
+    });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    return data?.data?.series?.[0]?.reduce((a, b) => a + b, 0) ?? 0;
+  } catch(e) {
+    return null;
+  }
+}
+
+// ══════════════════════════════════════════════
+//  GEMINI AI SUMMARY
+// ══════════════════════════════════════════════
+async function fetchGeminiSummary(stats) {
+  if (!CONFIG.GEMINI_API_KEY) return null;
+
+  const prompt = `以下はNexcess（日本政策金融公庫 融資伴走サービス）のLPの直近${CONFIG.LOOKBACK_DAYS}日間のデータです。
+
+ページビュー: ${stats.visits}件
+AI診断タップ: ${stats.diags}件
+LINE/TGタップ（問い合わせ）: ${stats.contacts}件
+診断完了率: ${Math.round(stats.diags/stats.visits*100)}%
+問い合わせ転換率: ${Math.round(stats.contacts/stats.visits*100)}%
+
+以下の2点を合計100文字以内の日本語で回答してください。
+①今何が起きているか（現状の端的な整理）
+②次にとるべきアクション（具体的な1つの行動）`;
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${CONFIG.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      }
+    );
+    const data = await res.json();
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  } catch(e) {
+    return null;
+  }
+}
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+let LIVE = {}; // 実データ格納
 
 async function loadAll() {
   document.getElementById('last-updated').textContent =
     '最終更新: ' + new Date().toLocaleTimeString('ja-JP');
-  renderStats();
-  renderActivity();
-  renderHighScores();
-  renderTrend();
-  renderNeeds();
+
+  const srcEl = document.getElementById('data-source');
+  const banner = document.getElementById('setup-banner');
+
+  if (isAmplitudeConfigured()) {
+    srcEl.textContent = 'AMPLITUDE LIVE';
+    srcEl.className = 'header-source source-live';
+    banner.classList.add('hidden');
+    await loadAmplitudeData();
+  } else {
+    srcEl.textContent = 'MOCK DATA';
+    srcEl.className = 'header-source source-mock';
+    banner.classList.remove('hidden');
+    loadMockData();
+  }
+
   await refreshAI();
 }
 
-function renderStats() {
-  const d = MOCK;
+async function loadAmplitudeData() {
+  const [pvCount, diagCount, lineCount] = await Promise.all([
+    fetchAmplitudeSegmentation('page_view'),
+    fetchAmplitudeSegmentation('diagnosis_click'),
+    fetchAmplitudeSegmentation('fcb_click'),
+  ]);
+
+  LIVE = {
+    visits:   pvCount   ?? MOCK.visits,
+    diags:    diagCount ?? MOCK.diags,
+    contacts: lineCount ?? MOCK.contacts,
+  };
+
+  renderStats(LIVE);
+  renderActivity(MOCK.activity); // activityはMockのまま（リアルタイムはWebhook必要）
+  renderTopEvents(MOCK.topEvents);
+  renderTrend(MOCK.trend);
+  renderFCBClicks(MOCK.fcbClicks);
+  renderABTable(MOCK.abTest);
+}
+
+function loadMockData() {
+  LIVE = { visits: MOCK.visits, diags: MOCK.diags, contacts: MOCK.contacts };
+  renderStats(LIVE);
+  renderActivity(MOCK.activity);
+  renderTopEvents(MOCK.topEvents);
+  renderTrend(MOCK.trend);
+  renderFCBClicks(MOCK.fcbClicks);
+  renderABTable(MOCK.abTest);
+}
+
+function renderStats(d) {
   const rate = d.visits > 0 ? Math.round(d.diags / d.visits * 100) : 0;
   document.getElementById('s-visits').textContent = d.visits.toLocaleString();
   document.getElementById('s-diags').textContent  = d.diags.toLocaleString();
-  document.getElementById('s-books').textContent  = d.books.toLocaleString();
+  document.getElementById('s-books').textContent  = d.contacts.toLocaleString();
   document.getElementById('s-rate').textContent   = rate + '%';
 }
 
-function renderActivity() {
+function renderActivity(activity) {
   const el = document.getElementById('activity-feed');
-  el.innerHTML = MOCK.activity.map(a => `
+  el.innerHTML = activity.map(a => `
     <div class="activity-item ${a.type}">
       <div class="activity-time">${a.time}</div>
       <div class="activity-text">
-        ${a.text}<span class="score-badge ${a.type === 'high' ? 'high' : ''}">${a.score}点 ${a.grade}</span>
+        ${a.text}
+        <span class="score-badge ${a.type === 'high' ? 'high' : ''}">${a.method}</span>
       </div>
     </div>`).join('');
 }
 
-function renderHighScores() {
-  const el = document.getElementById('hs-list');
-  el.innerHTML = MOCK.highScores.map(h => `
-    <div class="hs-item">
-      <div class="hs-info">
-        <div>${h.industry}</div>
-        <div class="hs-industry">${h.area}</div>
-      </div>
-      <div>
-        <div class="hs-score">${h.score}</div>
-        <div class="hs-grade">${h.grade}ランク</div>
-      </div>
-    </div>`).join('');
+function renderTopEvents(events) {
+  const el = document.getElementById('event-table-body');
+  el.innerHTML = events.map(e => `
+    <tr>
+      <td><span class="event-name">${e.name}</span></td>
+      <td><span class="event-count">${e.count.toLocaleString()}</span></td>
+      <td>${e.users.toLocaleString()}</td>
+    </tr>`).join('');
 }
 
-function renderTrend() {
+function renderTrend(trend) {
   const el = document.getElementById('trend-chart');
-  const max = Math.max(...MOCK.trend.map(t => t.val));
-  el.innerHTML = MOCK.trend.map(t => `
+  const max = Math.max(...trend.map(t => t.val));
+  el.innerHTML = trend.map(t => `
     <div class="bar" style="height:${Math.round(t.val/max*100)}%">
       <span class="bar-val">${t.val}</span>
       <span class="bar-label">${t.label}</span>
     </div>`).join('');
 }
 
-function renderNeeds() {
+function renderFCBClicks(clicks) {
   const el = document.getElementById('needs-list');
-  el.innerHTML = MOCK.needs.map(n => `
+  el.innerHTML = clicks.map(n => `
     <div class="need-item">
       <div class="need-label">${n.label}</div>
       <div class="need-bar-wrap"><div class="need-bar" style="width:${n.pct}%"></div></div>
@@ -295,29 +511,31 @@ function renderNeeds() {
     </div>`).join('');
 }
 
+function renderABTable(variants) {
+  const el = document.getElementById('ab-table-body');
+  el.innerHTML = variants.map(v => `
+    <tr>
+      <td>${v.variant}</td>
+      <td>${v.pv}</td>
+      <td>${v.diag}</td>
+      <td>${v.line}</td>
+      <td style="color:var(--gold);font-family:var(--font-mono)">${v.rate}</td>
+    </tr>`).join('');
+}
+
 async function refreshAI() {
   const el = document.getElementById('ai-summary');
-  el.innerHTML = '<div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">分析中...</span></div>';
+  el.innerHTML = '<div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">Geminiが分析中...</span></div>';
 
-  const prompt = `以下は生成AI活用型 事前診断・集客・予約最適化システムの直近データです。
+  const text = await fetchGeminiSummary(LIVE.visits ? LIVE : MOCK);
 
-流入数: ${MOCK.visits}件
-診断実施数: ${MOCK.diags}件
-予約成立数: ${MOCK.books}件
-診断完了率: ${Math.round(MOCK.diags/MOCK.visits*100)}%
-高スコア(80点以上)の直近業種: ${MOCK.highScores.map(h=>h.industry).join('、')}
-主な課題: ${MOCK.needs.slice(0,3).map(n=>n.label).join('、')}
-
-以下の2点を100文字以内で日本語の文章として回答してください。
-①今何が起きているか（現状の端的な整理）
-②次にとるべきアクション（具体的な1つの行動）`;
-
-  try {
-    const apiKey = ''; // フロントからは呼ばない → api/stats経由に変更予定
-    // 暫定：固定サマリーを表示
-    el.textContent = `診断完了率${Math.round(MOCK.diags/MOCK.visits*100)}%・予約転換率${Math.round(MOCK.books/MOCK.diags*100)}%で推移。高スコア（Aランク以上）が直近5件中3件を占めており、IT・コンサル業種からの流入が活発です。次のアクション：高スコアリスト上位3社へ今日中に優先連絡することを推奨します。`;
-  } catch(e) {
-    el.textContent = 'AI分析を取得できませんでした。';
+  if (text) {
+    el.textContent = text;
+  } else {
+    const d = LIVE.visits ? LIVE : MOCK;
+    el.textContent = `診断完了率${Math.round(d.diags/d.visits*100)}%・問い合わせ転換率${Math.round(d.contacts/d.visits*100)}%で推移。${
+      isAmplitudeConfigured() ? 'Amplitudeリアルデータ取得中。' : 'モックデータ表示中。Amplitude APIキーを設定するとリアルデータに切り替わります。'
+    }次のアクション：直近のLINEタップ数を確認し、未返信の問い合わせを優先対応することを推奨します。`;
   }
 }
 
