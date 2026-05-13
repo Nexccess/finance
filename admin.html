@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>管理者ダッシュボード | Nexccess</title>
+<title>管理者ダッシュボード | Nexcess</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
@@ -178,7 +178,7 @@ tr:hover td{background:rgba(200,164,90,.04)}
 <!-- 認証画面 -->
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
-    <div class="auth-logo">Nexccess 管理者ダッシュボード</div>
+    <div class="auth-logo">Nexcess 管理者ダッシュボード</div>
     <input
       type="password"
       class="auth-input"
@@ -192,7 +192,7 @@ tr:hover td{background:rgba(200,164,90,.04)}
 </div>
 
 <div class="header">
-  <div class="header-logo">Nexccess 管理者ダッシュボード</div>
+  <div class="header-logo">Nexcess 管理者ダッシュボード</div>
   <div class="header-right">
     <div class="last-updated" id="last-updated">—</div>
     <div class="header-source source-mock" id="data-source">MOCK DATA</div>
@@ -313,9 +313,6 @@ const CONFIG = {
   AMPLITUDE_API_KEY:    '',   // 例: '8d3b5be866c47xxxxxxxxxxxxxxxx'
   AMPLITUDE_SECRET_KEY: '',   // Secret Keyも必要（Chartsエンドポイント用）
 
-  // Gemini API（既存のものを流用）
-  GEMINI_API_KEY: '',         // 既存のGemini API Keyを入力
-
   // 解析対象期間（日数）
   LOOKBACK_DAYS: 30,
 };
@@ -416,34 +413,22 @@ async function fetchAmplitudeSegmentation(event) {
 //  GEMINI AI SUMMARY
 // ══════════════════════════════════════════════
 async function fetchGeminiSummary(stats) {
-  if (!CONFIG.GEMINI_API_KEY) return null;
-
-  const prompt = `以下はNexccess（日本政策金融公庫 融資伴走サービス）のLPの直近${CONFIG.LOOKBACK_DAYS}日間のデータです。
-
-ページビュー: ${stats.visits}件
-AI診断タップ: ${stats.diags}件
-LINE/TGタップ（問い合わせ）: ${stats.contacts}件
-診断完了率: ${Math.round(stats.diags/stats.visits*100)}%
-問い合わせ転換率: ${Math.round(stats.contacts/stats.visits*100)}%
-
-以下の2点を合計100文字以内の日本語で回答してください。
-①今何が起きているか（現状の端的な整理）
-②次にとるべきアクション（具体的な1つの行動）`;
-
   try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${CONFIG.GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
-        })
-      }
-    );
+    const res = await fetch('/api/admin-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        visits:   stats.visits,
+        diags:    stats.diags,
+        contacts: stats.contacts,
+        days:     CONFIG.LOOKBACK_DAYS,
+      })
+    });
+    if (!res.ok) throw new Error(res.status);
     const data = await res.json();
-    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+    return data.summary ?? null;
   } catch(e) {
+    console.warn('[admin-summary] Error:', e);
     return null;
   }
 }
@@ -572,12 +557,27 @@ async function refreshAI() {
   const el = document.getElementById('ai-summary');
   el.innerHTML = '<div class="ai-loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:.5rem;color:var(--muted);font-size:.82rem">Geminiが分析中...</span></div>';
 
-  const text = await fetchGeminiSummary(LIVE.visits ? LIVE : MOCK);
+  const d = (LIVE.visits > 0) ? LIVE : MOCK;
 
-  if (text) {
-    el.textContent = text;
-  } else {
-    const d = LIVE.visits ? LIVE : MOCK;
+  try {
+    const res = await fetch('/api/admin-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        visits:   d.visits,
+        diags:    d.diags,
+        contacts: d.contacts,
+        period:   CONFIG.LOOKBACK_DAYS,
+      }),
+    });
+    const data = await res.json();
+    if (data.summary) {
+      el.textContent = data.summary;
+    } else {
+      throw new Error(data.error || 'no summary');
+    }
+  } catch(e) {
+    console.warn('[refreshAI]', e);
     el.textContent = `診断完了率${Math.round(d.diags/d.visits*100)}%・問い合わせ転換率${Math.round(d.contacts/d.visits*100)}%で推移。${
       isAmplitudeConfigured() ? 'Amplitudeリアルデータ取得中。' : 'モックデータ表示中。Amplitude APIキーを設定するとリアルデータに切り替わります。'
     }次のアクション：直近のLINEタップ数を確認し、未返信の問い合わせを優先対応することを推奨します。`;
@@ -587,7 +587,7 @@ async function refreshAI() {
 // ══════════════════════════════════════════════
 //  AUTH — パスワード保護
 // ══════════════════════════════════════════════
-const ADMIN_PASSWORD = 'nexccess2026'; // ← GitHubで任意のパスワードに変更
+const ADMIN_PASSWORD = 'nexcess2026'; // ← GitHubで任意のパスワードに変更
 
 function checkAuth() {
   const input = document.getElementById('auth-input').value;
