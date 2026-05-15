@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
     const start = new Date(now.getTime() - 4 * 60 * 60 * 1000);
 
     // Amplitude Export API は UTC 時間・形式 YYYYMMDDTHH
-    const fmt = d => d.toISOString().slice(0, 13).replace('T', 'T'); // YYYY-MM-DDTHH
+    const fmt = d => d.toISOString().slice(0, 13).replace(/-/g, '');
     const startStr = fmt(start);
     const endStr   = fmt(now);
 
