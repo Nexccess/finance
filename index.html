@@ -22,61 +22,65 @@
 </script> -->
 
 <!-- Amplitude SDK -->
-<script type="module">
-import * as amplitude from 'https://cdn.amplitude.com/libs/analytics-browser-2.3.3-min.esm.gz.js';
-
+<script>
 const AMP_KEY = '8d3b5be866c4740fa6c83949f85ce25e';
 const LP_ID   = 'seisaku-v1';
-amplitude.init(AMP_KEY, { defaultTracking: true });
 
-// ── ページビュー
-amplitude.track('page_view', {
-  lp: LP_ID,
-  page: location.pathname,
-  referrer: document.referrer || 'direct',
-});
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://cdn.amplitude.com/libs/analytics-browser-2.3.1-min.js.gz';
+  s.onload = function() {
+    amplitude.init(AMP_KEY, { defaultTracking: false });
 
-// ── FCBボタン計測（フローティングバー）
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.fcb-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const method = btn.querySelector('.fcb-main')?.textContent?.trim() || '';
-      amplitude.track('fcb_click', { lp: LP_ID, method, page: location.pathname });
+    // ── ページビュー
+    amplitude.track('page_view', {
+      lp: LP_ID,
+      page: location.pathname,
+      referrer: document.referrer || 'direct',
     });
-  });
 
-  // ── AI診断ボタン
-  document.querySelectorAll('a[href*="diagnosis"]').forEach(el => {
-    el.addEventListener('click', () => {
-      amplitude.track('diagnosis_click', { lp: LP_ID, page: location.pathname });
-    });
-  });
-
-  // ── 銀行格付シミュレーション
-  document.querySelectorAll('a[href*="finance.seisakukinyukouko"]').forEach(el => {
-    el.addEventListener('click', () => {
-      amplitude.track('finance_sim_click', { lp: LP_ID, page: location.pathname });
-    });
-  });
-
-  // ── LINEボタン
-  document.querySelectorAll('a[href*="lin.ee"]').forEach(el => {
-    el.addEventListener('click', () => {
-      amplitude.track('line_click', { lp: LP_ID, page: location.pathname });
-    });
-  });
-
-  // ── コラムリンク
-  document.querySelectorAll('a[href*="/column/"]').forEach(el => {
-    el.addEventListener('click', () => {
-      amplitude.track('column_click', {
-        lp: LP_ID,
-        column: el.href,
-        page: location.pathname,
+    // ── FCBボタン計測（フローティングバー）
+    document.querySelectorAll('.fcb-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var method = (btn.querySelector('.fcb-main') || {}).textContent || '';
+        amplitude.track('fcb_click', { lp: LP_ID, method: method.trim(), page: location.pathname });
       });
     });
-  });
-});
+
+    // ── AI診断ボタン
+    document.querySelectorAll('a[href*="diagnosis"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        amplitude.track('diagnosis_click', { lp: LP_ID, page: location.pathname });
+      });
+    });
+
+    // ── 銀行格付シミュレーション
+    document.querySelectorAll('a[href*="finance.seisakukinyukouko"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        amplitude.track('finance_sim_click', { lp: LP_ID, page: location.pathname });
+      });
+    });
+
+    // ── LINEボタン
+    document.querySelectorAll('a[href*="lin.ee"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        amplitude.track('line_click', { lp: LP_ID, page: location.pathname });
+      });
+    });
+
+    // ── コラムリンク
+    document.querySelectorAll('a[href*="/column/"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        amplitude.track('column_click', {
+          lp: LP_ID,
+          column: el.href,
+          page: location.pathname,
+        });
+      });
+    });
+  };
+  document.head.appendChild(s);
+})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
